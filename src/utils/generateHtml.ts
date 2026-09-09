@@ -1,12 +1,13 @@
 import { AGENTS_DATA } from "../data/agents";
 import { FAQ_DATA } from "../data/faq";
+import { DEFAULT_MENTOR_PHOTO } from "../data/mentorPhoto";
 
-export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-AQUI", N: string = "/assets/vitor-diorranes.jpg"): string{const D=N||"/assets/vitor-diorranes.jpg",f=[{id:"barcelona",name:"Barcelona",region:"CATALUÑA · CAPITAL MEDITERRÂNEA",photo:"https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=800&q=80",desc:"O café no balcão de pedra do bairro, a brisa do mar descendo pela avenida e a segurança de voltar a pé para casa às dez da noite sem olhar para trás.",badge:"Polo Global & Praias",rent:"€ 1.400 - 1.800/mês",keyFeature:"Hub tecnológico europeu, praias urbanas e alta oferta internacional.",tag:"Top #1 · Cosmopolita"},{id:"madrid",name:"Madrid",region:"COMUNIDAD DE MADRID · CENTRO ECONÔMICO",photo:"https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=800&q=80",desc:"O ritmo cosmopolita das grandes alamedas, o metrô pontual que cruza a capital em vinte minutos e a certeza de viver no centro onde circulam os maiores salários.",badge:"Centro Financeiro & Conexões",rent:"€ 1.300 - 1.750/mês",keyFeature:"Sede de multinacionais, maiores faixas salariais e conexões globais.",tag:"Top #2 · Carreira"},{id:"valencia",name:"Valencia",region:"COMUNIDAD VALENCIANA · QUALIDADE DE VIDA",photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1e/Valencia-_Plaza_del_Ayuntamiento_%2825311977285%29.jpg/960px-Valencia-_Plaza_del_Ayuntamiento_%2825311977285%29.jpg",desc:"Mais de trezentos dias de sol ao ano, os 9km verdes dos jardins do Turia e o custo de vida equilibrado que devolve o tempo para almoçar com calma com os filhos.",badge:"300 Dias de Sol & Equilíbrio",rent:"€ 900 - 1.250/mês",keyFeature:"Equilíbrio perfeito de metrópole, custo de vida e praia.",tag:"Top #3 · Família & Sol"}],F=[{id:"malaga",name:"Málaga & Costa del Sol",region:"ANDALUZIA · POLO TECNOLÓGICO & MAR",photo:"https://images.unsplash.com/photo-1568084680786-a84f91d1153c?auto=format&fit=crop&w=300&q=80",desc:"O Vale do Silício do sul da Europa. Sede de gigantes de tecnologia (Google, Vodafone), clima temperado e custo atrativo à beira-mar.",badge:"Silicon Valley Espanhol",rent:"€ 850 - 1.200"},{id:"galicia",name:"Galícia (Vigo & Santiago)",region:"GALÍCIA · NATUREZA & CUSTO ACESSÍVEL",photo:"https://images.unsplash.com/photo-1509840841025-9088ba78a826?auto=format&fit=crop&w=300&q=80",desc:"Gastronomia farta, segurança total e aluguéis até 45% mais baixos que Madrid. Laços históricos profundos com a comunidade brasileira.",badge:"Custo Acessível & Calma",rent:"€ 600 - 850"},{id:"zaragoza",name:"Zaragoza",region:"ARAGÃO · ESTRATÉGIA LOGÍSTICA",photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Basilica_del_Pilar_%28Zaragoza%2C_Aragon%29.jpg/960px-Basilica_del_Pilar_%28Zaragoza%2C_Aragon%29.jpg",desc:"A 1h15 de trem-bala entre Madrid e Barcelona. Custo de moradia moderado, grandes universidades e vida tranquila.",badge:"Polo Logístico Central",rent:"€ 700 - 950"},{id:"sevilha",name:"Sevilha",region:"ANDALUZIA · HISTÓRIA & ENGENHARIA",photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg/960px-Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg",desc:"Ruas históricas de laranjeiras, arquitetura imponente e acolhimento caloroso. Polo aeroespacial e aluguéis menores.",badge:"Capital Andaluza",rent:"€ 750 - 1.050"},{id:"alicante",name:"Alicante & Costa Blanca",region:"COMUNIDAD VALENCIANA · ÁGUAS CALMAS",photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Vista_de_Alicante%2C_Espa%C3%B1a%2C_2014-07-04%2C_DD_67-70_PAN.JPG/960px-Vista_de_Alicante%2C_Espa%C3%B1a%2C_2014-07-04%2C_DD_67-70_PAN.JPG",desc:"Águas cristalinas, aeroporto internacional com voos para toda a Europa e uma das melhores proporções de custo e lazer.",badge:"Costa Blanca & Praia",rent:"€ 750 - 1.000"},{id:"bilbao",name:"Bilbao & País Basco",region:"PAÍS BASCO · INDÚSTRIA & ALTA RENDA",photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Guggenheim_Museum_Bilbao%2C_exterior.jpg/960px-Guggenheim_Museum_Bilbao%2C_exterior.jpg",desc:"A mais alta média salarial da Espanha e o melhor sistema de saúde público regional. Referência global em inovação.",badge:"Maior Renda Média",rent:"€ 950 - 1.350"},{id:"granada",name:"Granada",region:"ANDALUZIA · UNIVERSIDADE & SERRA",photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/Alhambra_evening_panorama_Mirador_San_Nicolas_sRGB-1.jpg/960px-Alhambra_evening_panorama_Mirador_San_Nicolas_sRGB-1.jpg",desc:"Aos pés das montanhas de neve e a 40 minutos do mar. Vida universitária vibrante, aluguéis convidativos e cultura rica.",badge:"Cidade Histórica & Charme",rent:"€ 650 - 900"}];return`<!DOCTYPE html>
+export function generateHtml(S: string = "https://pay.cakto.com.br/3e3f9px_1093826", N: string = DEFAULT_MENTOR_PHOTO): string{const D=N||DEFAULT_MENTOR_PHOTO,f=[{id:"barcelona",name:"Barcelona",region:"CATALUÑA · CAPITAL MEDITERRÂNEA",photo:"https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=800&q=80",desc:"O café no balcão de pedra do bairro, a brisa do mar descendo pela avenida e a segurança de voltar a pé para casa às dez da noite sem olhar para trás.",badge:"Polo Global & Praias",rent:"€ 1.400 - 1.800/mês",keyFeature:"Hub tecnológico europeu, praias urbanas e alta oferta internacional.",tag:"Top #1 · Cosmopolita"},{id:"madrid",name:"Madrid",region:"COMUNIDAD DE MADRID · CENTRO ECONÔMICO",photo:"https://images.unsplash.com/photo-1539037116277-4db20889f2d4?auto=format&fit=crop&w=800&q=80",desc:"O ritmo cosmopolita das grandes alamedas, o metrô pontual que cruza a capital em vinte minutos e a certeza de viver no centro onde circulam os maiores salários.",badge:"Centro Financeiro & Conexões",rent:"€ 1.300 - 1.750/mês",keyFeature:"Sede de multinacionais, maiores faixas salariais e conexões globais.",tag:"Top #2 · Carreira"},{id:"valencia",name:"Valencia",region:"COMUNIDAD VALENCIANA · QUALIDADE DE VIDA",photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/1/1e/Valencia-_Plaza_del_Ayuntamiento_%2825311977285%29.jpg/960px-Valencia-_Plaza_del_Ayuntamiento_%2825311977285%29.jpg",desc:"Mais de trezentos dias de sol ao ano, os 9km verdes dos jardins do Turia e o custo de vida equilibrado que devolve o tempo para almoçar com calma com os filhos.",badge:"300 Dias de Sol & Equilíbrio",rent:"€ 900 - 1.250/mês",keyFeature:"Equilíbrio perfeito de metrópole, custo de vida e praia.",tag:"Top #3 · Família & Sol"}],F=[{id:"malaga",name:"Málaga & Costa del Sol",region:"ANDALUZIA · POLO TECNOLÓGICO & MAR",photo:"https://images.unsplash.com/photo-1568084680786-a84f91d1153c?auto=format&fit=crop&w=300&q=80",desc:"O Vale do Silício do sul da Europa. Sede de gigantes de tecnologia (Google, Vodafone), clima temperado e custo atrativo à beira-mar.",badge:"Silicon Valley Espanhol",rent:"€ 850 - 1.200"},{id:"galicia",name:"Galícia (Vigo & Santiago)",region:"GALÍCIA · NATUREZA & CUSTO ACESSÍVEL",photo:"https://images.unsplash.com/photo-1509840841025-9088ba78a826?auto=format&fit=crop&w=300&q=80",desc:"Gastronomia farta, segurança total e aluguéis até 45% mais baixos que Madrid. Laços históricos profundos com a comunidade brasileira.",badge:"Custo Acessível & Calma",rent:"€ 600 - 850"},{id:"zaragoza",name:"Zaragoza",region:"ARAGÃO · ESTRATÉGIA LOGÍSTICA",photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/0/08/Basilica_del_Pilar_%28Zaragoza%2C_Aragon%29.jpg/960px-Basilica_del_Pilar_%28Zaragoza%2C_Aragon%29.jpg",desc:"A 1h15 de trem-bala entre Madrid e Barcelona. Custo de moradia moderado, grandes universidades e vida tranquila.",badge:"Polo Logístico Central",rent:"€ 700 - 950"},{id:"sevilha",name:"Sevilha",region:"ANDALUZIA · HISTÓRIA & ENGENHARIA",photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/b/b6/Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg/960px-Plaza_de_Espa%C3%B1a_%28Sevilla%29_-_01.jpg",desc:"Ruas históricas de laranjeiras, arquitetura imponente e acolhimento caloroso. Polo aeroespacial e aluguéis menores.",badge:"Capital Andaluza",rent:"€ 750 - 1.050"},{id:"alicante",name:"Alicante & Costa Blanca",region:"COMUNIDAD VALENCIANA · ÁGUAS CALMAS",photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/6/66/Vista_de_Alicante%2C_Espa%C3%B1a%2C_2014-07-04%2C_DD_67-70_PAN.JPG/960px-Vista_de_Alicante%2C_Espa%C3%B1a%2C_2014-07-04%2C_DD_67-70_PAN.JPG",desc:"Águas cristalinas, aeroporto internacional com voos para toda a Europa e uma das melhores proporções de custo e lazer.",badge:"Costa Blanca & Praia",rent:"€ 750 - 1.000"},{id:"bilbao",name:"Bilbao & País Basco",region:"PAÍS BASCO · INDÚSTRIA & ALTA RENDA",photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/e/eb/Guggenheim_Museum_Bilbao%2C_exterior.jpg/960px-Guggenheim_Museum_Bilbao%2C_exterior.jpg",desc:"A mais alta média salarial da Espanha e o melhor sistema de saúde público regional. Referência global em inovação.",badge:"Maior Renda Média",rent:"€ 950 - 1.350"},{id:"granada",name:"Granada",region:"ANDALUZIA · UNIVERSIDADE & SERRA",photo:"https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cf/Alhambra_evening_panorama_Mirador_San_Nicolas_sRGB-1.jpg/960px-Alhambra_evening_panorama_Mirador_San_Nicolas_sRGB-1.jpg",desc:"Aos pés das montanhas de neve e a 40 minutos do mar. Vida universitária vibrante, aluguéis convidativos e cultura rica.",badge:"Cidade Histórica & Charme",rent:"€ 650 - 900"}];return`<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Código Europa · COD-E | A Máquina de Vendas do Esquadrão</title>
+  <title>Código Europa · COD-E | Esquadrão dos 7 Super Agentes</title>
   <meta name="description" content="O time de 7 Super Agentes de IA que planeja, valida e executa sua travessia legal para a Espanha em 24 meses.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,7 +49,18 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
 
     .text-center { text-align: center; }
 
-    /* Botão CTA Oficial */
+    @keyframes pulseCtaUrgency {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 25px rgba(220, 38, 38, 0.7);
+      }
+      50% {
+        transform: scale(1.03);
+        box-shadow: 0 0 45px rgba(239, 68, 68, 0.95);
+      }
+    }
+
+    /* Botão CTA Oficial com movimento convidativo */
     .btn-cta {
       display: inline-flex;
       align-items: center;
@@ -63,15 +75,16 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
       text-transform: uppercase;
       padding: 18px 36px;
       border-radius: 16px;
-      border: 1px solid rgba(245, 158, 11, 0.4);
-      box-shadow: 0 8px 30px rgba(220, 38, 38, 0.6);
+      border: 1px solid rgba(245, 158, 11, 0.5);
+      box-shadow: 0 8px 30px rgba(220, 38, 38, 0.7);
       cursor: pointer;
       transition: all 0.25s ease;
+      animation: pulseCtaUrgency 2.2s infinite ease-in-out;
     }
 
     .btn-cta:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 12px 40px rgba(220, 38, 38, 0.85);
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 12px 50px rgba(220, 38, 38, 1);
       background: linear-gradient(135deg, #EF4444, #DC2626);
     }
 
@@ -212,8 +225,8 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
       </p>
 
       <div style="background: #FFFFFF; border-left: 4px solid var(--red); padding: 14px 20px; border-radius: 8px; margin: 0 auto 30px; max-width: 700px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
-        <p style="font-family: Georgia, serif; font-size: 17px; color: var(--navy); font-style: italic;">
-          &ldquo;Um voo dura onze horas. Essa decisão dura três gerações. Seja o herói da sua própria jornada.&rdquo;
+        <p style="font-family: Georgia, serif; font-size: 17px; color: var(--navy); font-weight: 700; font-style: italic;">
+          &ldquo;Um voo dura 11 horas. Um passo de coragem pode mudar gerações.&rdquo;
         </p>
       </div>
 
@@ -229,8 +242,7 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
 
         <!-- CONTAINER DO VÍDEO (16:9 RESPONSIVO) -->
         <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
-          <!-- COLOQUE AQUI O SEU CÓDIGO EMBED DO YOUTUBE/VIMEO/PANDAVIDEO OU UMA TAG <video>: -->
-          <iframe id="vsl-iframe" src="https://www.youtube.com/embed/dQw4w9WgXcQ?controls=1&rel=0" style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;" title="Apresentação do Esquadrão Código Europa" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          <iframe id="vsl-iframe" src="https://player.vimeo.com/video/1225405238" style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;" title="Apresentação do Esquadrão Código Europa" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
         </div>
 
         <div style="background: #0C1527; padding: 14px 20px; text-align: center; color: #CBD5E1; font-size: 13px;">
@@ -240,10 +252,12 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
 
       <div>
         <a href="${S}" target="_blank" class="btn-cta" style="margin-bottom: 12px;">
-          🛡️ QUERO MEU TIME DE SUPER AGENTES
+          🛡️ QUERO MEU TIME DE AGENTES AGORA
         </a>
-        <div style="font-size: 13px; color: #64748B; margin-top: 8px;">
-          ✓ Acesso vitalício aos 7 agentes &nbsp;·&nbsp; 🔒 7 dias de garantia incondicional &nbsp;·&nbsp; Apenas 12x de R$ 29,64
+        <div style="font-size: 13px; color: #64748B; margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;">
+          <span style="color: #047857; font-weight: 700;">✓ Acesso vitalício aos 7 agentes</span>
+          <span style="color: var(--red); font-weight: 700;">🔒 O risco é meu: 7 dias de garantia</span>
+          <span style="color: var(--navy); font-weight: 700;">Apenas 12x de R$ 29,64 ou R$ 297 à vista</span>
         </div>
       </div>
     </div>
@@ -259,9 +273,16 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
         <h2 style="font-size: 38px; color: #FFFFFF; margin-bottom: 12px;">
           Sete agentes.<br>Um esquadrão.<br><span style="color: var(--red-bright);">Nenhuma etapa sozinho.</span>
         </h2>
-        <p style="font-size: 16px; color: #94A3B8;">
-          E tem um deles que comanda os outros seis. O Capitão lê o seu tabuleiro inteiro, monta a sua rota e aciona cada agente na hora exata.
-        </p>
+        
+        <!-- DESTAQUE: ESSE PODE SER O SEU TIME AGORA -->
+        <div style="display: inline-block; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.4); border-radius: 12px; padding: 10px 18px; margin: 8px auto 16px;">
+          <div style="font-size: 14px; font-weight: 800; color: #FCD34D; letter-spacing: 0.05em; text-transform: uppercase;">
+            ⚡ ESSE PODE SER O SEU TIME NA ESPANHA A PARTIR DE HOJE
+          </div>
+          <div style="font-size: 12px; color: #CBD5E1; margin-top: 4px;">
+            Acesso imediato liberado · Vagas limitadas para a turma atual
+          </div>
+        </div>
       </div>
 
       <div class="grid-4">
@@ -392,7 +413,7 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
     </div>
   </section>
 
-  <!-- DESTINOS DA TRAVESSIA: TRÍADE PRINCIPAL, MAPA DINÂMICO E OUTROS POLOS -->
+  <!-- DESTINOS DA TRAVESSIA: MAPA DINÂMICO PRIMEIRO, TRÍADE PRINCIPAL E OUTROS POLOS -->
   <section style="padding: 60px 0; background: #F4EFE6; border-bottom: 1px solid var(--line);" id="destinos">
     <div class="container">
       <div class="text-center" style="max-width: 700px; margin: 0 auto 36px;">
@@ -400,58 +421,14 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
           OS DESTINOS DA TRAVESSIA
         </span>
         <h2 style="font-size: 32px; color: var(--navy); margin-bottom: 12px;">
-          A Espanha não é um conceito abstrato. É uma terça-feira real.
+          Uma rota real, segura e perfeitamente possível com o planejamento certo.
         </h2>
         <p style="font-size: 15px; color: var(--gray);">
-          A escolha da cidade define a sua rotina, o custo de vida e a velocidade da sua adaptação. Conheça a <strong>Tríade Principal de Desembarque</strong>, explore o mapa dinâmico e veja os outros polos estratégicos:
+          A escolha da cidade define a sua rotina, o custo de vida e a velocidade da sua adaptação. Explore o <strong>Mapa Interativo</strong> em primeiro lugar e veja em seguida os detalhes da <strong>Tríade Principal de Desembarque</strong>:
         </p>
       </div>
 
-      <!-- 1. A TRÍADE PRINCIPAL EM MÁXIMO DESTAQUE (BARCELONA, MADRID, VALENCIA) -->
-      <div style="margin-bottom: 40px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-          <h3 style="font-size: 20px; color: var(--navy); font-weight: bold;">
-            ⭐ A Tríade Principal de Desembarque
-          </h3>
-          <span style="font-size: 11px; font-family: monospace; color: var(--red); font-weight: bold; background: rgba(163,30,34,0.1); padding: 3px 10px; border-radius: 12px;">
-            80% dos Brasileiros Escolhem Aqui
-          </span>
-        </div>
-
-        <div class="grid-3">
-          ${f.map(E=>`
-            <div style="background: #FFFFFF; border: 2px solid var(--line); border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s;" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor='var(--line)'">
-              <div style="position: relative; height: 190px; overflow: hidden; background: #0F172A;">
-                <img src="${E.photo}" alt="${E.name}" style="width: 100%; height: 100%; object-fit: cover;">
-                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);"></div>
-                <div style="position: absolute; top: 10px; left: 10px; background: var(--red); color: #FFF; font-size: 10px; font-weight: bold; font-family: monospace; padding: 3px 8px; border-radius: 6px;">
-                  ${E.tag}
-                </div>
-                <div style="position: absolute; bottom: 10px; left: 14px; right: 14px; color: #FFF;">
-                  <span style="font-size: 10px; font-family: monospace; color: #FDE68A; text-transform: uppercase;">${E.region}</span>
-                  <h4 style="font-size: 22px; font-weight: bold; margin-top: 2px;">${E.name}</h4>
-                </div>
-              </div>
-              <div style="padding: 18px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                <div>
-                  <div style="font-size: 12px; font-weight: bold; color: var(--red); margin-bottom: 6px;">
-                    ${E.keyFeature}
-                  </div>
-                  <p style="font-size: 13px; color: #3E3A35; line-height: 1.5; margin-bottom: 14px;">
-                    ${E.desc}
-                  </p>
-                </div>
-                <div style="border-top: 1px solid var(--line); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
-                  <span style="color: #64748B;">Aluguel (2Q): <strong>${E.rent}</strong></span>
-                  <span style="color: var(--red); font-weight: bold; font-style: italic;">Analisar ➔</span>
-                </div>
-              </div>
-            </div>
-          `).join("")}
-        </div>
-      </div>
-
-      <!-- 2. MAPA DINÂMICO DA ESPANHA COM INTERAÇÃO -->
+      <!-- 1. MAPA DINÂMICO DA ESPANHA COM INTERAÇÃO (PRIMEIRO) -->
       <div style="background: #10192E; border: 1px solid #334155; border-radius: 24px; padding: 24px; color: #FFF; margin-bottom: 40px;">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 16px;">
           <div>
@@ -514,6 +491,50 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
         </div>
       </div>
 
+      <!-- 2. A TRÍADE PRINCIPAL EM MÁXIMO DESTAQUE (BARCELONA, MADRID, VALENCIA) -->
+      <div style="margin-bottom: 40px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+          <h3 style="font-size: 20px; color: var(--navy); font-weight: bold;">
+            ⭐ A Tríade Principal de Desembarque
+          </h3>
+          <span style="font-size: 11px; font-family: monospace; color: var(--red); font-weight: bold; background: rgba(163,30,34,0.1); padding: 3px 10px; border-radius: 12px;">
+            80% dos Brasileiros Escolhem Aqui
+          </span>
+        </div>
+
+        <div class="grid-3">
+          ${f.map(E=>`
+            <div style="background: #FFFFFF; border: 2px solid var(--line); border-radius: 20px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; justify-content: space-between; transition: transform 0.2s;" onmouseover="this.style.borderColor='var(--red)'" onmouseout="this.style.borderColor='var(--line)'">
+              <div style="position: relative; height: 190px; overflow: hidden; background: #0F172A;">
+                <img src="${E.photo}" alt="${E.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);"></div>
+                <div style="position: absolute; top: 10px; left: 10px; background: var(--red); color: #FFF; font-size: 10px; font-weight: bold; font-family: monospace; padding: 3px 8px; border-radius: 6px;">
+                  ${E.tag}
+                </div>
+                <div style="position: absolute; bottom: 10px; left: 14px; right: 14px; color: #FFF;">
+                  <span style="font-size: 10px; font-family: monospace; color: #FDE68A; text-transform: uppercase;">${E.region}</span>
+                  <h4 style="font-size: 22px; font-weight: bold; margin-top: 2px;">${E.name}</h4>
+                </div>
+              </div>
+              <div style="padding: 18px; flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="font-size: 12px; font-weight: bold; color: var(--red); margin-bottom: 6px;">
+                    ${E.keyFeature}
+                  </div>
+                  <p style="font-size: 13px; color: #3E3A35; line-height: 1.5; margin-bottom: 14px;">
+                    ${E.desc}
+                  </p>
+                </div>
+                <div style="border-top: 1px solid var(--line); padding-top: 10px; display: flex; justify-content: space-between; align-items: center; font-size: 12px;">
+                  <span style="color: #64748B;">Aluguel (2Q): <strong>${E.rent}</strong></span>
+                  <span style="color: var(--red); font-weight: bold; font-style: italic;">Analisar ➔</span>
+                </div>
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+
       <!-- 3. OUTROS DESTINOS ESTRATÉGICOS (ABAIXO E MENORES, COM FOTOS PEQUENAS LATERAIS) -->
       <div>
         <div style="margin-bottom: 16px;">
@@ -564,122 +585,13 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
     </div>
   </section>
 
-  <!-- A JORNADA DO HERÓI: ETAPAS DA CONQUISTA -->
-  <section class="tl-sec">
-    <style>
-      .tl-sec{background:#F7F3EC;padding:96px 0;border-bottom:1px solid #E4DDCF;}
-      .tl-in{max-width:1120px;margin:0 auto;padding:0 24px;}
-      .tl-kick{font-size:12px;letter-spacing:.22em;text-transform:uppercase;
-        color:#A31E22;font-weight:700;margin-bottom:18px;}
-      .tl-h2{font-family:Georgia,var(--font-serif);font-weight:700;color:#13213F;
-        font-size:clamp(30px,4.4vw,52px);line-height:1.12;margin:0 0 18px;letter-spacing:-.01em;}
-      .tl-h2 em{font-style:normal;color:#A31E22;}
-      .tl-sub{color:#6B655D;font-size:17px;line-height:1.65;max-width:640px;margin:0 0 64px;}
-
-      .tl-rail{position:relative;display:grid;gap:36px;
-        grid-template-columns:repeat(5,minmax(0,1fr));}
-      .tl-rail::before{content:"";position:absolute;left:0;right:0;top:19px;height:2px;
-        background:#E4DDCF;}
-      .tl-step{position:relative;padding-right:12px;}
-      .tl-dot{position:relative;z-index:2;width:40px;height:40px;border-radius:50%;
-        background:#13213F;color:#F7F3EC;display:flex;align-items:center;justify-content:center;
-        font-family:Georgia,serif;font-size:16px;font-weight:700;margin-bottom:22px;transition:transform .3s ease;}
-      .tl-step:hover .tl-dot{transform:scale(1.1);background:#A31E22;}
-      .tl-step--end .tl-dot{background:#A31E22;}
-      .tl-when{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:#A31E22;
-        font-weight:700;margin-bottom:9px;}
-      .tl-t{font-family:Georgia,var(--font-serif);font-size:20px;font-weight:700;
-        color:#13213F;margin:0 0 10px;line-height:1.25;}
-      .tl-step--end .tl-t{color:#A31E22;}
-      .tl-p{font-size:14px;line-height:1.62;color:#6B655D;margin:0;}
-
-      .tl-visa-alert{margin-top:48px;padding:24px;border-radius:16px;background:#FFFBEB;border:2px solid #F59E0B;color:#78350F;font-size:14px;line-height:1.6;}
-      .tl-visa-alert strong{color:#92400E;}
-      .tl-visa-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:12px;}
-      .tl-visa-item{background:rgba(255,255,255,0.8);padding:12px 14px;border-radius:10px;border:1px solid #FDE68A;font-size:13px;line-height:1.5;}
-
-      .tl-note{margin-top:36px;padding-top:24px;border-top:2px solid #E4DDCF;
-        font-size:15px;line-height:1.65;color:#13213F;max-width:760px;}
-      .tl-note strong{font-weight:700;}
-
-      @media (max-width:900px){
-        .tl-sec{padding:72px 0;}
-        .tl-rail{grid-template-columns:1fr;gap:0;padding-left:0;}
-        .tl-rail::before{left:19px;right:auto;top:0;bottom:0;width:2px;height:auto;}
-        .tl-step{padding:0 0 38px 62px;}
-        .tl-step:last-child{padding-bottom:0;}
-        .tl-dot{position:absolute;left:0;top:0;margin-bottom:0;}
-        .tl-sub{margin-bottom:48px;}
-        .tl-visa-grid{grid-template-columns:1fr;}
-      }
-    </style>
-
-    <div class="tl-in">
-      <div class="tl-kick">A jornada do herói · Etapas em Ordem</div>
-      <h2 class="tl-h2">Da decisão ao passaporte.<br>Cinco etapas, <em>em ordem</em>.</h2>
-      <p class="tl-sub">Imigrar não é um salto no escuro. É uma sequência da rota do herói — e a ordem importa mais do que a pressa. Veja onde você está hoje e como cada modalidade de visto se encaixa no caminho.</p>
-
-      <div class="tl-rail">
-        <div class="tl-step">
-          <div class="tl-dot">1</div>
-          <div class="tl-when">Etapa 1 · O Chamado</div>
-          <h3 class="tl-t">A porta certa</h3>
-          <p class="tl-p">Você descobre qual via de entrada existe para o seu perfil e sua especificidade jurídica. A documentação é montada ainda no Brasil, na sequência certa — porque papel vencido derruba processo que levou meses.</p>
-        </div>
-
-        <div class="tl-step">
-          <div class="tl-dot">2</div>
-          <div class="tl-when">Etapa 2 · A Travessia</div>
-          <h3 class="tl-t">O pouso & fixação</h3>
-          <p class="tl-p">Você desembarca e passa a viver na Espanha com autorização legal. É aqui que o relógio oficial do seu visto começa a correr — cada modalidade tem regras próprias de renda, solvência e empadronamento.</p>
-        </div>
-
-        <div class="tl-step">
-          <div class="tl-dot">3</div>
-          <div class="tl-when">Etapa 3 · A Provação</div>
-          <h3 class="tl-t">A contagem silenciosa</h3>
-          <p class="tl-p">A etapa mais longa e silenciosa. Residência legal e continuada mantida. Cada tipo de visto impõe limites específicos de ausências do país para não zerar a contagem.</p>
-        </div>
-
-        <div class="tl-step">
-          <div class="tl-dot">4</div>
-          <div class="tl-when">Etapa 4 · A Consagração</div>
-          <h3 class="tl-t">O protocolo</h3>
-          <p class="tl-p">Cumpridos os 2 anos de residência legal qualificada (privilégio do Artigo 22 do Código Civil espanhol para nacionais de países ibero-americanos), você protocola a nacionalidade. Aos dois anos você pede — a análise tem prazo próprio.</p>
-        </div>
-
-        <div class="tl-step tl-step--end">
-          <div class="tl-dot">✦</div>
-          <div class="tl-when">O Destino · A Glória</div>
-          <h3 class="tl-t">O passaporte</h3>
-          <p class="tl-p">Cidadania espanhola concedida e, com ela, a europeia: viver, trabalhar e circular nos 27 países da União Europeia por gerações.</p>
-        </div>
-      </div>
-
-      <!-- ALERTA DE ESPECIFICIDADE JURÍDICA DOS VISTOS -->
-      <div class="tl-visa-alert">
-        <strong>⚖️ Aviso Jurídico Crucial: Nem todo tipo de visto conta para a cidadania em 2 anos</strong>
-        <p style="margin: 6px 0 0 0;">A regra de 2 anos (Artigo 22 do Código Civil Espanhol) é exclusiva para cidadãos ibero-americanos (como o Brasil) e exige <strong>residência legal e continuada</strong>:</p>
-        <div class="tl-visa-grid">
-          <div class="tl-visa-item">
-            <strong style="color: #047857;">✓ Vistos de Residência Qualificada:</strong> Nômade Digital (Lei de Startups), Residência Não Lucrativa, Trabalho por Conta Própria/Alheia e Empreendedor <em>computam residência legal</em> para os 2 anos.
-          </div>
-          <div class="tl-visa-item">
-            <strong style="color: #B91C1C;">⚠️ Visto de Estudante (Estância):</strong> Trata-se de <em>estância por estudos</em>, NÃO de residência legal. Por isso, <em>não conta para os 2 anos</em> sem modificação formal posterior para residência de trabalho/nômade.
-          </div>
-        </div>
-      </div>
-
-      <p class="tl-note"><strong>Onde eu entro:</strong> os sete agentes caminham com você da Etapa 1 à Etapa 2 — da decisão ao pouso seguro. É o trecho mais curto da linha do tempo e o único em que uma escolha equivocada de visto custa anos de atraso.</p>
-    </div>
-  </section>
   <!-- QUEM TREINOU O ESQUADRÃO: VITOR DIORRANES & AUTORIDADE -->
   <section style="padding: 70px 0; background: #10192E; color: #FFFFFF; border-bottom: 1px solid #334155;" id="autoridade">
     <div class="container">
       <div class="hero-grid" style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 40px; align-items: center;">
         <div>
           <div style="border-radius: 24px; overflow: hidden; border: 2px solid #475569; box-shadow: 0 20px 40px rgba(0,0,0,0.5); position: relative;">
-            <img src="${D}" alt="Vitor Diorranes - Fundador do Código Europa" style="width: 100%; height: 380px; object-fit: cover; object-position: top;">
+            <img src="${D}" alt="Vitor Diorranes - Fundador do Código Europa" referrerpolicy="no-referrer" style="width: 100%; height: 380px; object-fit: cover; object-position: top;">
             <div style="position: absolute; bottom: 12px; left: 12px; background: rgba(0,0,0,0.7); padding: 4px 10px; border-radius: 8px; font-size: 11px; color: #F59E0B; font-weight: bold;">
               Barcelona · Espanha
             </div>
@@ -693,7 +605,7 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
             &ldquo;Eu não li sobre a Espanha na internet. Eu moro nela e treino quem decide vencer.&rdquo;
           </h2>
           <p style="font-size: 15px; color: #CBD5E1; margin-bottom: 16px; line-height: 1.6;">
-            Mineiro, gestor internacional, <strong>33 países no passaporte</strong>, hoje vivendo em Barcelona. Carreira construída dentro de lugares onde pouca gente senta: <strong>Cruzeiro EC, Seleção Brasileira de Futsal (CBFS) e Penalty</strong>. Vestiário, escritório e mesa de negociação internacional.
+            Mineiro, gestor internacional, <strong>morou em 5 outros países e visitou 33</strong>, hoje vivendo em Barcelona. Carreira construída dentro de lugares onde pouca gente senta: <strong>Cruzeiro EC, Seleção Brasileira de Futsal (CBFS) e Penalty</strong>. Vestiário, escritório e mesa de negociação internacional.
           </p>
           <p style="font-size: 14px; color: #CBD5E1; margin-bottom: 20px; line-height: 1.6;">
             Quando desembarcou na Espanha com a família, aprendeu cada etapa no próprio couro: contratos de aluguel, empadronamento, homologação de diplomas e protocolos do Ministério de Justiça. Criou a <strong>Confraria Europa</strong> para transformar a imigração em uma ciência exata.
@@ -716,19 +628,22 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
     <div class="container" style="max-width: 820px;">
       <div style="background: #0E1729; border: 2px solid var(--red); border-radius: 28px; padding: 48px 32px; color: #FFFFFF; text-align: center; box-shadow: 0 25px 60px rgba(0,0,0,0.4); position: relative;">
 
-        <!-- O risco é meu -->
-        <div style="margin-bottom: 24px;">
-          <div style="font-size: 36px; margin-bottom: 8px;">🛡️</div>
-          <h3 style="font-size: 24px; color: var(--amber); font-weight: bold; margin-bottom: 8px;">
-            O risco é meu.
+        <!-- DESTAQUE MÁXIMO: O RISCO É TODO MEU -->
+        <div style="background: linear-gradient(135deg, rgba(245,158,11,0.2) 0%, rgba(245,158,11,0.05) 100%); border: 2px solid #F59E0B; border-radius: 20px; padding: 24px; margin-bottom: 28px; text-align: center;">
+          <div style="display: inline-block; background: #F59E0B; color: #0E1729; font-family: monospace; font-size: 11px; font-weight: 900; text-transform: uppercase; padding: 4px 12px; border-radius: 12px; margin-bottom: 10px;">
+            🛡️ GARANTIA BLINDADA DE 7 DIAS
+          </div>
+          <h3 style="font-size: 26px; color: #FDE68A; font-weight: 900; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.05em;">
+            O RISCO É TODO MEU
           </h3>
-          <p style="font-size: 15px; color: #CBD5E1; max-width: 600px; margin: 0 auto; line-height: 1.6;">
-            Instala o esquadrão, testa os 8 super agentes, simula seus vistos e suas rotas. Se em 7 dias você achar que não vale pelo menos 10x o que pagou, eu devolvo 100% do seu dinheiro. Sem letras miúdas.
+          <p style="font-size: 14px; color: #E2E8F0; max-width: 600px; margin: 0 auto; line-height: 1.6; font-weight: 500;">
+            Entre agora, ative seus 7 Super Agentes, teste suas rotas e consulte o ecossistema. Se em até 7 dias você achar que o Código Europa não vale pelo menos 10 vezes o valor que pagou, <strong>eu devolvo 100% do seu dinheiro</strong> com um simples clique. Sem burocracia e sem perguntas.
           </p>
         </div>
 
-        <div style="display: inline-block; background: rgba(163,30,34,0.3); border: 1px solid var(--red); padding: 6px 18px; border-radius: 20px; font-size: 12px; font-weight: bold; text-transform: uppercase; color: #FCA5A5; margin-bottom: 16px;">
-          ACESSO VITALÍCIO · ATUALIZAÇÕES INCLUSAS
+        <!-- DESTAQUE MÁXIMO: ACESSO VITALÍCIO -->
+        <div style="display: inline-block; background: rgba(16,185,129,0.2); border: 2px solid #10B981; padding: 8px 22px; border-radius: 30px; font-size: 13px; font-weight: 900; text-transform: uppercase; color: #6EE7B7; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(16,185,129,0.2);">
+          ✨ ACESSO VITALÍCIO · PAGAMENTO ÚNICO · SEM MENSALIDADES
         </div>
 
         <h2 style="font-size: 34px; color: #FFFFFF; margin-bottom: 8px;">
@@ -747,19 +662,36 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
             12x R$ 29,64
           </div>
           <div style="font-size: 15px; color: #E2E8F0; margin-top: 8px;">
-            ou <strong>R$ 297,00 à vista</strong> (menos de 1 café por dia)
+            ou <strong>R$ 297,00 à vista</strong> no PIX ou Cartão
+          </div>
+
+          <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid #334155; text-align: left; font-size: 13px; color: #CBD5E1; display: flex; flex-direction: column; gap: 8px;">
+            <div style="color: #FDE68A; font-weight: bold; background: rgba(245,158,11,0.1); padding: 6px 10px; border-radius: 8px; border: 1px solid rgba(245,158,11,0.3);">
+              ★ ACESSO VITALÍCIO: Pague uma única vez e tenha acesso perpétuo
+            </div>
+            <div>✓ <strong>7 Super Agentes COD-E</strong> com inteligência oficial das leis espanholas</div>
+            <div>✓ <strong>Confraria Europa:</strong> Comunidade ativa de brasileiros na Espanha</div>
+            <div>✓ <strong>O Risco é Todo Meu:</strong> Garantia incondicional de reembolso por 7 dias</div>
+          </div>
+        </div>
+
+        <div style="margin-bottom: 24px;">
+          <div style="display: inline-block; background: rgba(163,30,34,0.3); border: 1px solid rgba(220,38,38,0.5); padding: 8px 18px; border-radius: 12px; margin-bottom: 16px;">
+            <span style="font-size: 14px; font-weight: 800; color: #FCA5A5; letter-spacing: 0.05em; text-transform: uppercase;">
+              UM PASSO DE CORAGEM PODE MUDAR GERAÇÕES.
+            </span>
           </div>
         </div>
 
         <!-- Botão Principal de Compra -->
         <div>
-          <a href="${S}" target="_blank" class="btn-cta" style="width: 100%; max-width: 480px; font-size: 18px; padding: 20px;">
-            ⚡ QUERO MEU TIME DE SUPER AGENTES AGORA
+          <a href="${S}" target="_blank" class="btn-cta" style="width: 100%; max-width: 500px; font-size: 18px; padding: 22px;">
+            ⚡ QUERO MEU TIME DE AGENTES AGORA
           </a>
         </div>
 
         <div style="display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; margin-top: 24px; font-size: 12px; color: #94A3B8;">
-          <span>🔒 Pagamento Seguro Hotmart</span>
+          <span>🔒 Pagamento Seguro Cakto</span>
           <span>🛡️ 7 Dias de Garantia Total</span>
           <span>♾️ Acesso Vitalício</span>
         </div>
@@ -803,7 +735,7 @@ export function generateHtml(S: string = "https://pay.hotmart.com/COLE-SEU-LINK-
       </div>
     </div>
     <a href="${S}" target="_blank" class="btn-cta" style="padding: 12px 28px; font-size: 14px;">
-      QUERO MEU TIME DE AGENTES →
+      QUERO MEU TIME DE AGENTES AGORA →
     </a>
   </div>
 

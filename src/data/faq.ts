@@ -39,6 +39,6 @@ export const FAQ_DATA: FaqItem[] = [
   {
     question: "E se eu entrar e achar que não é para o meu momento?",
     answer:
-      "Você conta com a nossa Garantia Incondicional de 7 dias, respaldada pela plataforma Hotmart. Se por qualquer motivo você acessar os agentes e entender que não é para você, basta solicitar o reembolso na plataforma dentro do prazo de 7 dias e 100% do seu dinheiro será devolvido sem perguntas e sem atrito. Quem assume o risco dessa decisão é o Vitor Diorranes."
+      "Você conta com a nossa Garantia Incondicional de 7 dias. Se por qualquer motivo você acessar os agentes e entender que não é para você, basta solicitar o reembolso dentro do prazo de 7 dias e 100% do seu dinheiro será devolvido sem perguntas e sem atrito. Quem assume o risco dessa decisão é o Vitor Diorranes."
   }
 ];

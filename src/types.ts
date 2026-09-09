@@ -5,6 +5,8 @@ export interface Agent {
   initial: string;
   role: string;
   isCommander?: boolean;
+  isExtraBump?: boolean;
+  overbumpTeaser?: string;
   enemy: string;
   resolves: string;
   relieves: string;

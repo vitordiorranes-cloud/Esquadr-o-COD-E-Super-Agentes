@@ -1,9 +1,252 @@
 import React, { useState, useRef, useEffect } from "react";
-import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { Upload, Link, X, Volume2, Play, Video, Shield, ArrowRight, Check } from "lucide-react";
+import { Upload, Link, X, Volume2, Video, Shield, ArrowRight, Check, RefreshCw } from "lucide-react";
+
+export const DEFAULT_VSL_VIDEO = "https://player.vimeo.com/video/1225405238";
+export const DEFAULT_VSL_TYPE = "embed";
 
 interface VslPlayerProps {
   onCtaClick?: () => void;
 }
 
-export const VslPlayer: React.FC<VslPlayerProps> = ({onCtaClick:S})=>{const[N,D]=useState(()=>localStorage.getItem("cod_e_vsl_video")||null),[f,F]=useState(()=>localStorage.getItem("cod_e_vsl_type")||null),[E,Y]=useState(!1),[T,w]=useState(""),[A,X]=useState(!1),k=useRef(null),re=useRef(null);useEffect(()=>{N?localStorage.setItem("cod_e_vsl_video",N):localStorage.removeItem("cod_e_vsl_video")},[N]),useEffect(()=>{f?localStorage.setItem("cod_e_vsl_type",f):localStorage.removeItem("cod_e_vsl_type")},[f]);const Re=ne=>{var ve;const be=(ve=ne.target.files)==null?void 0:ve[0];if(be){const we=URL.createObjectURL(be);D(we),F("upload"),X(!0)}},Fe=ne=>{var ve,we,Q;if(ne.preventDefault(),!T.trim())return;let be=T.trim();be.includes("youtube.com/watch?v=")?be=`https://www.youtube.com/embed/${(ve=be.split("watch?v=")[1])==null?void 0:ve.split("&")[0]}?autoplay=1`:be.includes("youtu.be/")?be=`https://www.youtube.com/embed/${(we=be.split("youtu.be/")[1])==null?void 0:we.split("?")[0]}?autoplay=1`:be.includes("vimeo.com/")&&!be.includes("player.vimeo.com")&&(be=`https://player.vimeo.com/video/${(Q=be.split("vimeo.com/")[1])==null?void 0:Q.split("?")[0]}?autoplay=1`),D(be),F("embed"),Y(!1),w("")},Oe=()=>{D(null),F(null),X(!1),k.current&&(k.current.value="")},ia=f==="embed"||N&&N.startsWith("http")&&(N.includes("youtube")||N.includes("vimeo")||N.includes("pandavideo")||N.includes("embed"));return _jsxs("div",{className:"w-full max-w-4xl mx-auto my-6 sm:my-8 px-2 sm:px-0",children:[_jsxs("div",{className:"bg-[#121D36] border border-slate-700/80 rounded-t-2xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-white",children:[_jsxs("div",{className:"flex items-center gap-2 text-xs",children:[_jsx("span",{className:"inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-400 animate-ping"}),_jsx("span",{className:"font-mono text-amber-300 font-bold uppercase tracking-wider",children:"VSL PRINCIPAL"}),_jsx("span",{className:"text-slate-400 hidden sm:inline",children:"|"}),_jsx("span",{className:"text-slate-300 text-xs hidden sm:inline",children:"Espaço de Vídeo de Alta Conversão"})]}),_jsxs("div",{className:"flex items-center gap-2",children:[_jsx("input",{type:"file",ref:k,onChange:Re,accept:"video/mp4,video/webm,video/ogg,video/quicktime",className:"hidden",id:"vsl-upload-input"}),_jsxs("button",{onClick:()=>{var ne;return(ne=k.current)==null?void 0:ne.click()},className:"inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-700/80 hover:bg-red-600 text-white text-xs font-semibold transition-all border border-red-500/50 cursor-pointer shadow-sm",title:"Subir arquivo de vídeo do seu computador (MP4, WebM)",children:[_jsx(Upload,{className:"w-3.5 h-3.5"}),_jsx("span",{children:"Subir Vídeo (MP4)"})]}),_jsxs("button",{onClick:()=>Y(!0),className:"inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-600 cursor-pointer",title:"Colar link do YouTube, Vimeo, PandaVideo ou MP4",children:[_jsx(Link,{className:"w-3.5 h-3.5"}),_jsx("span",{children:"Inserir Link / Embed"})]}),N&&_jsx("button",{onClick:Oe,className:"p-1.5 rounded-lg bg-slate-800 hover:bg-red-900/60 text-slate-400 hover:text-red-300 transition-colors",title:"Remover vídeo atual",children:_jsx(X,{className:"w-3.5 h-3.5"})})]})]}),_jsx("div",{className:"relative aspect-video w-full bg-[#080E1C] border-x border-b border-slate-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden",children:N?ia?_jsx("iframe",{src:N,title:"Vídeo de Vendas Código Europa",className:"w-full h-full border-0",allow:"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture",allowFullScreen:!0}):_jsx("video",{ref:re,src:N,controls:!0,autoPlay:!0,playsInline:!0,className:"w-full h-full object-contain"}):_jsxs("div",{onClick:()=>{var ne;return(ne=k.current)==null?void 0:ne.click()},className:"group relative w-full h-full flex flex-col items-center justify-center cursor-pointer select-none overflow-hidden",children:[_jsx("img",{src:"https://images.unsplash.com/photo-1543783207-ec64e4d95325?auto=format&fit=crop&w=1200&q=80",alt:"Espanha - Paisagem urbana iluminada",referrerPolicy:"no-referrer",className:"absolute inset-0 w-full h-full object-cover opacity-35 group-hover:scale-105 group-hover:opacity-40 transition-all duration-700"}),_jsx("div",{className:"absolute inset-0 bg-gradient-to-t from-[#080E1C] via-[#080E1C]/60 to-transparent"}),_jsxs("div",{className:"absolute top-4 sm:top-6 px-4 py-1.5 rounded-full bg-black/75 border border-red-500/40 text-red-200 text-[11px] sm:text-xs font-semibold flex items-center gap-2 backdrop-blur-md shadow-lg",children:[_jsx(Volume2,{className:"w-3.5 h-3.5 text-red-400 animate-pulse"}),_jsx("span",{children:"Ligue o som. Assista até o fim para entender os 2 anos."})]}),_jsxs("div",{className:"relative z-10 flex flex-col items-center text-center px-4",children:[_jsxs("div",{className:"relative mb-4",children:[_jsx("div",{className:"w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gradient-to-tr from-[#A31E22] via-[#DC2626] to-[#EF4444] flex items-center justify-center text-white shadow-[0_0_40px_rgba(220,38,38,0.8)] group-hover:scale-110 transition-transform duration-300 border-2 border-amber-300",children:_jsx(Play,{className:"w-10 h-10 sm:w-12 sm:h-12 fill-white ml-1 text-white"})}),_jsx("div",{className:"absolute -inset-2 rounded-full border-2 border-red-500/40 animate-ping pointer-events-none"})]}),_jsx("span",{className:"font-mono text-xs sm:text-sm font-bold uppercase tracking-widest text-amber-300 mb-1",children:"VÍDEO DE APRESENTAÇÃO OFICIAL"}),_jsx("h3",{className:"font-serif-brand text-lg sm:text-2xl font-bold text-white max-w-xl leading-snug drop-shadow-md",children:"A Nova Rota Legal Para a Espanha em 24 Meses Sem Intermediários"}),_jsx("p",{className:"text-xs sm:text-sm text-slate-300 mt-2 max-w-md",children:"Clique aqui ou use os botões acima para subir seu vídeo ou colar o link do YouTube/Vimeo."})]}),_jsx("div",{className:"absolute bottom-4 right-4 bg-black/80 px-2.5 py-1 rounded text-[11px] font-mono font-bold text-slate-300 border border-slate-700",children:"HD · 1080p"})]})}),_jsxs("div",{className:"bg-[#0C1527] border-x border-b border-slate-700/80 rounded-b-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-lg",children:[_jsxs("div",{children:[_jsxs("div",{className:"flex items-center justify-center sm:justify-start gap-2 text-xs font-mono font-bold text-amber-300 mb-0.5",children:[_jsx(Video,{className:"w-3.5 h-3.5 text-red-400"}),_jsx("span",{children:"APRESENTAÇÃO COMPLETA DO ESQUADRÃO COD-E"})]}),_jsx("p",{className:"text-xs sm:text-sm text-slate-300",children:"Acesso vitalício aos 8 agentes + Confraria Europa (Os Argonautas) inclusa."})]}),_jsxs("button",{onClick:S,className:"w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#A31E22] via-[#DC2626] to-[#A31E22] hover:from-[#DC2626] hover:to-[#B91C1C] text-white font-extrabold text-sm uppercase tracking-wider shadow-[0_4px_20px_rgba(220,38,38,0.5)] hover:shadow-[0_6px_25px_rgba(220,38,38,0.7)] transition-all transform hover:-translate-y-0.5 cursor-pointer shrink-0 border border-amber-300/40",children:[_jsx(Shield,{className:"w-4 h-4 text-amber-300"}),_jsx("span",{children:"QUERO MEU TIME DE AGENTES"}),_jsx(ArrowRight,{className:"w-4 h-4 text-amber-300"})]})]}),E&&_jsx("div",{className:"fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4",children:_jsxs("div",{className:"bg-[#0F172A] border border-slate-700 rounded-2xl max-w-md w-full p-6 text-white relative shadow-2xl",children:[_jsx("button",{onClick:()=>Y(!1),className:"absolute top-4 right-4 text-slate-400 hover:text-white",children:_jsx(X,{className:"w-5 h-5"})}),_jsx("h3",{className:"font-serif-brand text-xl font-bold mb-2 text-amber-300",children:"Inserir Link do Vídeo da VSL"}),_jsx("p",{className:"text-xs text-slate-300 mb-4",children:"Cole o link do seu vídeo hospedado no YouTube, Vimeo, PandaVideo, Loom ou URL direta de um arquivo .mp4:"}),_jsxs("form",{onSubmit:Fe,className:"space-y-4",children:[_jsxs("div",{children:[_jsx("label",{className:"block text-xs font-mono uppercase text-slate-400 mb-1",children:"URL do Vídeo ou Embed"}),_jsx("input",{type:"url",value:T,onChange:ne=>w(ne.target.value),placeholder:"https://www.youtube.com/watch?v=... ou https://vimeo.com/...",className:"w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-red-500 font-sans",autoFocus:!0})]}),_jsxs("div",{className:"flex gap-2 justify-end pt-2",children:[_jsx("button",{type:"button",onClick:()=>Y(!1),className:"px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-slate-800",children:"Cancelar"}),_jsxs("button",{type:"submit",className:"px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-red-600 hover:bg-red-500 text-white shadow-md flex items-center gap-1.5",children:[_jsx(Check,{className:"w-3.5 h-3.5"}),"Salvar Vídeo"]})]})]})]})})]})};
+export const VslPlayer: React.FC<VslPlayerProps> = ({ onCtaClick }) => {
+  const [videoUrl, setVideoUrl] = useState<string>(() => {
+    return localStorage.getItem("cod_e_vsl_video_v5") || DEFAULT_VSL_VIDEO;
+  });
+  const [videoType, setVideoType] = useState<string>(() => {
+    return localStorage.getItem("cod_e_vsl_type_v5") || DEFAULT_VSL_TYPE;
+  });
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [inputUrl, setInputUrl] = useState("");
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    if (videoUrl) {
+      localStorage.setItem("cod_e_vsl_video_v5", videoUrl);
+    } else {
+      localStorage.removeItem("cod_e_vsl_video_v5");
+    }
+  }, [videoUrl]);
+
+  useEffect(() => {
+    if (videoType) {
+      localStorage.setItem("cod_e_vsl_type_v5", videoType);
+    } else {
+      localStorage.removeItem("cod_e_vsl_type_v5");
+    }
+  }, [videoType]);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const blobUrl = URL.createObjectURL(file);
+      setVideoUrl(blobUrl);
+      setVideoType("upload");
+    }
+  };
+
+  const handleSaveEmbed = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!inputUrl.trim()) return;
+
+    let parsed = inputUrl.trim();
+
+    // Normalizar Vimeo (ex: https://vimeo.com/1225405238?share=copy&fl=sv&fe=ci)
+    if (parsed.includes("vimeo.com/") && !parsed.includes("player.vimeo.com")) {
+      const match = parsed.match(/vimeo\.com\/(\d+)/);
+      const videoId = match ? match[1] : parsed.split("vimeo.com/")[1]?.split("?")[0]?.replace(/\//g, "");
+      parsed = `https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479`;
+    }
+    // Normalizar YouTube
+    else if (parsed.includes("youtube.com/watch?v=")) {
+      const id = parsed.split("watch?v=")[1]?.split("&")[0];
+      parsed = `https://www.youtube.com/embed/${id}?autoplay=1`;
+    } else if (parsed.includes("youtu.be/")) {
+      const id = parsed.split("youtu.be/")[1]?.split("?")[0];
+      parsed = `https://www.youtube.com/embed/${id}?autoplay=1`;
+    }
+
+    setVideoUrl(parsed);
+    setVideoType("embed");
+    setIsModalOpen(false);
+    setInputUrl("");
+  };
+
+  const handleResetToDefault = () => {
+    setVideoUrl(DEFAULT_VSL_VIDEO);
+    setVideoType(DEFAULT_VSL_TYPE);
+    localStorage.removeItem("cod_e_vsl_video_v5");
+    localStorage.removeItem("cod_e_vsl_type_v5");
+  };
+
+  const isEmbed =
+    videoType === "embed" ||
+    (videoUrl &&
+      videoUrl.startsWith("http") &&
+      (videoUrl.includes("vimeo") ||
+        videoUrl.includes("youtube") ||
+        videoUrl.includes("pandavideo") ||
+        videoUrl.includes("embed")));
+
+  const isCustom = videoUrl !== DEFAULT_VSL_VIDEO;
+
+  return (
+    <div className="w-full max-w-4xl mx-auto my-6 sm:my-8 px-2 sm:px-0">
+      {/* Barra Superior da Apresentação */}
+      <div className="bg-[#121D36] border border-slate-700/80 rounded-t-2xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-white">
+        <div className="flex items-center gap-2 text-xs">
+          <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+          <span className="font-mono text-amber-300 font-bold uppercase tracking-wider">
+            VÍDEO DE APRESENTAÇÃO
+          </span>
+          <span className="text-slate-400 hidden sm:inline">|</span>
+          <span className="text-slate-300 text-xs hidden sm:inline">
+            Apresentação Inicial Oficial
+          </span>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <input
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileUpload}
+            accept="video/mp4,video/webm,video/ogg,video/quicktime"
+            className="hidden"
+            id="vsl-upload-input"
+          />
+
+          <button
+            onClick={() => fileInputRef.current?.click()}
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all border border-slate-600 cursor-pointer"
+            title="Subir arquivo MP4"
+          >
+            <Upload className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Subir MP4</span>
+          </button>
+
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-600 cursor-pointer"
+            title="Alterar Link do Vídeo (Vimeo/YouTube)"
+          >
+            <Link className="w-3.5 h-3.5" />
+            <span>Trocar Vídeo</span>
+          </button>
+
+          {isCustom && (
+            <button
+              onClick={handleResetToDefault}
+              className="p-1.5 rounded-lg bg-slate-800 hover:bg-amber-900/60 text-slate-400 hover:text-amber-300 transition-colors"
+              title="Restaurar vídeo original do Vimeo"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+            </button>
+          )}
+        </div>
+      </div>
+
+      {/* Container 16:9 com o Player do Vimeo */}
+      <div className="relative aspect-video w-full bg-[#080E1C] border-x border-b border-slate-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
+        {videoUrl ? (
+          isEmbed ? (
+            <iframe
+              src={videoUrl}
+              title="Vídeo de Apresentação Código Europa"
+              className="w-full h-full border-0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          ) : (
+            <video
+              ref={videoRef}
+              src={videoUrl}
+              controls
+              autoPlay
+              playsInline
+              className="w-full h-full object-contain"
+            />
+          )
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center text-center p-4">
+            <Volume2 className="w-8 h-8 text-amber-400 mb-2" />
+            <span className="text-sm font-bold text-white">Carregando apresentação...</span>
+          </div>
+        )}
+      </div>
+
+      {/* Barra Inferior com CTA de Conversão */}
+      <div className="bg-[#0C1527] border-x border-b border-slate-700/80 rounded-b-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-lg">
+        <div>
+          <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-mono font-bold text-amber-300 mb-0.5">
+            <Video className="w-3.5 h-3.5 text-red-400" />
+            <span>APRESENTAÇÃO COMPLETA DO ESQUADRÃO COD-E</span>
+          </div>
+          <p className="text-xs sm:text-sm text-slate-300">
+            A rota comprovada para morar legalmente na Espanha e conquistar seu passaporte em 2 anos.
+          </p>
+        </div>
+
+        <button
+          onClick={onCtaClick}
+          className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#DC2626] via-[#A31E22] to-[#B91C1C] hover:from-[#EF4444] hover:to-[#DC2626] text-white font-black text-sm uppercase tracking-wider shadow-[0_0_25px_rgba(220,38,38,0.7)] hover:shadow-[0_0_40px_rgba(239,68,68,0.95)] transition-all transform hover:scale-105 cursor-pointer shrink-0 border border-amber-300/60 btn-pulse-urgency group"
+        >
+          <Shield className="w-4 h-4 text-amber-300 group-hover:rotate-12 transition-transform" />
+          <span>QUERO MEU TIME DE AGENTES AGORA</span>
+          <ArrowRight className="w-4 h-4 text-amber-300 group-hover:translate-x-1 transition-transform" />
+        </button>
+      </div>
+
+      {/* Modal para Trocar Link se Necessário */}
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+          <div className="bg-[#0F172A] border border-slate-700 rounded-2xl max-w-md w-full p-6 text-white relative shadow-2xl animate-in fade-in zoom-in-95">
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute top-4 right-4 text-slate-400 hover:text-white"
+            >
+              <X className="w-5 h-5" />
+            </button>
+            <h3 className="font-serif-brand text-xl font-bold mb-2 text-amber-300">
+              Trocar Link do Vídeo
+            </h3>
+            <p className="text-xs text-slate-300 mb-4">
+              Cole o link do seu vídeo hospedado no Vimeo, YouTube ou link direto .mp4:
+            </p>
+            <form onSubmit={handleSaveEmbed} className="space-y-4">
+              <div>
+                <label className="block text-xs font-mono uppercase text-slate-400 mb-1">
+                  URL do Vídeo (Vimeo ou YouTube)
+                </label>
+                <input
+                  type="url"
+                  value={inputUrl}
+                  onChange={(e) => setInputUrl(e.target.value)}
+                  placeholder="https://vimeo.com/1225405238 ou https://youtube.com/..."
+                  className="w-full px-3.5 py-2.5 bg-slate-900 border border-slate-700 rounded-xl text-sm text-white focus:outline-none focus:border-red-500 font-sans"
+                  autoFocus
+                />
+              </div>
+              <div className="flex gap-2 justify-end pt-2">
+                <button
+                  type="button"
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-4 py-2 rounded-xl text-xs font-semibold text-slate-400 hover:text-white bg-slate-800"
+                >
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  className="px-5 py-2 rounded-xl text-xs font-bold uppercase tracking-wider bg-red-600 hover:bg-red-500 text-white shadow-md flex items-center gap-1.5"
+                >
+                  <Check className="w-3.5 h-3.5" />
+                  Salvar Vídeo
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
