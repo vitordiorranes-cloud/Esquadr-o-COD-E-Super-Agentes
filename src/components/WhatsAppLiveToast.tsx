@@ -60,10 +60,10 @@ export const WhatsAppLiveToast: React.FC = () => {
   const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
-    // Começa a exibir após 2.5 segundos do carregamento da página
+    // Primeiro popup aparece após 12 segundos para não atrapalhar o primeiro contato com a página
     const initialTimer = setTimeout(() => {
       if (!isDismissed) setIsVisible(true);
-    }, 2500);
+    }, 12000);
 
     return () => clearTimeout(initialTimer);
   }, [isDismissed]);
@@ -71,18 +71,18 @@ export const WhatsAppLiveToast: React.FC = () => {
   useEffect(() => {
     if (!isVisible || isDismissed || isHovered) return;
 
-    // Fica visível por 6.5 segundos
+    // Fica visível por 5.5 segundos
     const displayTimer = setTimeout(() => {
       setIsVisible(false);
 
-      // Espera 4 segundos invisível e depois sobe o próximo
+      // Intervalo muito mais natural e espaçado: espera 28 segundos antes de mostrar o próximo
       const nextTimer = setTimeout(() => {
         setCurrentIndex((prev) => (prev + 1) % LIVE_CHAT_REACTIONS.length);
         if (!isDismissed) setIsVisible(true);
-      }, 4000);
+      }, 28000);
 
       return () => clearTimeout(nextTimer);
-    }, 6500);
+    }, 5500);
 
     return () => clearTimeout(displayTimer);
   }, [isVisible, isDismissed, isHovered, currentIndex]);
@@ -93,24 +93,24 @@ export const WhatsAppLiveToast: React.FC = () => {
 
   return (
     <div
-      className={`fixed bottom-4 left-4 sm:bottom-6 sm:left-6 z-40 max-w-[340px] sm:max-w-[380px] w-[calc(100vw-32px)] transition-all duration-500 transform ${
+      className={`fixed bottom-20 sm:bottom-6 left-3 sm:left-6 z-40 max-w-[310px] sm:max-w-[360px] w-[calc(100vw-24px)] transition-all duration-500 transform ${
         isVisible
           ? "translate-y-0 opacity-100 scale-100 pointer-events-auto"
-          : "translate-y-8 opacity-0 scale-95 pointer-events-none"
+          : "translate-y-6 opacity-0 scale-95 pointer-events-none"
       }`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="bg-[#FFFFFF] border-2 border-[#25D366] rounded-2xl shadow-[0_15px_40px_rgba(0,0,0,0.22)] overflow-hidden">
+      <div className="bg-[#FFFFFF] border border-[#25D366]/80 rounded-xl sm:rounded-2xl shadow-[0_10px_30px_rgba(0,0,0,0.22)] overflow-hidden">
         {/* Barra de Notificação Superior estilo WhatsApp */}
-        <div className="bg-[#008069] px-3.5 py-1.5 flex items-center justify-between text-white text-xs">
-          <div className="flex items-center gap-1.5 font-mono font-bold tracking-wide text-[11px]">
+        <div className="bg-[#008069] px-3 py-1.5 flex items-center justify-between text-white text-xs">
+          <div className="flex items-center gap-1.5 font-mono font-bold tracking-wide text-[10px] sm:text-[11px]">
             <WhatsAppIcon className="w-3.5 h-3.5 text-[#25D366]" />
-            <span>WhatsApp · Chat da Confraria</span>
+            <span className="truncate">Chat Oficial da Confraria</span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <span className="text-[10px] text-emerald-100 font-mono">agora</span>
+          <div className="flex items-center gap-1.5 shrink-0">
+            <span className="text-[9px] text-emerald-100 font-mono">agora</span>
             <button
               onClick={(e) => {
                 e.stopPropagation();
@@ -125,55 +125,55 @@ export const WhatsAppLiveToast: React.FC = () => {
           </div>
         </div>
 
-        {/* Conteúdo da Mensagem */}
-        <div className="p-3 bg-[#F0F2F5] flex items-start gap-2.5">
+        {/* Conteúdo da Mensagem Compacto para Mobile */}
+        <div className="p-2.5 sm:p-3 bg-[#F0F2F5] flex items-start gap-2 sm:gap-2.5">
           {/* Avatar com badge online verde */}
           <div className="relative shrink-0 mt-0.5">
-            <div className="w-9 h-9 rounded-full bg-gradient-to-br from-[#128C7E] to-[#075E54] flex items-center justify-center text-white font-bold text-xs shadow-xs">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-[#128C7E] to-[#075E54] flex items-center justify-center text-white font-bold text-[11px] sm:text-xs shadow-xs">
               {current.initials || current.sender.slice(0, 2)}
             </div>
-            <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#25D366] border-2 border-white" />
+            <span className="absolute bottom-0 right-0 w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-[#25D366] border-2 border-white" />
           </div>
 
           {/* Balão e Nome */}
           <div className="flex-1 min-w-0">
-            <div className="flex items-center justify-between gap-1 mb-1">
-              <h5 className="text-xs font-bold text-slate-900 truncate">
+            <div className="flex items-center justify-between gap-1 mb-0.5">
+              <h5 className="text-[11px] sm:text-xs font-bold text-slate-900 truncate">
                 {current.sender}
               </h5>
-              <span className="text-[9px] px-1.5 py-0.2 rounded-full font-mono bg-[#25D366]/20 text-[#075E54] font-bold shrink-0">
+              <span className="text-[8px] sm:text-[9px] px-1.5 py-0.2 rounded-full font-mono bg-[#25D366]/20 text-[#075E54] font-bold shrink-0">
                 Ao vivo
               </span>
             </div>
 
-            <div className="text-[10px] text-slate-500 font-mono -mt-1 mb-1.5">
+            <div className="text-[9px] sm:text-[10px] text-slate-500 font-mono -mt-0.5 mb-1 truncate">
               {current.role}
             </div>
 
             {/* Balão WhatsApp Verde Claro Clássico */}
-            <div className="bg-[#D9FDD3] border border-[#B2E69E] rounded-xl rounded-tl-sm p-2 shadow-2xs">
-              <p className="text-xs text-slate-900 leading-snug font-medium">
+            <div className="bg-[#D9FDD3] border border-[#B2E69E] rounded-xl rounded-tl-sm p-1.5 sm:p-2 shadow-2xs">
+              <p className="text-[11px] sm:text-xs text-slate-900 leading-snug font-medium">
                 &ldquo;{current.text}&rdquo;
               </p>
-              <div className="flex items-center justify-end gap-1 text-[9px] text-slate-500 mt-1 font-mono">
-                <span>12:34</span>
-                <CheckCheck className="w-3 h-3 text-[#53BDEB]" />
+              <div className="flex items-center justify-end gap-1 text-[8px] sm:text-[9px] text-slate-500 mt-0.5 font-mono">
+                <span>agora</span>
+                <CheckCheck className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-[#53BDEB]" />
               </div>
             </div>
           </div>
         </div>
 
         {/* Barra Inferior com link discreto para a Confraria */}
-        <div className="bg-white px-3 py-1.5 border-t border-slate-200 flex items-center justify-between text-[10px] text-slate-600">
+        <div className="bg-white px-3 py-1 border-t border-slate-200 flex items-center justify-between text-[9px] sm:text-[10px] text-slate-600">
           <span className="flex items-center gap-1 font-medium">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-ping" />
-            <span>Membros ativos agora no grupo oficial</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#25D366] animate-pulse" />
+            <span>Membro ativo da Confraria</span>
           </span>
           <a
             href="#confraria-em-acao"
-            className="text-[#075E54] hover:underline font-bold font-mono text-[10px]"
+            className="text-[#075E54] hover:underline font-bold font-mono text-[9px] sm:text-[10px]"
           >
-            Ver todos ↗
+            Ver depoimentos ↗
           </a>
         </div>
       </div>
