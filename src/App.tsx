@@ -1,10 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Sparkles,
   CheckCircle2,
-  Lock,
-  Check,
-  Camera,
   Award,
   Linkedin,
   Instagram,
@@ -17,74 +14,63 @@ import { VslPlayer } from "./components/VslPlayer";
 import { AgentsSection } from "./components/AgentsSection";
 import { OfficialIndicators } from "./components/OfficialIndicators";
 import { DestinationsSection } from "./components/DestinationsSection";
+import { TestimonialsSection } from "./components/TestimonialsSection";
 import { FloatingCta } from "./components/FloatingCta";
-import { generateHtml } from "./utils/generateHtml";
+import { AdminPage } from "./components/AdminPage";
 import { DEFAULT_MENTOR_PHOTO } from "./data/mentorPhoto";
 
 const DEFAULT_CHECKOUT_URL = "https://pay.cakto.com.br/3e3f9px_1093826";
 
-export default function App() {
-  const [checkoutUrl, setCheckoutUrl] = useState<string>(
-    () => localStorage.getItem("code_checkout_url_v2") || DEFAULT_CHECKOUT_URL
-  );
-  const [isConfigModalOpen, setIsConfigModalOpen] = useState<boolean>(false);
-  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
-  const [mentorPhoto, setMentorPhoto] = useState<string>(
-    () => localStorage.getItem("vitor_custom_photo_v5") || DEFAULT_MENTOR_PHOTO
-  );
-  const [photoSavedToast, setPhotoSavedToast] = useState<boolean>(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
+const checkIsAdminRoute = (): boolean => {
+  if (typeof window === "undefined") return false;
+  const path = window.location.pathname;
+  const hash = window.location.hash;
+  const search = window.location.search;
+  return path.startsWith("/admin") || hash === "#admin" || search.includes("admin=1");
+};
 
+export default function App() {
+  const [isAdminRoute, setIsAdminRoute] = useState<boolean>(checkIsAdminRoute);
+
+  const [checkoutUrl, setCheckoutUrl] = useState<string>(() => {
+    return localStorage.getItem("code_checkout_url_v2") || DEFAULT_CHECKOUT_URL;
+  });
+
+  const [mentorPhoto, setMentorPhoto] = useState<string>(() => {
+    return localStorage.getItem("vitor_custom_photo_v5") || DEFAULT_MENTOR_PHOTO;
+  });
+
+  const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
+
+  // Sincronização de rotas (/admin vs /)
   useEffect(() => {
-    const savedUrl = localStorage.getItem("code_checkout_url_v2");
-    if (savedUrl) setCheckoutUrl(savedUrl);
+    const handleLocationChange = () => {
+      setIsAdminRoute(checkIsAdminRoute());
+      // Re-ler configurações salvas pelo admin
+      const savedUrl = localStorage.getItem("code_checkout_url_v2");
+      if (savedUrl) setCheckoutUrl(savedUrl);
+      const savedPhoto = localStorage.getItem("vitor_custom_photo_v5");
+      if (savedPhoto) setMentorPhoto(savedPhoto);
+    };
+
+    window.addEventListener("popstate", handleLocationChange);
+    window.addEventListener("hashchange", handleLocationChange);
+
+    return () => {
+      window.removeEventListener("popstate", handleLocationChange);
+      window.removeEventListener("hashchange", handleLocationChange);
+    };
   }, []);
 
-  const handlePhotoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result as string;
-        if (result) {
-          setMentorPhoto(result);
-          localStorage.setItem("vitor_custom_photo_v5", result);
-          setPhotoSavedToast(true);
-          setTimeout(() => setPhotoSavedToast(false), 4000);
-        }
-      };
-      reader.readAsDataURL(file);
+  const navigateTo = (path: string) => {
+    if (path === "/admin") {
+      window.history.pushState({}, "", "/admin");
+      setIsAdminRoute(true);
+    } else {
+      window.history.pushState({}, "", "/");
+      setIsAdminRoute(false);
     }
-  };
-
-  const handlePhotoDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    const file = e.dataTransfer.files?.[0];
-    if (file && file.type.startsWith("image/")) {
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result as string;
-        if (result) {
-          setMentorPhoto(result);
-          localStorage.setItem("vitor_custom_photo_v5", result);
-          setPhotoSavedToast(true);
-          setTimeout(() => setPhotoSavedToast(false), 4000);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleResetPhoto = () => {
-    localStorage.removeItem("vitor_custom_photo_v5");
-    setMentorPhoto(DEFAULT_MENTOR_PHOTO);
-  };
-
-  const handleSaveCheckoutUrl = (newUrl: string) => {
-    const finalUrl = newUrl.trim() || DEFAULT_CHECKOUT_URL;
-    setCheckoutUrl(finalUrl);
-    localStorage.setItem("code_checkout_url_v2", finalUrl);
-    setIsConfigModalOpen(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleScrollOrCheckout = () => {
@@ -96,47 +82,25 @@ export default function App() {
     }
   };
 
-  const handleDownloadStandaloneHtml = () => {
-    const htmlContent = generateHtml(checkoutUrl, mentorPhoto);
-    const blob = new Blob([htmlContent], { type: "text/html;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = "codigo-europa-vendas.html";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
-  };
+  // Se a rota for /admin, renderiza a página administrativa protegida por login
+  if (isAdminRoute) {
+    return <AdminPage onNavigateHome={() => navigateTo("/")} />;
+  }
 
-  const isCustomPhoto = mentorPhoto !== DEFAULT_MENTOR_PHOTO;
-
+  // Página pública do Código Europa (100% livre de controles administrativos)
   return (
     <div className="min-h-screen bg-[#F8F5EF] text-[#1B1B18] antialiased selection:bg-[#A31E22] selection:text-[#F7F3EC]">
-      {/* Barra de Ferramentas / Cakto Link */}
-      <div className="bg-[#0D1830] text-[#F7F3EC] text-xs py-2 px-4 border-b border-slate-700/50 sticky top-0 z-40">
-        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-2">
+      {/* Top Banner Oficial da Marca (Pública - Sem botões administrativos) */}
+      <div className="bg-[#0D1830] text-[#F7F3EC] text-xs py-2.5 px-4 border-b border-slate-700/50 sticky top-0 z-40 shadow-xs">
+        <div className="max-w-6xl mx-auto flex items-center justify-between gap-2">
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-[#A31E22] animate-pulse" />
             <span className="font-semibold tracking-wide text-amber-200">
               Código Europa · Esquadrão COD-E
             </span>
           </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => setIsConfigModalOpen(true)}
-              className="text-slate-300 hover:text-white underline underline-offset-2 transition-colors cursor-pointer"
-            >
-              Editar Link de Pagamento (Cakto)
-            </button>
-            <span className="text-slate-600">|</span>
-            <button
-              onClick={handleDownloadStandaloneHtml}
-              className="text-slate-300 hover:text-white underline underline-offset-2 transition-colors cursor-pointer"
-              title="Baixar arquivo HTML 100% autocontido"
-            >
-              Baixar HTML Autocontido
-            </button>
+          <div className="text-[11px] text-slate-400 font-mono hidden sm:block">
+            Espanha · Residência, Inteligência & Cidadania
           </div>
         </div>
       </div>
@@ -149,56 +113,56 @@ export default function App() {
               <Sparkles className="w-3.5 h-3.5" />
               <span>O Esquadrão Código Europa · COD-E</span>
             </div>
-            <h1 className="font-serif-brand text-2xl sm:text-4xl lg:text-5xl text-[#13213F] font-bold leading-[1.1] tracking-tight">
-              Não é uma viagem.<br />
-              É uma mudança de vida.<br />
-              <span className="text-[#A31E22]">E de geração.</span>
+
+            <h1 className="font-serif-brand text-3xl sm:text-5xl lg:text-6xl font-black text-[#13213F] tracking-tight leading-[1.1]">
+              Morar na Espanha com trabalho, renda em euro e cidadania europeia em 2 anos.
             </h1>
-            <p className="text-sm sm:text-base text-[#3E3A35] leading-relaxed font-sans max-w-2xl mx-auto">
-              A escola do seu filho. A rua tranquila à meia-noite. O passaporte europeu na mão aos 2 anos de residência legal (Art. 22 do Código Civil Espanhol).
+
+            <p className="font-serif-brand text-base sm:text-xl text-[#3A352F] italic font-semibold max-w-2xl mx-auto pt-1">
+              “Não é sorte. É inteligência artificial aplicada com a legislação oficial espanhola.”
             </p>
-            <div className="p-3 rounded-xl bg-white/90 border-l-4 border-[#A31E22] shadow-xs max-w-xl mx-auto">
-              <p className="font-serif-brand text-sm sm:text-base text-[#13213F] font-bold italic">
-                “Um voo dura 11 horas. Um passo de coragem pode mudar gerações.”
-              </p>
+
+            <div className="inline-block px-4 py-1.5 rounded-full bg-amber-400/20 border border-amber-500/40 text-[#854D0E] text-xs sm:text-sm font-mono font-bold uppercase tracking-wider mt-1">
+              ✨ Um passo de coragem pode mudar gerações.
             </div>
           </div>
 
+          {/* VSL Player Oficial (Sem Controles Administrativos na Visão Pública) */}
           <VslPlayer onCtaClick={handleScrollOrCheckout} />
 
-          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 text-xs text-[#6B655D] pt-2">
-            <span className="flex items-center gap-1.5 font-bold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-300">
-              <CheckCircle2 className="w-4 h-4 text-emerald-600" /> ACESSO VITALÍCIO
-            </span>
-            <span className="flex items-center gap-1.5 font-bold text-[#A31E22] bg-red-50 px-2.5 py-1 rounded-full border border-red-300">
-              <Shield className="w-4 h-4 text-[#A31E22]" /> O RISCO É TODO MEU (7 Dias)
-            </span>
-            <span className="font-bold text-[#13213F] bg-amber-50 px-2.5 py-1 rounded-full border border-amber-300">
-              Apenas 12x de R$ 29,64 ou R$ 297 à vista
-            </span>
+          {/* Botão de Ação Imediata abaixo do Vídeo com Urgência e Animação */}
+          <div className="text-center mt-6">
+            <button
+              onClick={handleScrollOrCheckout}
+              data-checkout="true"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 sm:px-10 py-4.5 rounded-2xl bg-gradient-to-r from-[#DC2626] via-[#A31E22] to-[#B91C1C] hover:from-[#EF4444] hover:to-[#DC2626] text-white font-black text-base sm:text-xl uppercase tracking-wider shadow-[0_0_35px_rgba(220,38,38,0.85)] hover:shadow-[0_0_55px_rgba(239,68,68,1)] transform hover:scale-105 transition-all cursor-pointer border-2 border-amber-300/60 btn-pulse-urgency group"
+            >
+              <Shield className="w-5 h-5 text-amber-300 group-hover:rotate-12 transition-transform" />
+              <span>QUERO MEU TIME DE AGENTES AGORA</span>
+              <ArrowRight className="w-5 h-5 text-amber-300 group-hover:translate-x-1.5 transition-transform" />
+            </button>
+            <p className="text-xs text-[#6B655D] mt-2 font-medium">
+              Acesso vitalício imediato · Garantia incondicional de 7 dias · Pagamento Seguro Cakto
+            </p>
           </div>
         </div>
       </header>
 
-      {/* Seção dos Agentes (Redesenhada & Compacta) */}
-      <AgentsSection onCtaClick={handleScrollOrCheckout} />
-
-      {/* Indicadores Oficiais (INE/IBGE) */}
+      {/* Indicadores Oficiais do Reino da Espanha */}
       <OfficialIndicators />
 
-      {/* Destinos da Travessia (Tríade & Mapa em Abas Rápidas) */}
-      <DestinationsSection />
+      {/* Os 7 Super Agentes do Esquadrão COD-E */}
+      <AgentsSection onCtaClick={handleScrollOrCheckout} />
 
-      {/* Autoridade: Vitor Diorranes */}
-      <section id="autoridade-vitor" className="py-12 sm:py-14 bg-[#10192E] text-white border-b border-slate-700">
+      {/* Cidades e Destinos da Espanha */}
+      <DestinationsSection onCtaClick={handleScrollOrCheckout} />
+
+      {/* Mentor e Autoridade: Vitor Diorranes */}
+      <section id="autoridade-vitor" className="py-14 sm:py-20 bg-[#0E1729] text-white border-b border-slate-800">
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center">
             <div className="lg:col-span-5">
-              <div
-                onDrop={handlePhotoDrop}
-                onDragOver={(e) => e.preventDefault()}
-                className="relative rounded-2xl overflow-hidden shadow-xl border-2 border-slate-600 bg-slate-900 group"
-              >
+              <div className="relative rounded-2xl overflow-hidden shadow-xl border-2 border-slate-600 bg-slate-900 group">
                 <img
                   src={mentorPhoto}
                   alt="Vitor Diorranes - Fundador do Código Europa em Barcelona"
@@ -212,38 +176,6 @@ export default function App() {
                   className="w-full h-80 sm:h-96 object-cover object-top transform group-hover:scale-105 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0A101D] via-black/20 to-transparent" />
-                {photoSavedToast && (
-                  <div className="absolute top-4 left-4 right-4 bg-emerald-500 text-slate-950 text-xs font-bold px-3 py-2 rounded-xl shadow-xl flex items-center gap-2 z-20">
-                    <Check className="w-4 h-4 text-slate-950" />
-                    <span>Sua foto original foi carregada e salva com sucesso!</span>
-                  </div>
-                )}
-                <div className="absolute top-3 right-3 z-10 flex flex-col items-end gap-1.5">
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    onChange={handlePhotoUpload}
-                    accept="image/*"
-                    className="hidden"
-                  />
-                  <button
-                    onClick={() => fileInputRef.current?.click()}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs shadow-lg transition-all cursor-pointer backdrop-blur-xs"
-                    title="Clique para subir o arquivo da sua foto original"
-                  >
-                    <Camera className="w-3.5 h-3.5" />
-                    <span>{isCustomPhoto ? "Trocar Minha Foto" : "Subir Minha Foto Real"}</span>
-                  </button>
-                  {isCustomPhoto && (
-                    <button
-                      onClick={handleResetPhoto}
-                      className="px-2 py-0.5 rounded bg-black/60 text-[10px] text-slate-300 hover:text-white"
-                      title="Restaurar imagem padrão"
-                    >
-                      Restaurar Padrão
-                    </button>
-                  )}
-                </div>
                 <div className="absolute bottom-4 left-4 right-4">
                   <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#A31E22] text-white text-[10px] font-mono uppercase font-bold tracking-wider mb-1">
                     Barcelona · Espanha
@@ -314,6 +246,9 @@ export default function App() {
           </div>
         </div>
       </section>
+
+      {/* NOVA SEÇÃO: Confraria Europa em Ação (Depoimentos e Prova de Comunidade Ativa) */}
+      <TestimonialsSection />
 
       {/* Seção da Oferta (Alta Conversão & Rápida Leitura) */}
       <section id="secao-oferta" className="py-12 sm:py-16 bg-gradient-to-b from-[#FAF7F2] to-[#EAE4D7] border-b border-[#E0D7C6]">
@@ -491,44 +426,6 @@ export default function App() {
       </footer>
 
       <FloatingCta onCtaClick={handleScrollOrCheckout} />
-
-      {/* Modal de Configuração do Link Cakto */}
-      {isConfigModalOpen && (
-        <div className="fixed inset-0 z-50 bg-[#13213F]/80 flex items-center justify-center p-4">
-          <div className="bg-[#F7F3EC] border border-[#13213F] max-w-md w-full p-6 space-y-4 rounded-2xl shadow-2xl">
-            <h3 className="font-serif-brand text-xl font-bold text-[#13213F]">
-              Configurar Link de Checkout (Cakto)
-            </h3>
-            <p className="text-xs text-[#6B655D] leading-relaxed">
-              Cole abaixo o link do seu produto na Cakto. Ele será aplicado a todos os botões de compra da página:
-            </p>
-            <input
-              type="url"
-              defaultValue={checkoutUrl}
-              id="checkout-input"
-              className="w-full bg-white border border-[#E4DDCF] px-3 py-2 text-sm text-[#13213F] font-mono rounded-lg focus:outline-none focus:border-[#13213F]"
-              placeholder="https://pay.cakto.com.br/3e3f9px_1093826"
-            />
-            <div className="flex gap-2 justify-end pt-2">
-              <button
-                onClick={() => setIsConfigModalOpen(false)}
-                className="px-4 py-2 text-xs font-semibold text-[#6B655D] hover:text-[#13213F] cursor-pointer"
-              >
-                Cancelar
-              </button>
-              <button
-                onClick={() => {
-                  const input = document.getElementById("checkout-input") as HTMLInputElement | null;
-                  handleSaveCheckoutUrl(input?.value || "");
-                }}
-                className="bg-[#A31E22] text-white px-5 py-2 text-xs font-bold rounded-lg hover:bg-[#881316] cursor-pointer shadow-xs"
-              >
-                Salvar Link
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

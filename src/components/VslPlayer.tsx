@@ -6,9 +6,10 @@ export const DEFAULT_VSL_TYPE = "embed";
 
 interface VslPlayerProps {
   onCtaClick?: () => void;
+  isAdmin?: boolean;
 }
 
-export const VslPlayer: React.FC<VslPlayerProps> = ({ onCtaClick }) => {
+export const VslPlayer: React.FC<VslPlayerProps> = ({ onCtaClick, isAdmin = false }) => {
   const [videoUrl, setVideoUrl] = useState<string>(() => {
     return localStorage.getItem("cod_e_vsl_video_v5") || DEFAULT_VSL_VIDEO;
   });
@@ -106,44 +107,46 @@ export const VslPlayer: React.FC<VslPlayerProps> = ({ onCtaClick }) => {
           </span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileUpload}
-            accept="video/mp4,video/webm,video/ogg,video/quicktime"
-            className="hidden"
-            id="vsl-upload-input"
-          />
+        {isAdmin && (
+          <div className="flex items-center gap-2">
+            <input
+              type="file"
+              ref={fileInputRef}
+              onChange={handleFileUpload}
+              accept="video/mp4,video/webm,video/ogg,video/quicktime"
+              className="hidden"
+              id="vsl-upload-input"
+            />
 
-          <button
-            onClick={() => fileInputRef.current?.click()}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all border border-slate-600 cursor-pointer"
-            title="Subir arquivo MP4"
-          >
-            <Upload className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Subir MP4</span>
-          </button>
-
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-600 cursor-pointer"
-            title="Alterar Link do Vídeo (Vimeo/YouTube)"
-          >
-            <Link className="w-3.5 h-3.5" />
-            <span>Trocar Vídeo</span>
-          </button>
-
-          {isCustom && (
             <button
-              onClick={handleResetToDefault}
-              className="p-1.5 rounded-lg bg-slate-800 hover:bg-amber-900/60 text-slate-400 hover:text-amber-300 transition-colors"
-              title="Restaurar vídeo original do Vimeo"
+              onClick={() => fileInputRef.current?.click()}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all border border-slate-600 cursor-pointer"
+              title="Subir arquivo MP4"
             >
-              <RefreshCw className="w-3.5 h-3.5" />
+              <Upload className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Subir MP4</span>
             </button>
-          )}
-        </div>
+
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-600 cursor-pointer"
+              title="Alterar Link do Vídeo (Vimeo/YouTube)"
+            >
+              <Link className="w-3.5 h-3.5" />
+              <span>Trocar Vídeo</span>
+            </button>
+
+            {isCustom && (
+              <button
+                onClick={handleResetToDefault}
+                className="p-1.5 rounded-lg bg-slate-800 hover:bg-amber-900/60 text-slate-400 hover:text-amber-300 transition-colors"
+                title="Restaurar vídeo original do Vimeo"
+              >
+                <RefreshCw className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Container 16:9 com o Player do Vimeo */}
@@ -197,8 +200,8 @@ export const VslPlayer: React.FC<VslPlayerProps> = ({ onCtaClick }) => {
         </button>
       </div>
 
-      {/* Modal para Trocar Link se Necessário */}
-      {isModalOpen && (
+      {/* Modal para Trocar Link se Necessário (Apenas Admin) */}
+      {isAdmin && isModalOpen && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-[#0F172A] border border-slate-700 rounded-2xl max-w-md w-full p-6 text-white relative shadow-2xl animate-in fade-in zoom-in-95">
             <button

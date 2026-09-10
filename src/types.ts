@@ -70,3 +70,16 @@ export interface FaqItem {
   question: string;
   answer: string;
 }
+
+export interface TestimonialItem {
+  id: string;
+  name: string;
+  location: string;
+  badge: string;
+  initials: string;
+  quote: string;
+  defaultImage: string;
+  avatarBg: string;
+  time?: string;
+  category?: string;
+}
