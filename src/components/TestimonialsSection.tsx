@@ -1,23 +1,37 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
-  Users,
-  Sparkles,
   CheckCircle2,
-  Heart,
   ZoomIn,
   X,
   ShieldCheck,
-  MessageCircle,
+  ChevronLeft,
+  ChevronRight,
+  Lock,
   ExternalLink,
+  CheckCheck,
+  Sparkles,
+  MessageCircle,
+  Star,
 } from "lucide-react";
 import { DEFAULT_TESTIMONIALS, getTestimonialImage } from "../data/testimonialsData";
 import { TestimonialItem } from "../types";
+
+// Ícone oficial em vetor do WhatsApp
+const WhatsAppBrandIcon: React.FC<{ className?: string }> = ({ className = "w-4 h-4" }) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+    aria-hidden="true"
+  >
+    <path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.711 2.599 2.674-.701c.974.577 1.954.919 3.097.92h.003c3.18 0 5.767-2.586 5.768-5.766 0-1.54-.599-2.989-1.688-4.078-1.09-1.089-2.539-1.687-4.394-1.687zm8.437 5.766c-.003 4.653-3.785 8.435-8.438 8.435-1.42 0-2.812-.358-4.048-1.037l-4.502 1.18 1.202-4.388c-.748-1.28-1.144-2.747-1.143-4.249.003-4.653 3.786-8.436 8.441-8.436 2.255.001 4.375.88 5.969 2.476 1.593 1.596 2.469 3.717 2.471 5.973z" />
+  </svg>
+);
 
 interface ChatReaction {
   sender: string;
   role: string;
   text: string;
-  tagColor: string;
 }
 
 const LIVE_CHAT_REACTIONS: ChatReaction[] = [
@@ -25,25 +39,21 @@ const LIVE_CHAT_REACTIONS: ChatReaction[] = [
     sender: "July G.",
     role: "Membro Confraria",
     text: "Live maravilhosa!!!! 👏👏👏",
-    tagColor: "bg-amber-400/20 text-amber-300 border-amber-400/30",
   },
   {
     sender: "Moisés B.",
     role: "Aluno COD-E",
     text: "Obrigado pela live!!! Muita clareza.",
-    tagColor: "bg-emerald-400/20 text-emerald-300 border-emerald-400/30",
   },
   {
     sender: "Rafael M.",
     role: "Comunidade Ativa",
     text: "Top 🚀 Vamos com tudo!",
-    tagColor: "bg-sky-400/20 text-sky-300 border-sky-400/30",
   },
   {
     sender: "Darlan P.",
     role: "Membro Confraria",
     text: "Top demais, clareza total na rota!",
-    tagColor: "bg-purple-400/20 text-purple-300 border-purple-400/30",
   },
 ];
 
@@ -51,6 +61,10 @@ export const TestimonialsSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState<string>("todos");
   const [testimonials, setTestimonials] = useState<TestimonialItem[]>(DEFAULT_TESTIMONIALS);
   const [selectedPrint, setSelectedPrint] = useState<TestimonialItem | null>(null);
+  const [activeIndex, setActiveIndex] = useState<number>(0);
+  const [isHovered, setIsHovered] = useState<boolean>(false);
+
+  const trackRef = useRef<HTMLDivElement>(null);
 
   // Carregar imagens do localStorage caso tenham sido customizadas no admin
   useEffect(() => {
@@ -73,228 +87,381 @@ export const TestimonialsSection: React.FC = () => {
       ? testimonials
       : testimonials.filter((t) => t.category === activeCategory);
 
+  // Rolagem suave manual
+  const handleScrollStep = (direction: "left" | "right") => {
+    if (trackRef.current) {
+      const cardWidth = 360;
+      trackRef.current.scrollBy({
+        left: direction === "left" ? -cardWidth : cardWidth,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  // Rolagem para índice específico
+  const handleScrollToIndex = (index: number) => {
+    if (trackRef.current) {
+      const cardWidth = 360;
+      trackRef.current.scrollTo({
+        left: index * cardWidth,
+        behavior: "smooth",
+      });
+      setActiveIndex(index);
+    }
+  };
+
+  // Monitorar rolagem para atualizar bolinhas do indicador
+  const onTrackScroll = () => {
+    if (trackRef.current) {
+      const cardWidth = 360;
+      const idx = Math.round(trackRef.current.scrollLeft / cardWidth);
+      setActiveIndex(Math.max(0, Math.min(idx, filteredTestimonials.length - 1)));
+    }
+  };
+
+  // Esteira horizontal automática (pausa quando o mouse está por cima)
+  useEffect(() => {
+    if (isHovered || filteredTestimonials.length <= 1) return;
+
+    const interval = setInterval(() => {
+      if (trackRef.current) {
+        const { scrollLeft, scrollWidth, clientWidth } = trackRef.current;
+        const cardWidth = 360;
+        if (scrollLeft + clientWidth >= scrollWidth - 15) {
+          trackRef.current.scrollTo({ left: 0, behavior: "smooth" });
+        } else {
+          trackRef.current.scrollBy({ left: cardWidth, behavior: "smooth" });
+        }
+      }
+    }, 4500);
+
+    return () => clearInterval(interval);
+  }, [isHovered, filteredTestimonials.length]);
+
   return (
     <section
       id="confraria-em-acao"
-      className="py-16 sm:py-20 bg-[#0A1122] text-white border-b border-slate-800 relative overflow-hidden"
+      className="py-14 sm:py-20 bg-gradient-to-b from-[#F5F8F6] via-[#EDF4EF] to-[#E6EFE9] text-slate-900 border-y border-[#D1E0D6] relative overflow-hidden"
     >
-      {/* Luz ambiente sutil de fundo */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-96 h-96 bg-[#A31E22]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-72 h-72 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
+      {/* Luz ambiente suave em tons claros de esmeralda WhatsApp */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-72 bg-[#25D366]/12 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-10 w-96 h-96 bg-[#128C7E]/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Cabeçalho da Seção */}
-        <div className="text-center max-w-2xl mx-auto mb-10 sm:mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 text-xs font-mono font-bold uppercase tracking-wider mb-3 shadow-xs">
-            <Users className="w-3.5 h-3.5 text-amber-300" />
-            <span>CONFRARIA EUROPA EM AÇÃO</span>
+        {/* Cabeçalho da Seção em Fundo Claro e Alto Contraste */}
+        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-11">
+          {/* Badge Chamativo - Lead percebe imediatamente que são depoimentos */}
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#25D366]/20 border border-[#25D366]/60 text-[#075E54] text-xs font-mono font-black uppercase tracking-wider mb-3 shadow-xs">
+            <WhatsAppBrandIcon className="w-4 h-4 text-[#128C7E]" />
+            <span>DEPOIMENTOS & PROVAS REAIS NO WHATSAPP</span>
           </div>
-          <h2 className="font-serif-brand text-2xl sm:text-4xl font-bold text-white leading-tight mb-3">
-            Quem assiste, entende que a travessia é real.
+
+          <h2 className="font-serif-brand text-2xl sm:text-4xl font-extrabold text-[#0F172A] leading-tight mb-3">
+            O que dizem os membros da Confraria que já deram o primeiro passo?
           </h2>
-          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed max-w-xl mx-auto">
-            Prints e relatos reais de alunos e participantes que acompanham Vitor Diorranes e decidiram planejar a mudança de vida e geração com o Esquadrão COD-E.
+
+          <p className="text-sm sm:text-base text-slate-700 leading-relaxed max-w-2xl mx-auto font-medium">
+            Prints 100% autênticos de conversas reais no WhatsApp com alunos e famílias que decidiram planejar a mudança de vida e geração para a Espanha com o Esquadrão COD-E.
           </p>
 
-          {/* Filtros de Categoria */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-6">
+          {/* Filtros em Estilo WhatsApp Tabs Claros */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mt-5">
             <button
-              onClick={() => setActiveCategory("todos")}
-              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+              onClick={() => {
+                setActiveCategory("todos");
+                setActiveIndex(0);
+                if (trackRef.current) trackRef.current.scrollTo({ left: 0, behavior: "smooth" });
+              }}
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                 activeCategory === "todos"
-                  ? "bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/20"
-                  : "bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white"
+                  ? "bg-[#008069] text-white shadow-md shadow-[#008069]/30 ring-2 ring-[#008069]/40"
+                  : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 shadow-xs"
               }`}
             >
-              <span>Todos os Prints Reais ({testimonials.length})</span>
+              <WhatsAppBrandIcon className="w-3.5 h-3.5 text-emerald-500" />
+              <span>Todos os Depoimentos ({testimonials.length})</span>
             </button>
             <button
-              onClick={() => setActiveCategory("familia")}
-              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+              onClick={() => {
+                setActiveCategory("familia");
+                setActiveIndex(0);
+                if (trackRef.current) trackRef.current.scrollTo({ left: 0, behavior: "smooth" });
+              }}
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                 activeCategory === "familia"
-                  ? "bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/20"
-                  : "bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white"
+                  ? "bg-[#008069] text-white shadow-md shadow-[#008069]/30 ring-2 ring-[#008069]/40"
+                  : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 shadow-xs"
               }`}
             >
-              <span>Planejamento Familiar (2)</span>
+              <span>Planejamento Familiar</span>
             </button>
             <button
-              onClick={() => setActiveCategory("transicao")}
-              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+              onClick={() => {
+                setActiveCategory("transicao");
+                setActiveIndex(0);
+                if (trackRef.current) trackRef.current.scrollTo({ left: 0, behavior: "smooth" });
+              }}
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                 activeCategory === "transicao"
-                  ? "bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/20"
-                  : "bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white"
+                  ? "bg-[#008069] text-white shadow-md shadow-[#008069]/30 ring-2 ring-[#008069]/40"
+                  : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 shadow-xs"
               }`}
             >
-              <span>Transição Portugal / Espanha (1)</span>
+              <span>Transição Europa</span>
             </button>
             <button
-              onClick={() => setActiveCategory("estrategia")}
-              className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer flex items-center gap-1.5 ${
+              onClick={() => {
+                setActiveCategory("estrategia");
+                setActiveIndex(0);
+                if (trackRef.current) trackRef.current.scrollTo({ left: 0, behavior: "smooth" });
+              }}
+              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
                 activeCategory === "estrategia"
-                  ? "bg-amber-400 text-slate-950 font-bold shadow-md shadow-amber-400/20"
-                  : "bg-slate-800/80 text-slate-300 hover:bg-slate-700 hover:text-white"
+                  ? "bg-[#008069] text-white shadow-md shadow-[#008069]/30 ring-2 ring-[#008069]/40"
+                  : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 shadow-xs"
               }`}
             >
-              <span>Live & Estratégia (3)</span>
+              <span>Live & Estratégia</span>
             </button>
           </div>
         </div>
 
-        {/* Grid de Depoimentos com a Imagem Original e Moldura Real do WhatsApp */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-14">
-          {filteredTestimonials.map((item) => {
-            const currentImg = getTestimonialImage(item.id, item.defaultImage);
-            return (
-              <div
-                key={item.id}
-                className="bg-[#0D1527] border border-slate-700/80 hover:border-emerald-400/60 rounded-2xl p-4 sm:p-5 shadow-xl flex flex-col justify-between relative group transition-all duration-300 hover:shadow-2xl hover:-translate-y-1"
-              >
-                <div>
-                  {/* Cabeçalho do Card estilo WhatsApp Oficial */}
-                  <div className="flex items-center justify-between gap-2.5 mb-3 pb-2.5 border-b border-slate-800">
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <div
-                        className={`w-9 h-9 rounded-full bg-gradient-to-br ${item.avatarBg} p-0.5 shadow-md flex items-center justify-center shrink-0 border border-emerald-400/40`}
-                      >
-                        <div className="w-full h-full rounded-full bg-[#0E1729] flex items-center justify-center text-amber-200 font-bold text-xs font-mono">
-                          {item.initials}
-                        </div>
-                      </div>
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-1.5">
-                          <h4 className="text-sm font-bold text-white truncate">
-                            {item.name}
-                          </h4>
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400 shrink-0" />
-                        </div>
-                        <div className="flex items-center gap-1 text-[10px] text-slate-400">
-                          <span className="truncate">{item.location}</span>
-                          <span>·</span>
-                          <span className="text-emerald-400 font-mono font-semibold">
-                            {item.time}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
+        {/* BARRA SUPERIOR DA ESTEIRA: STATUS DE VERIFICAÇÃO + NAVEGAÇÃO */}
+        <div className="flex items-center justify-between gap-3 mb-3 px-1">
+          <div className="flex items-center gap-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse" />
+            <span className="font-mono text-xs text-[#075E54] font-bold flex items-center gap-1.5">
+              <Lock className="w-3.5 h-3.5 text-[#128C7E]" />
+              Conversas Autênticas Verificadas no WhatsApp
+            </span>
+            <span className="hidden sm:inline text-slate-400">·</span>
+            <span className="hidden sm:inline text-slate-600 text-xs font-medium">
+              👉 Deslize para o lado para ver todos os depoimentos
+            </span>
+          </div>
 
-                    <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 text-[10px] font-mono font-bold shrink-0">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      Print Real
-                    </span>
-                  </div>
-
-                  {/* IMAGEM ORIGINAL DO DEPOIMENTO / WHATSAPP SCREENSHOT REAL */}
-                  <div
-                    onClick={() => setSelectedPrint(item)}
-                    className="relative rounded-xl overflow-hidden border border-slate-700/80 bg-[#0B141A] shadow-inner mb-3.5 cursor-pointer group/img transition-all hover:border-emerald-400/70"
-                    title="Clique para examinar o print original em tela cheia"
-                  >
-                    {/* Barra de Status estilo WhatsApp Dark */}
-                    <div className="bg-[#1F2C34] px-3 py-1.5 flex items-center justify-between text-[10px] text-slate-300 border-b border-slate-800">
-                      <div className="flex items-center gap-1.5 font-mono text-[10px] text-emerald-400">
-                        <MessageCircle className="w-3 h-3 text-emerald-400" />
-                        <span>Conversa WhatsApp</span>
-                      </div>
-                      <span className="text-slate-400 font-mono text-[9px]">
-                        Toque para ampliar
-                      </span>
-                    </div>
-
-                    {/* Foto Real do WhatsApp */}
-                    <div className="relative bg-[#070D18] flex items-center justify-center max-h-60 overflow-hidden">
-                      <img
-                        src={currentImg}
-                        alt={`Print original do depoimento de ${item.name}`}
-                        referrerPolicy="no-referrer"
-                        className="w-full h-auto object-cover object-top transition-transform duration-300 group-hover/img:scale-[1.03]"
-                      />
-                    </div>
-
-                    {/* Overlay de Ampliação */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end justify-center pb-3">
-                      <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1F2C34] border border-emerald-400/60 text-emerald-300 text-xs font-semibold shadow-lg">
-                        <ZoomIn className="w-3.5 h-3.5 text-emerald-300" />
-                        <span>Ver print original em alta resolução</span>
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Citação em Destaque */}
-                  <div className="bg-[#121E36]/80 rounded-xl p-3 border border-slate-800/80 mb-2">
-                    <p className="font-serif-brand text-xs sm:text-sm text-slate-100 italic leading-relaxed">
-                      &ldquo;{item.quote}&rdquo;
-                    </p>
-                  </div>
-                </div>
-
-                {/* Rodapé do Card */}
-                <div className="pt-2.5 border-t border-slate-800/90 flex items-center justify-between text-[11px]">
-                  <span className="inline-flex items-center gap-1.5 text-slate-400 text-[10px] font-mono">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>{item.badge}</span>
-                  </span>
-                  <button
-                    onClick={() => setSelectedPrint(item)}
-                    className="text-emerald-400 hover:text-emerald-300 text-[11px] font-semibold inline-flex items-center gap-1 cursor-pointer transition-colors"
-                  >
-                    <span>Ampliar print</span>
-                    <ExternalLink className="w-3 h-3" />
-                  </button>
-                </div>
-              </div>
-            );
-          })}
+          {/* Botões de Navegação da Esteira */}
+          <div className="flex items-center gap-1.5">
+            <button
+              onClick={() => handleScrollStep("left")}
+              aria-label="Depoimento anterior"
+              className="w-8 h-8 rounded-full bg-white hover:bg-[#008069] hover:text-white text-[#075E54] border border-[#B8D5C2] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
+            >
+              <ChevronLeft className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => handleScrollStep("right")}
+              aria-label="Próximo depoimento"
+              className="w-8 h-8 rounded-full bg-white hover:bg-[#008069] hover:text-white text-[#075E54] border border-[#B8D5C2] flex items-center justify-center transition-all cursor-pointer shadow-xs active:scale-95"
+            >
+              <ChevronRight className="w-4 h-4" />
+            </button>
+          </div>
         </div>
 
-        {/* Bloco de "Prova de Comunidade Ativa" */}
-        <div className="bg-[#0D1629] border border-slate-700/80 rounded-2xl p-6 sm:p-8 shadow-2xl relative">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6 pb-4 border-b border-slate-800">
-            <div className="flex items-center gap-2.5">
-              <span className="relative flex h-3 w-3">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-                <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500" />
+        {/* ESTEIRA HORIZONTAL DE DEPOIMENTOS EM FUNDO CLARO E LIMPO */}
+        <div
+          className="relative group/conveyor"
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+        >
+          {/* Pista de rolagem horizontal */}
+          <div
+            ref={trackRef}
+            onScroll={onTrackScroll}
+            className="flex gap-4 sm:gap-5 overflow-x-auto pb-4 pt-1 px-1 scroll-smooth snap-x snap-mandatory scrollbar-none"
+            style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+          >
+            {filteredTestimonials.map((item, index) => {
+              const currentImg = getTestimonialImage(item.id, item.defaultImage);
+              return (
+                <div
+                  key={item.id}
+                  className="w-[320px] sm:w-[360px] shrink-0 snap-start bg-white border-2 border-[#128C7E]/25 hover:border-[#25D366] rounded-2xl p-4 shadow-lg hover:shadow-2xl flex flex-col justify-between transition-all duration-300 hover:-translate-y-1 relative"
+                >
+                  <div>
+                    {/* Topo do Card: Etiqueta de Identificação de Depoimento WhatsApp */}
+                    <div className="flex items-center justify-between gap-2 mb-2.5 pb-2 border-b border-slate-100">
+                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md bg-[#25D366]/15 border border-[#25D366]/40 text-[#075E54] text-[10px] font-mono font-black uppercase tracking-wider">
+                        <WhatsAppBrandIcon className="w-3 h-3 text-[#128C7E]" />
+                        Depoimento #{index + 1}
+                      </span>
+                      <div className="flex items-center gap-0.5 text-amber-500">
+                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
+                      </div>
+                    </div>
+
+                    {/* Cabeçalho Verde Oficial do WhatsApp */}
+                    <div className="bg-[#008069] -mx-4 px-4 py-2.5 flex items-center justify-between gap-2 mb-3 shadow-xs">
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        {/* Avatar com status ativo */}
+                        <div
+                          className={`w-9 h-9 rounded-full bg-gradient-to-br ${item.avatarBg} p-0.5 shadow-sm flex items-center justify-center shrink-0 border-2 border-white relative`}
+                        >
+                          <div className="w-full h-full rounded-full bg-white flex items-center justify-center text-[#075E54] font-black text-xs font-mono">
+                            {item.initials}
+                          </div>
+                          {/* Ponto verde de online */}
+                          <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-[#25D366] border-2 border-white" />
+                        </div>
+
+                        <div className="min-w-0 text-white">
+                          <div className="flex items-center gap-1">
+                            <h4 className="text-xs sm:text-sm font-bold text-white truncate leading-tight">
+                              {item.name}
+                            </h4>
+                            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-200 shrink-0" />
+                          </div>
+                          <div className="flex items-center gap-1 text-[10px] text-emerald-100 font-mono">
+                            <span className="truncate">{item.location}</span>
+                            <span>·</span>
+                            <span>{item.time}</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Tag Verificado */}
+                      <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-white/20 text-white text-[10px] font-mono font-bold shrink-0">
+                        <WhatsAppBrandIcon className="w-2.5 h-2.5 text-white" />
+                        Verificado
+                      </span>
+                    </div>
+
+                    {/* Print Original no WhatsApp (Toque para Ampliar) */}
+                    <div
+                      onClick={() => setSelectedPrint(item)}
+                      className="relative rounded-xl overflow-hidden border border-slate-200 bg-[#EFEAE2] shadow-inner mb-3 cursor-pointer group/img transition-all hover:border-[#008069]"
+                      title="Clique para examinar o print original em tamanho grande"
+                    >
+                      {/* Barra de Status estilo WhatsApp Claro */}
+                      <div className="bg-[#F0F2F5] px-3 py-1 flex items-center justify-between text-[10px] text-slate-700 border-b border-slate-200">
+                        <div className="flex items-center gap-1.5 font-mono text-[10px] text-[#075E54] font-bold">
+                          <WhatsAppBrandIcon className="w-3 h-3 text-[#128C7E]" />
+                          <span>Conversa no WhatsApp</span>
+                        </div>
+                        <span className="text-slate-600 font-mono text-[9px] flex items-center gap-1 font-semibold">
+                          <ZoomIn className="w-2.5 h-2.5 text-[#008069]" />
+                          Ampliar
+                        </span>
+                      </div>
+
+                      {/* Imagem Real do WhatsApp */}
+                      <div className="relative bg-[#EFEAE2] flex items-center justify-center h-44 overflow-hidden">
+                        <img
+                          src={currentImg}
+                          alt={`Print original do depoimento de ${item.name}`}
+                          referrerPolicy="no-referrer"
+                          className="w-full h-full object-cover object-top transition-transform duration-300 group-hover/img:scale-[1.03]"
+                        />
+                      </div>
+
+                      {/* Overlay ao passar o mouse */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-end justify-center pb-2.5">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#008069] text-white text-xs font-bold shadow-lg">
+                          <ZoomIn className="w-3.5 h-3.5" />
+                          <span>Ver print completo</span>
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Balão de Mensagem Estilo WhatsApp Outgoing Verde Icônico (#D9FDD3) */}
+                    <div className="bg-[#D9FDD3] rounded-xl rounded-tr-sm p-3 border border-[#B2E69E] shadow-xs relative mb-2">
+                      <p className="text-xs sm:text-sm text-slate-900 font-medium leading-relaxed">
+                        &ldquo;{item.quote}&rdquo;
+                      </p>
+                      <div className="flex items-center justify-end gap-1 text-[10px] text-slate-600 mt-1 font-mono">
+                        <span>{item.time}</span>
+                        {/* Double Check Azul Oficial do WhatsApp (#53BDEB) */}
+                        <CheckCheck className="w-3.5 h-3.5 text-[#53BDEB]" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Rodapé do Card */}
+                  <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-[11px]">
+                    <span className="inline-flex items-center gap-1 text-slate-600 text-[10px] font-mono font-medium">
+                      <ShieldCheck className="w-3.5 h-3.5 text-[#128C7E]" />
+                      <span>{item.badge}</span>
+                    </span>
+                    <button
+                      onClick={() => setSelectedPrint(item)}
+                      className="text-[#075E54] hover:text-[#008069] font-bold inline-flex items-center gap-1 cursor-pointer transition-colors"
+                    >
+                      <span>Abrir print</span>
+                      <ExternalLink className="w-3 h-3" />
+                    </button>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Indicadores de Posição da Esteira (Dots) */}
+          <div className="flex items-center justify-center gap-1.5 mt-3">
+            {filteredTestimonials.map((_, idx) => (
+              <button
+                key={idx}
+                onClick={() => handleScrollToIndex(idx)}
+                aria-label={`Ir para depoimento ${idx + 1}`}
+                className={`h-2 rounded-full transition-all cursor-pointer ${
+                  activeIndex === idx
+                    ? "w-6 bg-[#008069]"
+                    : "w-2 bg-slate-300 hover:bg-slate-400"
+                }`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Bloco de Reações ao Vivo no Chat em Tema Claro e Nítido */}
+        <div className="mt-8 bg-white border-2 border-[#128C7E]/20 rounded-2xl p-4 sm:p-6 shadow-md relative">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100">
+            <div className="flex items-center gap-2">
+              <span className="relative flex h-2.5 w-2.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#25D366]" />
               </span>
               <div>
-                <h3 className="font-serif-brand text-base sm:text-lg font-bold text-white flex items-center gap-2">
-                  <span>Reações ao Vivo na Comunidade</span>
-                  <Sparkles className="w-4 h-4 text-amber-400" />
+                <h3 className="text-xs sm:text-sm font-bold text-[#0F172A] flex items-center gap-1.5 font-mono">
+                  <span>Reações ao Vivo no Chat da Confraria</span>
+                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
                 </h3>
-                <p className="text-xs text-slate-400">
-                  Mensagens instantâneas registradas no chat durante as nossas lives e transmissões
-                </p>
               </div>
             </div>
 
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/90 text-slate-300 text-xs font-mono">
-              <MessageCircle className="w-3.5 h-3.5 text-amber-300" />
-              <span>Burburinho da Comunidade</span>
+            <div className="text-[11px] text-slate-600 font-mono flex items-center gap-1 font-semibold">
+              <WhatsAppBrandIcon className="w-3.5 h-3.5 text-[#128C7E]" />
+              <span>Mensagens espontâneas nos encontros semanais</span>
             </div>
           </div>
 
-          {/* Grid de Balões de Chat ao Vivo */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3.5">
+          {/* Grid de Reações Claras */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
             {LIVE_CHAT_REACTIONS.map((rx, i) => (
               <div
                 key={i}
-                className="bg-[#142038] hover:bg-[#182744] border border-slate-700/60 rounded-xl p-3.5 transition-all duration-200 flex flex-col justify-between"
+                className="bg-[#F8FAF9] hover:bg-[#F0F5F2] border border-[#D5E4D8] rounded-xl p-2.5 transition-all duration-200 flex flex-col justify-between shadow-xs"
               >
-                <div className="flex items-center justify-between mb-2">
-                  <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded-full bg-slate-700 flex items-center justify-center text-[10px] font-bold text-amber-200">
+                <div className="flex items-center justify-between mb-1.5">
+                  <div className="flex items-center gap-1.5">
+                    <div className="w-5 h-5 rounded-full bg-[#008069] flex items-center justify-center text-[9px] font-bold text-white">
                       {rx.sender.slice(0, 1)}
                     </div>
-                    <span className="text-xs font-semibold text-slate-200">
+                    <span className="text-[11px] font-bold text-slate-800">
                       {rx.sender}
                     </span>
                   </div>
-                  <span className={`text-[9px] px-2 py-0.5 rounded-full border font-mono ${rx.tagColor}`}>
+                  <span className="text-[9px] px-1.5 py-0.2 rounded-full font-mono bg-[#25D366]/20 text-[#075E54] border border-[#25D366]/30 font-bold">
                     Ao vivo
                   </span>
                 </div>
 
-                <div className="bg-[#0B1222] rounded-lg p-2.5 border border-slate-800">
-                  <p className="text-xs text-amber-100 font-medium leading-snug">
+                <div className="bg-white rounded-lg p-2 border border-slate-200 shadow-2xs">
+                  <p className="text-[11px] text-slate-800 font-medium leading-snug">
                     &ldquo;{rx.text}&rdquo;
                   </p>
                 </div>
@@ -302,72 +469,80 @@ export const TestimonialsSection: React.FC = () => {
             ))}
           </div>
 
-          {/* Micro-aviso de privacidade */}
-          <div className="mt-4 pt-3 flex flex-wrap items-center justify-between gap-2 text-[11px] text-slate-400 border-t border-slate-800/80">
-            <span className="flex items-center gap-1.5">
-              <Heart className="w-3 h-3 text-rose-400" />
-              <span>Ambiente exclusivo de acolhimento e suporte para futuros residentes na Espanha</span>
+          {/* Rodapé de Confiança */}
+          <div className="mt-3 pt-2.5 flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-500 border-t border-slate-100">
+            <span className="flex items-center gap-1 font-medium">
+              <MessageCircle className="w-3 h-3 text-[#008069]" />
+              <span>Depoimentos reais colhidos da comunidade do Código Europa</span>
             </span>
-            <span className="text-slate-500 font-mono text-[10px]">
-              🔒 Telefones e dados privados omitidos para preservar a segurança dos participantes
+            <span className="font-mono text-[#075E54] font-bold flex items-center gap-1">
+              <Lock className="w-2.5 h-2.5" />
+              Telefones protegidos conforme diretrizes de privacidade
             </span>
           </div>
         </div>
       </div>
 
-      {/* MODAL LIGHTBOX PARA VER O PRINT ORIGINAL EM TAMANHO GRANDE */}
+      {/* MODAL LIGHTBOX PARA VER O PRINT ORIGINAL EM TELA CHEIA (TEMA CLARO WHATSAPP) */}
       {selectedPrint && (
         <div
-          className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in"
+          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 animate-in fade-in"
           onClick={() => setSelectedPrint(null)}
         >
           <div
-            className="bg-[#0B141A] border-2 border-slate-700 rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl relative"
+            className="bg-white border-2 border-[#008069] rounded-2xl max-w-lg w-full overflow-hidden shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Barra Superior do Modal */}
-            <div className="bg-[#1F2C34] px-4 py-3 border-b border-slate-700 flex items-center justify-between">
+            {/* Barra Superior do Modal estilo WhatsApp Verde Clássico */}
+            <div className="bg-[#008069] px-4 py-3 flex items-center justify-between text-white">
               <div className="flex items-center gap-2.5">
-                <div className="w-7 h-7 rounded-full bg-emerald-600 flex items-center justify-center text-white text-xs font-bold">
+                <div className="w-8 h-8 rounded-full bg-white text-[#008069] flex items-center justify-center text-xs font-bold shadow-xs">
                   {selectedPrint.initials}
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-white leading-tight">
-                    {selectedPrint.name}
+                  <h4 className="text-sm font-bold text-white leading-tight flex items-center gap-1.5">
+                    <span>{selectedPrint.name}</span>
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-200" />
                   </h4>
-                  <p className="text-[10px] text-emerald-400 font-mono">
-                    Print Original · {selectedPrint.badge}
+                  <p className="text-[10px] text-emerald-100 font-mono flex items-center gap-1">
+                    <WhatsAppBrandIcon className="w-2.5 h-2.5 text-white" />
+                    Print Original do WhatsApp · {selectedPrint.badge}
                   </p>
                 </div>
               </div>
 
               <button
                 onClick={() => setSelectedPrint(null)}
-                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center transition-colors cursor-pointer"
+                className="w-8 h-8 rounded-full bg-black/20 hover:bg-black/30 text-white flex items-center justify-center transition-colors cursor-pointer"
                 title="Fechar"
               >
                 <X className="w-4 h-4" />
               </button>
             </div>
 
-            {/* Imagem Ampliada */}
-            <div className="p-3 bg-[#0B141A] max-h-[75vh] overflow-y-auto flex items-center justify-center">
+            {/* Imagem Ampliada do Print */}
+            <div className="p-3 bg-[#EFEAE2] max-h-[72vh] overflow-y-auto flex items-center justify-center">
               <img
                 src={getTestimonialImage(selectedPrint.id, selectedPrint.defaultImage)}
                 alt={`Print completo de ${selectedPrint.name}`}
                 referrerPolicy="no-referrer"
-                className="w-full h-auto rounded-lg shadow-lg border border-slate-800"
+                className="w-full h-auto rounded-lg shadow-lg border border-slate-300"
               />
             </div>
 
-            {/* Rodapé com Citação e Proteção de Privacidade */}
-            <div className="bg-[#121B22] p-4 border-t border-slate-800 text-xs text-slate-300 space-y-1">
-              <p className="italic text-amber-200">
-                &ldquo;{selectedPrint.quote}&rdquo;
-              </p>
-              <div className="flex items-center justify-between text-[10px] text-slate-400 pt-1 font-mono">
-                <span>🛡️ Dados sensíveis protegidos</span>
-                <span className="text-emerald-400">Verificação Confraria Europa</span>
+            {/* Rodapé com Citação e Verificação */}
+            <div className="bg-slate-50 p-3.5 border-t border-slate-200 text-xs text-slate-700 space-y-1">
+              <div className="bg-[#D9FDD3] p-2.5 rounded-lg border border-[#B2E69E]">
+                <p className="italic text-slate-900 font-medium">
+                  &ldquo;{selectedPrint.quote}&rdquo;
+                </p>
+              </div>
+              <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1 font-mono">
+                <span className="flex items-center gap-1 text-[#075E54] font-bold">
+                  <Lock className="w-3 h-3 text-[#128C7E]" />
+                  Print verificado pela Confraria Código Europa
+                </span>
+                <span>{selectedPrint.time} ✓✓</span>
               </div>
             </div>
           </div>

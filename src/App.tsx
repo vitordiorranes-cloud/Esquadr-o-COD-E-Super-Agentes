@@ -114,16 +114,20 @@ export default function App() {
               <span>O Esquadrão Código Europa · COD-E</span>
             </div>
 
-            <h1 className="font-serif-brand text-3xl sm:text-5xl lg:text-6xl font-black text-[#13213F] tracking-tight leading-[1.1]">
-              Morar na Espanha com trabalho, renda em euro e cidadania europeia em 2 anos.
+            <h1 className="font-serif-brand text-3xl sm:text-5xl lg:text-6xl font-black text-[#13213F] tracking-tight leading-[1.15]">
+              Não é uma viagem.<br />
+              É uma mudança de vida.<br />
+              <span className="text-[#A31E22]">E de geração.</span>
             </h1>
 
-            <p className="font-serif-brand text-base sm:text-xl text-[#3A352F] italic font-semibold max-w-2xl mx-auto pt-1">
-              “Não é sorte. É inteligência artificial aplicada com a legislação oficial espanhola.”
+            <p className="text-base sm:text-lg text-[#554E45] leading-relaxed max-w-2xl mx-auto pt-1">
+              A escola do seu filho. A rua por onde ele volta a pé à noite sem você olhar no retrovisor com medo. O passaporte que ele carrega no bolso para 27 países da União Europeia.
             </p>
 
-            <div className="inline-block px-4 py-1.5 rounded-full bg-amber-400/20 border border-amber-500/40 text-[#854D0E] text-xs sm:text-sm font-mono font-bold uppercase tracking-wider mt-1">
-              ✨ Um passo de coragem pode mudar gerações.
+            <div className="bg-white border-l-4 border-[#A31E22] px-5 py-3.5 rounded-r-xl max-w-xl mx-auto shadow-xs border-y border-r border-[#E8E2D5] mt-2">
+              <p className="font-serif-brand text-base sm:text-lg text-[#13213F] font-bold italic">
+                &ldquo;Um voo dura onze horas. Essa decisão dura três gerações. Seja o herói da sua própria jornada.&rdquo;
+              </p>
             </div>
           </div>
 

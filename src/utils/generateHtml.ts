@@ -226,7 +226,7 @@ export function generateHtml(S: string = "https://pay.cakto.com.br/3e3f9px_10938
 
       <div style="background: #FFFFFF; border-left: 4px solid var(--red); padding: 14px 20px; border-radius: 8px; margin: 0 auto 30px; max-width: 700px; box-shadow: 0 4px 12px rgba(0,0,0,0.03);">
         <p style="font-family: Georgia, serif; font-size: 17px; color: var(--navy); font-weight: 700; font-style: italic;">
-          &ldquo;Um voo dura 11 horas. Um passo de coragem pode mudar gerações.&rdquo;
+          &ldquo;Um voo dura onze horas. Essa decisão dura três gerações. Seja o herói da sua própria jornada.&rdquo;
         </p>
       </div>
 
@@ -623,317 +623,368 @@ export function generateHtml(S: string = "https://pay.cakto.com.br/3e3f9px_10938
     </div>
   </section>
 
-  <!-- CONFRARIA EUROPA EM AÇÃO (DEPOIMENTOS & REAÇÕES AO VIVO) -->
-  <section style="padding: 70px 0; background: #0A1122; color: #FFFFFF; border-bottom: 1px solid #1E293B;" id="confraria-em-acao">
+  <!-- CONFRARIA EUROPA EM AÇÃO (DEPOIMENTOS EM ESTEIRA HORIZONTAL ESTILO WHATSAPP CLARO) -->
+  <section style="padding: 60px 0; background: #F5F8F6; color: #0F172A; border-top: 1px solid #D1E0D6; border-bottom: 1px solid #D1E0D6;" id="confraria-em-acao">
     <div class="container">
-      <div style="text-align: center; max-width: 650px; margin: 0 auto 50px auto;">
-        <div style="display: inline-block; background: rgba(245,158,11,0.1); border: 1px solid rgba(245,158,11,0.3); color: #FDE68A; font-size: 11px; font-family: monospace; font-weight: bold; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; margin-bottom: 12px;">
-          👥 CONFRARIA EUROPA EM AÇÃO
+      <div style="text-align: center; max-width: 680px; margin: 0 auto 35px auto;">
+        <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(37,211,102,0.18); border: 1px solid rgba(37,211,102,0.5); color: #075E54; font-size: 11px; font-family: monospace; font-weight: 800; text-transform: uppercase; padding: 5px 16px; border-radius: 20px; margin-bottom: 12px;">
+          💬 DEPOIMENTOS & PROVAS REAIS NO WHATSAPP
         </div>
-        <h2 style="font-size: 32px; color: #FFFFFF; font-weight: bold; line-height: 1.25; margin-bottom: 10px;">
-          Quem assiste, entende que a travessia é possível.
+        <h2 style="font-size: 32px; color: #0F172A; font-weight: 800; line-height: 1.25; margin-bottom: 10px;">
+          O que dizem os membros da Confraria que já deram o primeiro passo?
         </h2>
-        <p style="font-size: 14px; color: #94A3B8; line-height: 1.6;">
-          Depoimentos reais de quem participou dos nossos encontros e deu o primeiro passo na rota de coragem e planejamento para a Espanha.
+        <p style="font-size: 15px; color: #475569; line-height: 1.6; margin-bottom: 8px;">
+          Prints autênticos das conversas no WhatsApp com alunos e famílias que decidiram planejar a mudança de vida e geração para a Espanha com o Esquadrão COD-E.
         </p>
+        <div style="font-size: 12px; color: #075E54; font-family: monospace; font-weight: bold;">
+          👉 Arraste para o lado para ver todos os relatos na esteira
+        </div>
       </div>
 
-      <!-- Grid de Depoimentos com Prints Originais e Autenticidade (3 colunas desktop, 1 coluna mobile) -->
-      <div class="grid-3" style="margin-bottom: 40px;">
+      <!-- Esteira Horizontal de Depoimentos com Estilo WhatsApp Claro -->
+      <div style="display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 20px; -webkit-overflow-scrolling: touch; margin-bottom: 30px;">
         <!-- Depoimento 1: Cássio Guimarães -->
-        <div style="background: #0D1527; border: 1px solid #334155; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="flex: 0 0 320px; max-width: 320px; scroll-snap-align: start; background: #FFFFFF; border: 2px solid #C6E0CE; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 14px rgba(0,0,0,0.05);">
           <div>
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid #1E293B; padding-bottom: 10px;">
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="width: 38px; height: 38px; border-radius: 50%; background: #0E1729; border: 2px solid #2563EB; display: flex; align-items: center; justify-content: center; color: #93C5FD; font-weight: bold; font-family: monospace; font-size: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 10px; font-family: monospace; font-weight: bold; color: #075E54; background: rgba(37,211,102,0.15); padding: 2px 8px; border-radius: 6px;">
+                Depoimento #1
+              </span>
+              <span style="color: #F59E0B; font-size: 11px;">★★★★★</span>
+            </div>
+
+            <div style="background: #008069; color: #FFFFFF; padding: 8px 12px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: #FFFFFF; color: #008069; display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: monospace; font-size: 11px;">
                   CG
                 </div>
                 <div>
-                  <h4 style="font-size: 15px; color: #FFFFFF; font-weight: bold; margin: 0;">Cássio Guimarães</h4>
-                  <div style="font-size: 11px; color: #94A3B8;">Brasil · <span style="color: #60A5FA;">Família & Mudança</span></div>
+                  <h4 style="font-size: 13px; color: #FFFFFF; font-weight: bold; margin: 0;">Cássio Guimarães</h4>
+                  <div style="font-size: 10px; color: #D1FAE5;">Brasil · Família & Mudança</div>
                 </div>
               </div>
-              <span style="font-size: 10px; font-family: monospace; color: #34D399; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 12px;">
-                ● Print Real
+              <span style="font-size: 9px; font-family: monospace; color: #FFFFFF; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 10px;">
+                Verificado
               </span>
             </div>
 
             <!-- WhatsApp Real Print Container -->
-            <div style="background: #0B141A; border: 1px solid #1F2C34; border-radius: 12px; overflow: hidden; margin-bottom: 14px;">
-              <div style="background: #1F2C34; padding: 6px 10px; font-size: 10px; color: #25D366; font-family: monospace; display: flex; justify-content: space-between;">
+            <div style="background: #EFEAE2; border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden; margin-bottom: 12px;">
+              <div style="background: #F0F2F5; padding: 6px 10px; font-size: 10px; color: #075E54; font-family: monospace; font-weight: bold; display: flex; justify-content: space-between; border-bottom: 1px solid #CBD5E1;">
                 <span>💬 WhatsApp · 00:21</span>
-                <span style="color: #94A3B8;">Diagnóstico Europa</span>
+                <span style="color: #64748B;">Diagnóstico Europa</span>
               </div>
-              <img src="https://i.imgur.com/FaX8G9X.png" alt="Print Cássio Guimarães" style="width: 100%; height: auto; max-height: 220px; object-fit: cover; object-position: top; display: block;" loading="lazy">
+              <img src="https://i.imgur.com/FaX8G9X.png" alt="Print Cássio Guimarães" style="width: 100%; height: 180px; object-fit: cover; object-position: top; display: block;" loading="lazy">
             </div>
 
-            <div style="background: #121E36; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;">
-              <p style="font-style: italic; font-size: 13px; color: #E2E8F0; line-height: 1.5; margin: 0;">
+            <div style="background: #D9FDD3; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; border: 1px solid #B2E69E;">
+              <p style="font-size: 13px; color: #0F172A; line-height: 1.5; margin: 0; font-weight: 500;">
                 &ldquo;Bacana! Me estimulou, pois acredito que é a decisão mais acertada para a fase da vida familiar.&rdquo;
               </p>
+              <div style="text-align: right; font-size: 10px; color: #53BDEB; margin-top: 4px; font-family: monospace; font-weight: bold;">00:21 ✓✓</div>
             </div>
           </div>
-          <div style="font-size: 11px; color: #10B981; font-family: monospace; border-top: 1px solid #1E293B; padding-top: 10px; display: flex; justify-content: space-between;">
-            <span>● Print Original Preservado</span>
-            <span style="color: #94A3B8;">24 de ago.</span>
+          <div style="font-size: 11px; color: #075E54; font-family: monospace; font-weight: bold; border-top: 1px solid #E2E8F0; padding-top: 8px; display: flex; justify-content: space-between;">
+            <span>● Print WhatsApp Preservado</span>
+            <span style="color: #64748B;">24 de ago.</span>
           </div>
         </div>
 
         <!-- Depoimento 2: Ednara -->
-        <div style="background: #0D1527; border: 1px solid #334155; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="flex: 0 0 320px; max-width: 320px; scroll-snap-align: start; background: #FFFFFF; border: 2px solid #C6E0CE; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 14px rgba(0,0,0,0.05);">
           <div>
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid #1E293B; padding-bottom: 10px;">
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="width: 38px; height: 38px; border-radius: 50%; background: #0E1729; border: 2px solid #F59E0B; display: flex; align-items: center; justify-content: center; color: #FDE68A; font-weight: bold; font-family: monospace; font-size: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 10px; font-family: monospace; font-weight: bold; color: #075E54; background: rgba(37,211,102,0.15); padding: 2px 8px; border-radius: 6px;">
+                Depoimento #2
+              </span>
+              <span style="color: #F59E0B; font-size: 11px;">★★★★★</span>
+            </div>
+
+            <div style="background: #008069; color: #FFFFFF; padding: 8px 12px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: #FFFFFF; color: #008069; display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: monospace; font-size: 11px;">
                   ED
                 </div>
                 <div>
-                  <h4 style="font-size: 15px; color: #FFFFFF; font-weight: bold; margin: 0;">Ednara</h4>
-                  <div style="font-size: 11px; color: #94A3B8;">Brasil · <span style="color: #FDE68A;">Aluna Confraria</span></div>
+                  <h4 style="font-size: 13px; color: #FFFFFF; font-weight: bold; margin: 0;">Ednara</h4>
+                  <div style="font-size: 10px; color: #D1FAE5;">Brasil · Aluna Confraria</div>
                 </div>
               </div>
-              <span style="font-size: 10px; font-family: monospace; color: #34D399; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 12px;">
-                ● Print Real
+              <span style="font-size: 9px; font-family: monospace; color: #FFFFFF; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 10px;">
+                Verificado
               </span>
             </div>
 
             <!-- WhatsApp Real Print Container -->
-            <div style="background: #0B141A; border: 1px solid #1F2C34; border-radius: 12px; overflow: hidden; margin-bottom: 14px;">
-              <div style="background: #1F2C34; padding: 6px 10px; font-size: 10px; color: #25D366; font-family: monospace; display: flex; justify-content: space-between;">
+            <div style="background: #EFEAE2; border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden; margin-bottom: 12px;">
+              <div style="background: #F0F2F5; padding: 6px 10px; font-size: 10px; color: #075E54; font-family: monospace; font-weight: bold; display: flex; justify-content: space-between; border-bottom: 1px solid #CBD5E1;">
                 <span>💬 WhatsApp · 00:58</span>
-                <span style="color: #94A3B8;">Tira-Dúvidas</span>
+                <span style="color: #64748B;">Tira-Dúvidas</span>
               </div>
-              <img src="https://i.imgur.com/YvAxueY.png" alt="Print Ednara" style="width: 100%; height: auto; max-height: 220px; object-fit: cover; object-position: top; display: block;" loading="lazy">
+              <img src="https://i.imgur.com/YvAxueY.png" alt="Print Ednara" style="width: 100%; height: 180px; object-fit: cover; object-position: top; display: block;" loading="lazy">
             </div>
 
-            <div style="background: #121E36; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;">
-              <p style="font-style: italic; font-size: 13px; color: #E2E8F0; line-height: 1.5; margin: 0;">
+            <div style="background: #D9FDD3; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; border: 1px solid #B2E69E;">
+              <p style="font-size: 13px; color: #0F172A; line-height: 1.5; margin: 0; font-weight: 500;">
                 &ldquo;Ameiii. Muito obrigada Deu pra tirar bastante dúvidas&rdquo;
               </p>
+              <div style="text-align: right; font-size: 10px; color: #53BDEB; margin-top: 4px; font-family: monospace; font-weight: bold;">00:58 ✓✓</div>
             </div>
           </div>
-          <div style="font-size: 11px; color: #10B981; font-family: monospace; border-top: 1px solid #1E293B; padding-top: 10px; display: flex; justify-content: space-between;">
-            <span>● Print Original Preservado</span>
-            <span style="color: #94A3B8;">00:58 ✓✓</span>
+          <div style="font-size: 11px; color: #075E54; font-family: monospace; font-weight: bold; border-top: 1px solid #E2E8F0; padding-top: 8px; display: flex; justify-content: space-between;">
+            <span>● Print WhatsApp Preservado</span>
+            <span style="color: #64748B;">00:58 ✓✓</span>
           </div>
         </div>
 
         <!-- Depoimento 3: Aluna Portugal -->
-        <div style="background: #0D1527; border: 1px solid #334155; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="flex: 0 0 320px; max-width: 320px; scroll-snap-align: start; background: #FFFFFF; border: 2px solid #C6E0CE; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 14px rgba(0,0,0,0.05);">
           <div>
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid #1E293B; padding-bottom: 10px;">
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="width: 38px; height: 38px; border-radius: 50%; background: #0E1729; border: 2px solid #10B981; display: flex; align-items: center; justify-content: center; color: #A7F3D0; font-weight: bold; font-family: monospace; font-size: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 10px; font-family: monospace; font-weight: bold; color: #075E54; background: rgba(37,211,102,0.15); padding: 2px 8px; border-radius: 6px;">
+                Depoimento #3
+              </span>
+              <span style="color: #F59E0B; font-size: 11px;">★★★★★</span>
+            </div>
+
+            <div style="background: #008069; color: #FFFFFF; padding: 8px 12px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: #FFFFFF; color: #008069; display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: monospace; font-size: 11px;">
                   PT
                 </div>
                 <div>
-                  <h4 style="font-size: 15px; color: #FFFFFF; font-weight: bold; margin: 0;">Aluna Confraria</h4>
-                  <div style="font-size: 11px; color: #94A3B8;">Portugal · <span style="color: #6EE7B7;">DDI +351</span></div>
+                  <h4 style="font-size: 13px; color: #FFFFFF; font-weight: bold; margin: 0;">Aluna Confraria</h4>
+                  <div style="font-size: 10px; color: #D1FAE5;">Portugal · DDI +351</div>
                 </div>
               </div>
-              <span style="font-size: 10px; font-family: monospace; color: #34D399; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 12px;">
-                ● Print Real
+              <span style="font-size: 9px; font-family: monospace; color: #FFFFFF; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 10px;">
+                Verificado
               </span>
             </div>
 
             <!-- WhatsApp Real Print Container -->
-            <div style="background: #0B141A; border: 1px solid #1F2C34; border-radius: 12px; overflow: hidden; margin-bottom: 14px;">
-              <div style="background: #1F2C34; padding: 6px 10px; font-size: 10px; color: #25D366; font-family: monospace; display: flex; justify-content: space-between;">
+            <div style="background: #EFEAE2; border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden; margin-bottom: 12px;">
+              <div style="background: #F0F2F5; padding: 6px 10px; font-size: 10px; color: #075E54; font-family: monospace; font-weight: bold; display: flex; justify-content: space-between; border-bottom: 1px solid #CBD5E1;">
                 <span>💬 WhatsApp · 23:23</span>
-                <span style="color: #94A3B8;">qui., 3 de set.</span>
+                <span style="color: #64748B;">qui., 3 de set.</span>
               </div>
-              <img src="https://i.imgur.com/sfxmw4k.png" alt="Print Aluna Portugal" style="width: 100%; height: auto; max-height: 220px; object-fit: cover; object-position: top; display: block;" loading="lazy">
+              <img src="https://i.imgur.com/sfxmw4k.png" alt="Print Aluna Portugal" style="width: 100%; height: 180px; object-fit: cover; object-position: top; display: block;" loading="lazy">
             </div>
 
-            <div style="background: #121E36; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;">
-              <p style="font-style: italic; font-size: 13px; color: #E2E8F0; line-height: 1.5; margin: 0;">
+            <div style="background: #D9FDD3; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; border: 1px solid #B2E69E;">
+              <p style="font-size: 13px; color: #0F172A; line-height: 1.5; margin: 0; font-weight: 500;">
                 &ldquo;Vamos juntos sim. Obrigada!!! Vai dar certo sim!! Tenho fé e foco nisso 🙏😊 Obrigada pelo apoio !!&rdquo;
               </p>
+              <div style="text-align: right; font-size: 10px; color: #53BDEB; margin-top: 4px; font-family: monospace; font-weight: bold;">23:23 ✓✓</div>
             </div>
           </div>
-          <div style="font-size: 11px; color: #10B981; font-family: monospace; border-top: 1px solid #1E293B; padding-top: 10px; display: flex; justify-content: space-between;">
-            <span>● Print Original Preservado</span>
-            <span style="color: #94A3B8;">23:23 ✓✓</span>
+          <div style="font-size: 11px; color: #075E54; font-family: monospace; font-weight: bold; border-top: 1px solid #E2E8F0; padding-top: 8px; display: flex; justify-content: space-between;">
+            <span>● Print WhatsApp Preservado</span>
+            <span style="color: #64748B;">23:23 ✓✓</span>
           </div>
         </div>
 
         <!-- Depoimento 4: Tatiana -->
-        <div style="background: #0D1527; border: 1px solid #334155; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="flex: 0 0 320px; max-width: 320px; scroll-snap-align: start; background: #FFFFFF; border: 2px solid #C6E0CE; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 14px rgba(0,0,0,0.05);">
           <div>
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid #1E293B; padding-bottom: 10px;">
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="width: 38px; height: 38px; border-radius: 50%; background: #0E1729; border: 2px solid #F43F5E; display: flex; align-items: center; justify-content: center; color: #FECDD3; font-weight: bold; font-family: monospace; font-size: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 10px; font-family: monospace; font-weight: bold; color: #075E54; background: rgba(37,211,102,0.15); padding: 2px 8px; border-radius: 6px;">
+                Depoimento #4
+              </span>
+              <span style="color: #F59E0B; font-size: 11px;">★★★★★</span>
+            </div>
+
+            <div style="background: #008069; color: #FFFFFF; padding: 8px 12px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: #FFFFFF; color: #008069; display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: monospace; font-size: 11px;">
                   TA
                 </div>
                 <div>
-                  <h4 style="font-size: 15px; color: #FFFFFF; font-weight: bold; margin: 0;">Tatiana</h4>
-                  <div style="font-size: 11px; color: #94A3B8;">Brasil · <span style="color: #FDA4AF;">Participante da Live</span></div>
+                  <h4 style="font-size: 13px; color: #FFFFFF; font-weight: bold; margin: 0;">Tatiana</h4>
+                  <div style="font-size: 10px; color: #D1FAE5;">Brasil · Participante Live</div>
                 </div>
               </div>
-              <span style="font-size: 10px; font-family: monospace; color: #34D399; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 12px;">
-                ● Print Real
+              <span style="font-size: 9px; font-family: monospace; color: #FFFFFF; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 10px;">
+                Verificado
               </span>
             </div>
 
             <!-- WhatsApp Real Print Container -->
-            <div style="background: #0B141A; border: 1px solid #1F2C34; border-radius: 12px; overflow: hidden; margin-bottom: 14px;">
-              <div style="background: #1F2C34; padding: 6px 10px; font-size: 10px; color: #25D366; font-family: monospace; display: flex; justify-content: space-between;">
+            <div style="background: #EFEAE2; border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden; margin-bottom: 12px;">
+              <div style="background: #F0F2F5; padding: 6px 10px; font-size: 10px; color: #075E54; font-family: monospace; font-weight: bold; display: flex; justify-content: space-between; border-bottom: 1px solid #CBD5E1;">
                 <span>💬 WhatsApp · 00:23</span>
-                <span style="color: #94A3B8;">Ao vivo</span>
+                <span style="color: #64748B;">Ao vivo</span>
               </div>
-              <img src="https://i.imgur.com/a4GmaSR.png" alt="Print Tatiana" style="width: 100%; height: auto; max-height: 220px; object-fit: cover; object-position: top; display: block;" loading="lazy">
+              <img src="https://i.imgur.com/a4GmaSR.png" alt="Print Tatiana" style="width: 100%; height: 180px; object-fit: cover; object-position: top; display: block;" loading="lazy">
             </div>
 
-            <div style="background: #121E36; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;">
-              <p style="font-style: italic; font-size: 13px; color: #E2E8F0; line-height: 1.5; margin: 0;">
+            <div style="background: #D9FDD3; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; border: 1px solid #B2E69E;">
+              <p style="font-size: 13px; color: #0F172A; line-height: 1.5; margin: 0; font-weight: 500;">
                 &ldquo;Estava na Live... Muito boa. Agradeço a oportunidade de tirar dúvidas.&rdquo;
               </p>
+              <div style="text-align: right; font-size: 10px; color: #53BDEB; margin-top: 4px; font-family: monospace; font-weight: bold;">00:23 ✓✓</div>
             </div>
           </div>
-          <div style="font-size: 11px; color: #10B981; font-family: monospace; border-top: 1px solid #1E293B; padding-top: 10px; display: flex; justify-content: space-between;">
-            <span>● Print Original Preservado</span>
-            <span style="color: #94A3B8;">00:23 ✓✓</span>
+          <div style="font-size: 11px; color: #075E54; font-family: monospace; font-weight: bold; border-top: 1px solid #E2E8F0; padding-top: 8px; display: flex; justify-content: space-between;">
+            <span>● Print WhatsApp Preservado</span>
+            <span style="color: #64748B;">00:23 ✓✓</span>
           </div>
         </div>
 
         <!-- Depoimento 5: Planejamento Estratégico -->
-        <div style="background: #0D1527; border: 1px solid #334155; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="flex: 0 0 320px; max-width: 320px; scroll-snap-align: start; background: #FFFFFF; border: 2px solid #C6E0CE; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 14px rgba(0,0,0,0.05);">
           <div>
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid #1E293B; padding-bottom: 10px;">
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="width: 38px; height: 38px; border-radius: 50%; background: #0E1729; border: 2px solid #A855F7; display: flex; align-items: center; justify-content: center; color: #E9D5FF; font-weight: bold; font-family: monospace; font-size: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 10px; font-family: monospace; font-weight: bold; color: #075E54; background: rgba(37,211,102,0.15); padding: 2px 8px; border-radius: 6px;">
+                Depoimento #5
+              </span>
+              <span style="color: #F59E0B; font-size: 11px;">★★★★★</span>
+            </div>
+
+            <div style="background: #008069; color: #FFFFFF; padding: 8px 12px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: #FFFFFF; color: #008069; display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: monospace; font-size: 11px;">
                   AC
                 </div>
                 <div>
-                  <h4 style="font-size: 15px; color: #FFFFFF; font-weight: bold; margin: 0;">Aluno Confraria</h4>
-                  <div style="font-size: 11px; color: #94A3B8;">Brasil · <span style="color: #D8B4FE;">Fase Inicial</span></div>
+                  <h4 style="font-size: 13px; color: #FFFFFF; font-weight: bold; margin: 0;">Aluno Confraria</h4>
+                  <div style="font-size: 10px; color: #D1FAE5;">Brasil · Fase Inicial</div>
                 </div>
               </div>
-              <span style="font-size: 10px; font-family: monospace; color: #34D399; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 12px;">
-                ● Print Real
+              <span style="font-size: 9px; font-family: monospace; color: #FFFFFF; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 10px;">
+                Verificado
               </span>
             </div>
 
             <!-- WhatsApp Real Print Container -->
-            <div style="background: #0B141A; border: 1px solid #1F2C34; border-radius: 12px; overflow: hidden; margin-bottom: 14px;">
-              <div style="background: #1F2C34; padding: 6px 10px; font-size: 10px; color: #25D366; font-family: monospace; display: flex; justify-content: space-between;">
+            <div style="background: #EFEAE2; border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden; margin-bottom: 12px;">
+              <div style="background: #F0F2F5; padding: 6px 10px; font-size: 10px; color: #075E54; font-family: monospace; font-weight: bold; display: flex; justify-content: space-between; border-bottom: 1px solid #CBD5E1;">
                 <span>💬 WhatsApp · 18:14</span>
-                <span style="color: #94A3B8;">Planejamento</span>
+                <span style="color: #64748B;">Planejamento</span>
               </div>
-              <img src="https://i.imgur.com/R3soKsj.png" alt="Print Planejamento Estratégico" style="width: 100%; height: auto; max-height: 220px; object-fit: cover; object-position: top; display: block;" loading="lazy">
+              <img src="https://i.imgur.com/R3soKsj.png" alt="Print Planejamento Estratégico" style="width: 100%; height: 180px; object-fit: cover; object-position: top; display: block;" loading="lazy">
             </div>
 
-            <div style="background: #121E36; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;">
-              <p style="font-style: italic; font-size: 13px; color: #E2E8F0; line-height: 1.5; margin: 0;">
+            <div style="background: #D9FDD3; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; border: 1px solid #B2E69E;">
+              <p style="font-size: 13px; color: #0F172A; line-height: 1.5; margin: 0; font-weight: 500;">
                 &ldquo;Ajudou, com certeza. Então estamos na fase iniciante... o planejamento estratégico vai ser fundamental.&rdquo;
               </p>
+              <div style="text-align: right; font-size: 10px; color: #53BDEB; margin-top: 4px; font-family: monospace; font-weight: bold;">18:14 ✓✓</div>
             </div>
           </div>
-          <div style="font-size: 11px; color: #10B981; font-family: monospace; border-top: 1px solid #1E293B; padding-top: 10px; display: flex; justify-content: space-between;">
-            <span>● Print Original Preservado</span>
-            <span style="color: #94A3B8;">18:14 ✓✓</span>
+          <div style="font-size: 11px; color: #075E54; font-family: monospace; font-weight: bold; border-top: 1px solid #E2E8F0; padding-top: 8px; display: flex; justify-content: space-between;">
+            <span>● Print WhatsApp Preservado</span>
+            <span style="color: #64748B;">18:14 ✓✓</span>
           </div>
         </div>
 
         <!-- Depoimento 6: Informações da Rota / Áudios -->
-        <div style="background: #0D1527; border: 1px solid #334155; border-radius: 20px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div style="flex: 0 0 320px; max-width: 320px; scroll-snap-align: start; background: #FFFFFF; border: 2px solid #C6E0CE; border-radius: 16px; padding: 16px; display: flex; flex-direction: column; justify-content: space-between; box-shadow: 0 4px 14px rgba(0,0,0,0.05);">
           <div>
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; border-bottom: 1px solid #1E293B; padding-bottom: 10px;">
-              <div style="display: flex; align-items: center; gap: 10px;">
-                <div style="width: 38px; height: 38px; border-radius: 50%; background: #0E1729; border: 2px solid #0EA5E9; display: flex; align-items: center; justify-content: center; color: #BAE6FD; font-weight: bold; font-family: monospace; font-size: 12px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+              <span style="font-size: 10px; font-family: monospace; font-weight: bold; color: #075E54; background: rgba(37,211,102,0.15); padding: 2px 8px; border-radius: 6px;">
+                Depoimento #6
+              </span>
+              <span style="color: #F59E0B; font-size: 11px;">★★★★★</span>
+            </div>
+
+            <div style="background: #008069; color: #FFFFFF; padding: 8px 12px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="width: 32px; height: 32px; border-radius: 50%; background: #FFFFFF; color: #008069; display: flex; align-items: center; justify-content: center; font-weight: bold; font-family: monospace; font-size: 11px;">
                   MC
                 </div>
                 <div>
-                  <h4 style="font-size: 15px; color: #FFFFFF; font-weight: bold; margin: 0;">Membro da Confraria</h4>
-                  <div style="font-size: 11px; color: #94A3B8;">Brasil · <span style="color: #7DD3FC;">Orientações da Rota</span></div>
+                  <h4 style="font-size: 13px; color: #FFFFFF; font-weight: bold; margin: 0;">Membro da Confraria</h4>
+                  <div style="font-size: 10px; color: #D1FAE5;">Brasil · Orientações da Rota</div>
                 </div>
               </div>
-              <span style="font-size: 10px; font-family: monospace; color: #34D399; background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.3); padding: 2px 8px; border-radius: 12px;">
-                ● Print Real
+              <span style="font-size: 9px; font-family: monospace; color: #FFFFFF; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 10px;">
+                Verificado
               </span>
             </div>
 
             <!-- WhatsApp Real Print Container -->
-            <div style="background: #0B141A; border: 1px solid #1F2C34; border-radius: 12px; overflow: hidden; margin-bottom: 14px;">
-              <div style="background: #1F2C34; padding: 6px 10px; font-size: 10px; color: #25D366; font-family: monospace; display: flex; justify-content: space-between;">
+            <div style="background: #EFEAE2; border: 1px solid #CBD5E1; border-radius: 12px; overflow: hidden; margin-bottom: 12px;">
+              <div style="background: #F0F2F5; padding: 6px 10px; font-size: 10px; color: #075E54; font-family: monospace; font-weight: bold; display: flex; justify-content: space-between; border-bottom: 1px solid #CBD5E1;">
                 <span>💬 WhatsApp · 19:19</span>
-                <span style="color: #94A3B8;">Áudios e Apoio</span>
+                <span style="color: #64748B;">Áudios e Apoio</span>
               </div>
-              <img src="https://i.imgur.com/NJDGX7b.png" alt="Print Informações da Rota" style="width: 100%; height: auto; max-height: 220px; object-fit: cover; object-position: top; display: block;" loading="lazy">
+              <img src="https://i.imgur.com/NJDGX7b.png" alt="Print Informações da Rota" style="width: 100%; height: 180px; object-fit: cover; object-position: top; display: block;" loading="lazy">
             </div>
 
-            <div style="background: #121E36; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px;">
-              <p style="font-style: italic; font-size: 13px; color: #E2E8F0; line-height: 1.5; margin: 0;">
+            <div style="background: #D9FDD3; border-radius: 8px; padding: 10px 12px; margin-bottom: 10px; border: 1px solid #B2E69E;">
+              <p style="font-size: 13px; color: #0F172A; line-height: 1.5; margin: 0; font-weight: 500;">
                 &ldquo;Muito obg meu amigo pelas informações 🤝&rdquo;
               </p>
+              <div style="text-align: right; font-size: 10px; color: #53BDEB; margin-top: 4px; font-family: monospace; font-weight: bold;">19:19 ✓✓</div>
             </div>
           </div>
-          <div style="font-size: 11px; color: #10B981; font-family: monospace; border-top: 1px solid #1E293B; padding-top: 10px; display: flex; justify-content: space-between;">
-            <span>● Print Original Preservado</span>
-            <span style="color: #94A3B8;">19:19 ✓✓</span>
+          <div style="font-size: 11px; color: #075E54; font-family: monospace; font-weight: bold; border-top: 1px solid #E2E8F0; padding-top: 8px; display: flex; justify-content: space-between;">
+            <span>● Print WhatsApp Preservado</span>
+            <span style="color: #64748B;">19:19 ✓✓</span>
           </div>
         </div>
       </div>
 
-      <!-- Prova de Comunidade Ativa (Reações ao Vivo estilo chat) -->
-      <div style="background: #0D1629; border: 1px solid #334155; border-radius: 20px; padding: 24px 30px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #1E293B; padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+      <!-- Prova de Comunidade Ativa (Reações ao Vivo estilo chat Claro) -->
+      <div style="background: #FFFFFF; border: 2px solid #D1E0D6; border-radius: 20px; padding: 24px 30px; box-shadow: 0 4px 14px rgba(0,0,0,0.04);">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #E2E8F0; padding-bottom: 12px; flex-wrap: wrap; gap: 10px;">
           <div>
-            <h3 style="font-size: 18px; color: #FFFFFF; font-weight: bold;">
-              🔴 Reações ao Vivo na Comunidade
+            <h3 style="font-size: 18px; color: #0F172A; font-weight: bold; margin: 0 0 4px 0;">
+              🟢 Reações ao Vivo na Comunidade
             </h3>
-            <p style="font-size: 12px; color: #94A3B8;">
-              Mensagens instantâneas registradas no chat durante transmissões oficiais
+            <p style="font-size: 12px; color: #64748B; margin: 0;">
+              Mensagens instantâneas registradas no chat durante transmissões oficiais da Confraria
             </p>
           </div>
-          <span style="font-size: 11px; font-family: monospace; background: #1E293B; color: #CBD5E1; padding: 4px 10px; border-radius: 8px;">
+          <span style="font-size: 11px; font-family: monospace; background: rgba(37,211,102,0.15); color: #075E54; border: 1px solid rgba(37,211,102,0.4); padding: 4px 10px; border-radius: 8px; font-weight: bold;">
             Burburinho da Comunidade
           </span>
         </div>
 
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
-          <div style="background: #142038; border: 1px solid #334155; border-radius: 12px; padding: 14px;">
+          <div style="background: #F8FAF9; border: 1px solid #D5E4D8; border-radius: 12px; padding: 14px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <span style="font-size: 12px; font-weight: bold; color: #F1F5F9;">July G.</span>
-              <span style="font-size: 9px; font-family: monospace; background: rgba(245,158,11,0.2); color: #FDE68A; padding: 2px 6px; border-radius: 10px;">Ao vivo</span>
+              <span style="font-size: 12px; font-weight: bold; color: #0F172A;">July G.</span>
+              <span style="font-size: 9px; font-family: monospace; background: rgba(37,211,102,0.2); color: #075E54; padding: 2px 6px; border-radius: 10px; font-weight: bold;">Ao vivo</span>
             </div>
-            <div style="background: #0B1222; padding: 8px 12px; border-radius: 8px; font-size: 13px; color: #FDE68A; font-weight: 500;">
+            <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 8px 12px; border-radius: 8px; font-size: 13px; color: #0F172A; font-weight: 500;">
               &ldquo;Live maravilhosa!!!! 👏👏👏&rdquo;
             </div>
           </div>
 
-          <div style="background: #142038; border: 1px solid #334155; border-radius: 12px; padding: 14px;">
+          <div style="background: #F8FAF9; border: 1px solid #D5E4D8; border-radius: 12px; padding: 14px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <span style="font-size: 12px; font-weight: bold; color: #F1F5F9;">Moisés B.</span>
-              <span style="font-size: 9px; font-family: monospace; background: rgba(16,185,129,0.2); color: #6EE7B7; padding: 2px 6px; border-radius: 10px;">Ao vivo</span>
+              <span style="font-size: 12px; font-weight: bold; color: #0F172A;">Moisés B.</span>
+              <span style="font-size: 9px; font-family: monospace; background: rgba(37,211,102,0.2); color: #075E54; padding: 2px 6px; border-radius: 10px; font-weight: bold;">Ao vivo</span>
             </div>
-            <div style="background: #0B1222; padding: 8px 12px; border-radius: 8px; font-size: 13px; color: #6EE7B7; font-weight: 500;">
+            <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 8px 12px; border-radius: 8px; font-size: 13px; color: #0F172A; font-weight: 500;">
               &ldquo;Obrigado pela live!!!&rdquo;
             </div>
           </div>
 
-          <div style="background: #142038; border: 1px solid #334155; border-radius: 12px; padding: 14px;">
+          <div style="background: #F8FAF9; border: 1px solid #D5E4D8; border-radius: 12px; padding: 14px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <span style="font-size: 12px; font-weight: bold; color: #F1F5F9;">Rafael M.</span>
-              <span style="font-size: 9px; font-family: monospace; background: rgba(56,189,248,0.2); color: #7DD3FC; padding: 2px 6px; border-radius: 10px;">Ao vivo</span>
+              <span style="font-size: 12px; font-weight: bold; color: #0F172A;">Rafael M.</span>
+              <span style="font-size: 9px; font-family: monospace; background: rgba(37,211,102,0.2); color: #075E54; padding: 2px 6px; border-radius: 10px; font-weight: bold;">Ao vivo</span>
             </div>
-            <div style="background: #0B1222; padding: 8px 12px; border-radius: 8px; font-size: 13px; color: #7DD3FC; font-weight: 500;">
+            <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 8px 12px; border-radius: 8px; font-size: 13px; color: #0F172A; font-weight: 500;">
               &ldquo;Top 🚀&rdquo;
             </div>
           </div>
 
-          <div style="background: #142038; border: 1px solid #334155; border-radius: 12px; padding: 14px;">
+          <div style="background: #F8FAF9; border: 1px solid #D5E4D8; border-radius: 12px; padding: 14px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <span style="font-size: 12px; font-weight: bold; color: #F1F5F9;">Darlan P.</span>
-              <span style="font-size: 9px; font-family: monospace; background: rgba(168,85,247,0.2); color: #D8B4FE; padding: 2px 6px; border-radius: 10px;">Ao vivo</span>
+              <span style="font-size: 12px; font-weight: bold; color: #0F172A;">Darlan P.</span>
+              <span style="font-size: 9px; font-family: monospace; background: rgba(37,211,102,0.2); color: #075E54; padding: 2px 6px; border-radius: 10px; font-weight: bold;">Ao vivo</span>
             </div>
-            <div style="background: #0B1222; padding: 8px 12px; border-radius: 8px; font-size: 13px; color: #D8B4FE; font-weight: 500;">
+            <div style="background: #FFFFFF; border: 1px solid #E2E8F0; padding: 8px 12px; border-radius: 8px; font-size: 13px; color: #0F172A; font-weight: 500;">
               &ldquo;Top demais, clareza total!&rdquo;
             </div>
           </div>
         </div>
 
-        <div style="margin-top: 16px; font-size: 11px; color: #94A3B8; text-align: center;">
+        <div style="margin-top: 16px; font-size: 11px; color: #64748B; text-align: center; font-weight: 500;">
           🔒 Nomes e contatos preservados em conformidade com as diretrizes de privacidade.
         </div>
       </div>
