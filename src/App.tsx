@@ -16,6 +16,7 @@ import { OfficialIndicators } from "./components/OfficialIndicators";
 import { DestinationsSection } from "./components/DestinationsSection";
 import { TestimonialsSection } from "./components/TestimonialsSection";
 import { FloatingCta } from "./components/FloatingCta";
+import { WhatsAppLiveToast } from "./components/WhatsAppLiveToast";
 import { AdminPage } from "./components/AdminPage";
 import { DEFAULT_MENTOR_PHOTO } from "./data/mentorPhoto";
 
@@ -429,6 +430,7 @@ export default function App() {
         </div>
       </footer>
 
+      <WhatsAppLiveToast />
       <FloatingCta onCtaClick={handleScrollOrCheckout} />
     </div>
   );

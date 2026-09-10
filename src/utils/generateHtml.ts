@@ -231,22 +231,68 @@ export function generateHtml(S: string = "https://pay.cakto.com.br/3e3f9px_10938
       </div>
 
       <!-- ======================================================== -->
-      <!-- ESPAÇO VSL: COLE SEU VÍDEO AQUI (YOUTUBE, VIMEO OU <video>) -->
+      <!-- ESPAÇO VSL GIGANTE: VÍDEO EM ALTO DESTAQUE SEM BARRA DE CONTROLE -->
       <!-- ======================================================== -->
-      <div id="vsl-player-container" style="max-width: 860px; margin: 30px auto 28px; background: #080E1C; border: 2px solid #334155; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.5);">
+      <div id="vsl-player-container" style="max-width: 1040px; margin: 32px auto 28px; background: #080E1C; border: 3px solid #334155; border-radius: 24px; overflow: hidden; box-shadow: 0 25px 80px rgba(0,0,0,0.65); position: relative;">
         <!-- BARRA SUPERIOR DA VSL -->
-        <div style="background: #121D36; padding: 10px 18px; display: flex; justify-content: space-between; align-items: center; color: #FFF; font-size: 12px; border-bottom: 1px solid #334155;">
-          <span style="color: #F59E0B; font-family: monospace; font-weight: bold;">🔴 APRESENTAÇÃO OFICIAL DA VSL</span>
-          <span style="color: #94A3B8;">Ligue o som · HD 1080p</span>
+        <div style="background: #0D1830; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; color: #FFF; font-size: 12px; border-bottom: 1px solid #334155; flex-wrap: wrap; gap: 8px;">
+          <span style="color: #F59E0B; font-family: monospace; font-weight: bold; display: flex; align-items: center; gap: 6px;">
+            🔴 APRESENTAÇÃO OFICIAL · ESQUADRÃO COD-E
+          </span>
+          <span style="background: rgba(16, 185, 129, 0.2); color: #6EE7B7; border: 1px solid rgba(16, 185, 129, 0.4); padding: 2px 10px; border-radius: 20px; font-size: 11px; font-family: monospace; font-weight: bold;">
+            🔒 Transmissão Contínua
+          </span>
         </div>
 
-        <!-- CONTAINER DO VÍDEO (16:9 RESPONSIVO) -->
-        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;">
-          <iframe id="vsl-iframe" src="https://player.vimeo.com/video/1225405238" style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;" title="Apresentação do Esquadrão Código Europa" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        <!-- CONTAINER DO VÍDEO (16:9 RESPONSIVO) COM BLOQUEIO DE INTERAÇÃO APÓS O PLAY -->
+        <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; background: #000;" id="vsl-screen">
+          <iframe id="vsl-iframe" src="https://player.vimeo.com/video/1225405238?controls=0&title=0&byline=0&portrait=0&sidedock=0&keyboard=0&pip=0&dnt=1&playsinline=1" style="position: absolute; top:0; left:0; width:100%; height:100%; border:0;" title="Apresentação do Esquadrão Código Europa" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+          
+          <!-- Camada de Bloqueio Transparente (Impede pausa ou retrocesso) -->
+          <div id="vsl-blocker" style="display: none; position: absolute; top:0; left:0; width:100%; height:100%; z-index: 10; cursor: default; background: transparent;"></div>
+
+          <!-- Capa de Play Gigante -->
+          <div id="vsl-cover" onclick="iniciarVsl()" style="position: absolute; top:0; left:0; width:100%; height:100%; background: radial-gradient(circle at center, rgba(15,23,42,0.8) 0%, rgba(0,0,0,0.95) 100%); z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; text-align: center; padding: 20px;">
+            <div style="width: 90px; height: 90px; border-radius: 50%; background: linear-gradient(135deg, #DC2626, #EF4444); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(220,38,38,0.9); margin-bottom: 16px; border: 3px solid #FCD34D;">
+              <div style="width: 0; height: 0; border-top: 16px solid transparent; border-bottom: 16px solid transparent; border-left: 26px solid #FFF; margin-left: 6px;"></div>
+            </div>
+            <div style="background: rgba(245, 158, 11, 0.2); color: #FCD34D; border: 1px solid rgba(245, 158, 11, 0.4); padding: 4px 14px; border-radius: 20px; font-family: monospace; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px;">
+              CLIQUE PARA INICIAR A APRESENTAÇÃO
+            </div>
+            <div style="color: #FFF; font-size: 22px; font-weight: 900; margin-bottom: 6px;">
+              Descubra a rota completa do Código Europa
+            </div>
+            <div style="color: #94A3B8; font-size: 13px;">
+              🔊 Áudio em alta definição · Transmissão oficial contínua
+            </div>
+          </div>
         </div>
 
-        <div style="background: #0C1527; padding: 14px 20px; text-align: center; color: #CBD5E1; font-size: 13px;">
-          🔊 <strong>Importante:</strong> Assista até o fim para entender a rota jurídica de 2 anos e ter acesso ao time completo.
+        <script>
+          function iniciarVsl() {
+            var cover = document.getElementById('vsl-cover');
+            var blocker = document.getElementById('vsl-blocker');
+            var iframe = document.getElementById('vsl-iframe');
+            if (cover) cover.style.display = 'none';
+            if (blocker) blocker.style.display = 'block';
+            if (iframe) {
+              iframe.src = "https://player.vimeo.com/video/1225405238?autoplay=1&muted=0&controls=0&title=0&byline=0&portrait=0&sidedock=0&keyboard=0&pip=0&dnt=1&playsinline=1";
+            }
+          }
+        </script>
+
+        <div style="background: #0A1224; padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; border-top: 1px solid #334155;">
+          <div style="text-align: left;">
+            <div style="color: #FCD34D; font-family: monospace; font-size: 12px; font-weight: bold;">
+              APRESENTAÇÃO COMPLETA DO ESQUADRÃO COD-E
+            </div>
+            <div style="color: #CBD5E1; font-size: 13px; margin-top: 2px;">
+              A rota de 2 anos para morar legalmente na Espanha com agentes treinados.
+            </div>
+          </div>
+          <a href="${S}" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg, #DC2626, #B91C1C); color: #FFF; text-decoration: none; padding: 12px 24px; border-radius: 12px; font-size: 14px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid rgba(252,211,77,0.6); box-shadow: 0 0 25px rgba(220,38,38,0.7);">
+            QUERO MEU TIME DE AGENTES ↗
+          </a>
         </div>
       </div>
 
@@ -416,16 +462,13 @@ export function generateHtml(S: string = "https://pay.cakto.com.br/3e3f9px_10938
   <!-- DESTINOS DA TRAVESSIA: MAPA DINÂMICO PRIMEIRO, TRÍADE PRINCIPAL E OUTROS POLOS -->
   <section style="padding: 60px 0; background: #F4EFE6; border-bottom: 1px solid var(--line);" id="destinos">
     <div class="container">
-      <div class="text-center" style="max-width: 700px; margin: 0 auto 36px;">
+      <div class="text-center" style="max-width: 700px; margin: 0 auto 30px;">
         <span style="font-family: monospace; font-size: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.1em; color: var(--red); display: block; margin-bottom: 8px;">
           OS DESTINOS DA TRAVESSIA
         </span>
         <h2 style="font-size: 32px; color: var(--navy); margin-bottom: 12px;">
           Uma rota real, segura e perfeitamente possível com o planejamento certo.
         </h2>
-        <p style="font-size: 15px; color: var(--gray);">
-          A escolha da cidade define a sua rotina, o custo de vida e a velocidade da sua adaptação. Explore o <strong>Mapa Interativo</strong> em primeiro lugar e veja em seguida os detalhes da <strong>Tríade Principal de Desembarque</strong>:
-        </p>
       </div>
 
       <!-- 1. MAPA DINÂMICO DA ESPANHA COM INTERAÇÃO (PRIMEIRO) -->
@@ -626,16 +669,13 @@ export function generateHtml(S: string = "https://pay.cakto.com.br/3e3f9px_10938
   <!-- CONFRARIA EUROPA EM AÇÃO (DEPOIMENTOS EM ESTEIRA HORIZONTAL ESTILO WHATSAPP CLARO) -->
   <section style="padding: 60px 0; background: #F5F8F6; color: #0F172A; border-top: 1px solid #D1E0D6; border-bottom: 1px solid #D1E0D6;" id="confraria-em-acao">
     <div class="container">
-      <div style="text-align: center; max-width: 680px; margin: 0 auto 35px auto;">
+      <div style="text-align: center; max-width: 680px; margin: 0 auto 30px auto;">
         <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(37,211,102,0.18); border: 1px solid rgba(37,211,102,0.5); color: #075E54; font-size: 11px; font-family: monospace; font-weight: 800; text-transform: uppercase; padding: 5px 16px; border-radius: 20px; margin-bottom: 12px;">
           💬 DEPOIMENTOS & PROVAS REAIS NO WHATSAPP
         </div>
-        <h2 style="font-size: 32px; color: #0F172A; font-weight: 800; line-height: 1.25; margin-bottom: 10px;">
-          O que dizem os membros da Confraria que já deram o primeiro passo?
+        <h2 style="font-size: 32px; color: #0F172A; font-weight: 800; line-height: 1.25; margin-bottom: 8px;">
+          Depoimentos Reais no WhatsApp
         </h2>
-        <p style="font-size: 15px; color: #475569; line-height: 1.6; margin-bottom: 8px;">
-          Prints autênticos das conversas no WhatsApp com alunos e famílias que decidiram planejar a mudança de vida e geração para a Espanha com o Esquadrão COD-E.
-        </p>
         <div style="font-size: 12px; color: #075E54; font-family: monospace; font-weight: bold;">
           👉 Arraste para o lado para ver todos os relatos na esteira
         </div>
@@ -753,8 +793,8 @@ export function generateHtml(S: string = "https://pay.cakto.com.br/3e3f9px_10938
                   PT
                 </div>
                 <div>
-                  <h4 style="font-size: 13px; color: #FFFFFF; font-weight: bold; margin: 0;">Aluna Confraria</h4>
-                  <div style="font-size: 10px; color: #D1FAE5;">Portugal · DDI +351</div>
+                  <h4 style="font-size: 13px; color: #FFFFFF; font-weight: bold; margin: 0;">Aluna na Europa (Portugal)</h4>
+                  <div style="font-size: 10px; color: #D1FAE5;">Portugal · Europa</div>
                 </div>
               </div>
               <span style="font-size: 9px; font-family: monospace; color: #FFFFFF; background: rgba(255,255,255,0.2); padding: 2px 6px; border-radius: 10px;">

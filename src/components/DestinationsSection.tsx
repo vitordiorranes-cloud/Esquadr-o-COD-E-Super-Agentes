@@ -21,12 +21,9 @@ export const DestinationsSection: React.FC = () => {
           <span className="text-xs font-mono font-bold uppercase tracking-widest text-[#A31E22] block mb-1">
             OS DESTINOS DA TRAVESSIA
           </span>
-          <h2 className="font-serif-brand text-2xl sm:text-3xl font-bold text-[#13213F] mb-2">
+          <h2 className="font-serif-brand text-2xl sm:text-3xl font-bold text-[#13213F] mb-3">
             Uma rota real, segura e perfeitamente possível com o planejamento e a estratégia certa.
           </h2>
-          <p className="text-xs sm:text-sm text-[#5A554E] leading-relaxed max-w-2xl mx-auto">
-            A escolha consciente do seu destino define o custo de vida, a estabilidade financeira e a velocidade da sua conquista.
-          </p>
 
           {/* Abas Rápidas de Navegação: Mapa Interativo Primeiro, depois Tríade */}
           <div className="inline-flex items-center gap-1.5 p-1 rounded-full bg-white border border-[#E0D7C6] shadow-xs mt-4">

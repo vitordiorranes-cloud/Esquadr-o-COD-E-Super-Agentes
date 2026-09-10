@@ -28,37 +28,7 @@ const WhatsAppBrandIcon: React.FC<{ className?: string }> = ({ className = "w-4 
   </svg>
 );
 
-interface ChatReaction {
-  sender: string;
-  role: string;
-  text: string;
-}
-
-const LIVE_CHAT_REACTIONS: ChatReaction[] = [
-  {
-    sender: "July G.",
-    role: "Membro Confraria",
-    text: "Live maravilhosa!!!! 👏👏👏",
-  },
-  {
-    sender: "Moisés B.",
-    role: "Aluno COD-E",
-    text: "Obrigado pela live!!! Muita clareza.",
-  },
-  {
-    sender: "Rafael M.",
-    role: "Comunidade Ativa",
-    text: "Top 🚀 Vamos com tudo!",
-  },
-  {
-    sender: "Darlan P.",
-    role: "Membro Confraria",
-    text: "Top demais, clareza total na rota!",
-  },
-];
-
 export const TestimonialsSection: React.FC = () => {
-  const [activeCategory, setActiveCategory] = useState<string>("todos");
   const [testimonials, setTestimonials] = useState<TestimonialItem[]>(DEFAULT_TESTIMONIALS);
   const [selectedPrint, setSelectedPrint] = useState<TestimonialItem | null>(null);
   const [activeIndex, setActiveIndex] = useState<number>(0);
@@ -81,11 +51,6 @@ export const TestimonialsSection: React.FC = () => {
     window.addEventListener("storage", loadImages);
     return () => window.removeEventListener("storage", loadImages);
   }, []);
-
-  const filteredTestimonials =
-    activeCategory === "todos"
-      ? testimonials
-      : testimonials.filter((t) => t.category === activeCategory);
 
   // Rolagem suave manual
   const handleScrollStep = (direction: "left" | "right") => {
@@ -115,13 +80,13 @@ export const TestimonialsSection: React.FC = () => {
     if (trackRef.current) {
       const cardWidth = 360;
       const idx = Math.round(trackRef.current.scrollLeft / cardWidth);
-      setActiveIndex(Math.max(0, Math.min(idx, filteredTestimonials.length - 1)));
+      setActiveIndex(Math.max(0, Math.min(idx, testimonials.length - 1)));
     }
   };
 
   // Esteira horizontal automática (pausa quando o mouse está por cima)
   useEffect(() => {
-    if (isHovered || filteredTestimonials.length <= 1) return;
+    if (isHovered || testimonials.length <= 1) return;
 
     const interval = setInterval(() => {
       if (trackRef.current) {
@@ -136,107 +101,29 @@ export const TestimonialsSection: React.FC = () => {
     }, 4500);
 
     return () => clearInterval(interval);
-  }, [isHovered, filteredTestimonials.length]);
+  }, [isHovered, testimonials.length]);
 
   return (
     <section
       id="confraria-em-acao"
-      className="py-14 sm:py-20 bg-gradient-to-b from-[#F5F8F6] via-[#EDF4EF] to-[#E6EFE9] text-slate-900 border-y border-[#D1E0D6] relative overflow-hidden"
+      className="py-10 sm:py-14 bg-gradient-to-b from-[#F5F8F6] via-[#EDF4EF] to-[#E6EFE9] text-slate-900 border-y border-[#D1E0D6] relative overflow-hidden"
     >
       {/* Luz ambiente suave em tons claros de esmeralda WhatsApp */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[850px] h-72 bg-[#25D366]/12 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 right-10 w-96 h-96 bg-[#128C7E]/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 relative z-10">
-        {/* Cabeçalho da Seção em Fundo Claro e Alto Contraste */}
-        <div className="text-center max-w-3xl mx-auto mb-8 sm:mb-11">
-          {/* Badge Chamativo - Lead percebe imediatamente que são depoimentos */}
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#25D366]/20 border border-[#25D366]/60 text-[#075E54] text-xs font-mono font-black uppercase tracking-wider mb-3 shadow-xs">
-            <WhatsAppBrandIcon className="w-4 h-4 text-[#128C7E]" />
-            <span>DEPOIMENTOS & PROVAS REAIS NO WHATSAPP</span>
-          </div>
-
-          <h2 className="font-serif-brand text-2xl sm:text-4xl font-extrabold text-[#0F172A] leading-tight mb-3">
-            O que dizem os membros da Confraria que já deram o primeiro passo?
-          </h2>
-
-          <p className="text-sm sm:text-base text-slate-700 leading-relaxed max-w-2xl mx-auto font-medium">
-            Prints 100% autênticos de conversas reais no WhatsApp com alunos e famílias que decidiram planejar a mudança de vida e geração para a Espanha com o Esquadrão COD-E.
-          </p>
-
-          {/* Filtros em Estilo WhatsApp Tabs Claros */}
-          <div className="flex flex-wrap items-center justify-center gap-2 mt-5">
-            <button
-              onClick={() => {
-                setActiveCategory("todos");
-                setActiveIndex(0);
-                if (trackRef.current) trackRef.current.scrollTo({ left: 0, behavior: "smooth" });
-              }}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                activeCategory === "todos"
-                  ? "bg-[#008069] text-white shadow-md shadow-[#008069]/30 ring-2 ring-[#008069]/40"
-                  : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 shadow-xs"
-              }`}
-            >
-              <WhatsAppBrandIcon className="w-3.5 h-3.5 text-emerald-500" />
-              <span>Todos os Depoimentos ({testimonials.length})</span>
-            </button>
-            <button
-              onClick={() => {
-                setActiveCategory("familia");
-                setActiveIndex(0);
-                if (trackRef.current) trackRef.current.scrollTo({ left: 0, behavior: "smooth" });
-              }}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                activeCategory === "familia"
-                  ? "bg-[#008069] text-white shadow-md shadow-[#008069]/30 ring-2 ring-[#008069]/40"
-                  : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 shadow-xs"
-              }`}
-            >
-              <span>Planejamento Familiar</span>
-            </button>
-            <button
-              onClick={() => {
-                setActiveCategory("transicao");
-                setActiveIndex(0);
-                if (trackRef.current) trackRef.current.scrollTo({ left: 0, behavior: "smooth" });
-              }}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                activeCategory === "transicao"
-                  ? "bg-[#008069] text-white shadow-md shadow-[#008069]/30 ring-2 ring-[#008069]/40"
-                  : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 shadow-xs"
-              }`}
-            >
-              <span>Transição Europa</span>
-            </button>
-            <button
-              onClick={() => {
-                setActiveCategory("estrategia");
-                setActiveIndex(0);
-                if (trackRef.current) trackRef.current.scrollTo({ left: 0, behavior: "smooth" });
-              }}
-              className={`px-4 py-1.5 rounded-full text-xs font-bold transition-all cursor-pointer flex items-center gap-1.5 ${
-                activeCategory === "estrategia"
-                  ? "bg-[#008069] text-white shadow-md shadow-[#008069]/30 ring-2 ring-[#008069]/40"
-                  : "bg-white text-slate-700 hover:bg-slate-50 border border-slate-300 shadow-xs"
-              }`}
-            >
-              <span>Live & Estratégia</span>
-            </button>
-          </div>
-        </div>
-
-        {/* BARRA SUPERIOR DA ESTEIRA: STATUS DE VERIFICAÇÃO + NAVEGAÇÃO */}
-        <div className="flex items-center justify-between gap-3 mb-3 px-1">
+        {/* BARRA SUPERIOR DA ESTEIRA: NAVEGAÇÃO + INDICAÇÃO COMPACTA */}
+        <div className="flex items-center justify-between gap-3 mb-4 px-1">
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse" />
-            <span className="font-mono text-xs text-[#075E54] font-bold flex items-center gap-1.5">
-              <Lock className="w-3.5 h-3.5 text-[#128C7E]" />
-              Conversas Autênticas Verificadas no WhatsApp
+            <span className="font-mono text-xs sm:text-sm text-[#075E54] font-bold flex items-center gap-1.5">
+              <WhatsAppBrandIcon className="w-4 h-4 text-[#128C7E]" />
+              Depoimentos no WhatsApp
             </span>
             <span className="hidden sm:inline text-slate-400">·</span>
-            <span className="hidden sm:inline text-slate-600 text-xs font-medium">
-              👉 Deslize para o lado para ver todos os depoimentos
+            <span className="hidden sm:inline text-slate-500 text-xs font-medium">
+              👉 Deslize para o lado para ver todos
             </span>
           </div>
 
@@ -272,7 +159,7 @@ export const TestimonialsSection: React.FC = () => {
             className="flex gap-4 sm:gap-5 overflow-x-auto pb-4 pt-1 px-1 scroll-smooth snap-x snap-mandatory scrollbar-none"
             style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
           >
-            {filteredTestimonials.map((item, index) => {
+            {testimonials.map((item, index) => {
               const currentImg = getTestimonialImage(item.id, item.defaultImage);
               return (
                 <div
@@ -402,7 +289,7 @@ export const TestimonialsSection: React.FC = () => {
 
           {/* Indicadores de Posição da Esteira (Dots) */}
           <div className="flex items-center justify-center gap-1.5 mt-3">
-            {filteredTestimonials.map((_, idx) => (
+            {testimonials.map((_, idx) => (
               <button
                 key={idx}
                 onClick={() => handleScrollToIndex(idx)}
@@ -414,71 +301,6 @@ export const TestimonialsSection: React.FC = () => {
                 }`}
               />
             ))}
-          </div>
-        </div>
-
-        {/* Bloco de Reações ao Vivo no Chat em Tema Claro e Nítido */}
-        <div className="mt-8 bg-white border-2 border-[#128C7E]/20 rounded-2xl p-4 sm:p-6 shadow-md relative">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4 pb-3 border-b border-slate-100">
-            <div className="flex items-center gap-2">
-              <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#25D366] opacity-75" />
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#25D366]" />
-              </span>
-              <div>
-                <h3 className="text-xs sm:text-sm font-bold text-[#0F172A] flex items-center gap-1.5 font-mono">
-                  <span>Reações ao Vivo no Chat da Confraria</span>
-                  <Sparkles className="w-3.5 h-3.5 text-amber-500" />
-                </h3>
-              </div>
-            </div>
-
-            <div className="text-[11px] text-slate-600 font-mono flex items-center gap-1 font-semibold">
-              <WhatsAppBrandIcon className="w-3.5 h-3.5 text-[#128C7E]" />
-              <span>Mensagens espontâneas nos encontros semanais</span>
-            </div>
-          </div>
-
-          {/* Grid de Reações Claras */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
-            {LIVE_CHAT_REACTIONS.map((rx, i) => (
-              <div
-                key={i}
-                className="bg-[#F8FAF9] hover:bg-[#F0F5F2] border border-[#D5E4D8] rounded-xl p-2.5 transition-all duration-200 flex flex-col justify-between shadow-xs"
-              >
-                <div className="flex items-center justify-between mb-1.5">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-5 h-5 rounded-full bg-[#008069] flex items-center justify-center text-[9px] font-bold text-white">
-                      {rx.sender.slice(0, 1)}
-                    </div>
-                    <span className="text-[11px] font-bold text-slate-800">
-                      {rx.sender}
-                    </span>
-                  </div>
-                  <span className="text-[9px] px-1.5 py-0.2 rounded-full font-mono bg-[#25D366]/20 text-[#075E54] border border-[#25D366]/30 font-bold">
-                    Ao vivo
-                  </span>
-                </div>
-
-                <div className="bg-white rounded-lg p-2 border border-slate-200 shadow-2xs">
-                  <p className="text-[11px] text-slate-800 font-medium leading-snug">
-                    &ldquo;{rx.text}&rdquo;
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Rodapé de Confiança */}
-          <div className="mt-3 pt-2.5 flex flex-wrap items-center justify-between gap-2 text-[10px] text-slate-500 border-t border-slate-100">
-            <span className="flex items-center gap-1 font-medium">
-              <MessageCircle className="w-3 h-3 text-[#008069]" />
-              <span>Depoimentos reais colhidos da comunidade do Código Europa</span>
-            </span>
-            <span className="font-mono text-[#075E54] font-bold flex items-center gap-1">
-              <Lock className="w-2.5 h-2.5" />
-              Telefones protegidos conforme diretrizes de privacidade
-            </span>
           </div>
         </div>
       </div>
@@ -540,7 +362,7 @@ export const TestimonialsSection: React.FC = () => {
               <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1 font-mono">
                 <span className="flex items-center gap-1 text-[#075E54] font-bold">
                   <Lock className="w-3 h-3 text-[#128C7E]" />
-                  Print verificado pela Confraria Código Europa
+                  Print verificado · Número de telefone protegido (Privacidade)
                 </span>
                 <span>{selectedPrint.time} ✓✓</span>
               </div>

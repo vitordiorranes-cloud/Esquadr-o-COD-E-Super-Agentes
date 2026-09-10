@@ -27,8 +27,8 @@ export const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
   },
   {
     id: "03_aluna_portugal_fe_foco",
-    name: "Aluna Confraria (Portugal)",
-    location: "Portugal · DDI +351",
+    name: "Aluna na Europa (Portugal)",
+    location: "Portugal · Europa",
     badge: "Transição para Espanha",
     initials: "PT",
     quote: "Vamos juntos sim. Obrigada!!! Vai dar certo sim!! Tenho fé e foco nisso 🙏😊 Obrigada pelo apoio !!",

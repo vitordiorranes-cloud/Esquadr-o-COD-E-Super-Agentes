@@ -1,5 +1,18 @@
-import React, { useState, useRef, useEffect } from "react";
-import { Upload, Link, X, Volume2, Video, Shield, ArrowRight, Check, RefreshCw } from "lucide-react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
+import {
+  Upload,
+  Link as LinkIcon,
+  X,
+  Volume2,
+  Video,
+  Shield,
+  ArrowRight,
+  Check,
+  RefreshCw,
+  Play,
+  VolumeX,
+  Lock
+} from "lucide-react";
 
 export const DEFAULT_VSL_VIDEO = "https://player.vimeo.com/video/1225405238";
 export const DEFAULT_VSL_TYPE = "embed";
@@ -7,6 +20,76 @@ export const DEFAULT_VSL_TYPE = "embed";
 interface VslPlayerProps {
   onCtaClick?: () => void;
   isAdmin?: boolean;
+}
+
+/**
+ * Normaliza e formata a URL de incorporação para esconder a barra de controle
+ * do Vimeo (controls=0) e impedir que o lead pause ou volte o vídeo.
+ */
+function buildEmbedUrl(rawUrl: string, autoPlay: boolean): string {
+  let url = rawUrl.trim();
+
+  // Normalizar link do Vimeo compartilhado padrão (ex: vimeo.com/1225405238...)
+  if (url.includes("vimeo.com/") && !url.includes("player.vimeo.com")) {
+    const match = url.match(/vimeo\.com\/(\d+)/);
+    const videoId = match ? match[1] : url.split("vimeo.com/")[1]?.split("?")[0]?.replace(/\//g, "");
+    url = `https://player.vimeo.com/video/${videoId}`;
+  }
+
+  // Se for Vimeo player
+  if (url.includes("player.vimeo.com/video/")) {
+    const baseUrl = url.split("?")[0];
+    const params = new URLSearchParams();
+    // Parâmetros obrigatórios: esconder controles completamente e desativar teclado
+    params.set("controls", "0");
+    params.set("title", "0");
+    params.set("byline", "0");
+    params.set("portrait", "0");
+    params.set("sidedock", "0");
+    params.set("keyboard", "0");
+    params.set("pip", "0");
+    params.set("dnt", "1");
+    params.set("playsinline", "1");
+    params.set("badge", "0");
+    params.set("autopause", "0");
+    params.set("app_id", "58479");
+
+    if (autoPlay) {
+      params.set("autoplay", "1");
+      params.set("muted", "0");
+    }
+
+    return `${baseUrl}?${params.toString()}`;
+  }
+
+  // Se for YouTube
+  if (url.includes("youtube.com") || url.includes("youtu.be")) {
+    let videoId = "";
+    if (url.includes("watch?v=")) {
+      videoId = url.split("watch?v=")[1]?.split("&")[0];
+    } else if (url.includes("youtu.be/")) {
+      videoId = url.split("youtu.be/")[1]?.split("?")[0];
+    } else if (url.includes("embed/")) {
+      videoId = url.split("embed/")[1]?.split("?")[0];
+    }
+
+    const params = new URLSearchParams();
+    params.set("controls", "0");
+    params.set("disablekb", "1");
+    params.set("modestbranding", "1");
+    params.set("rel", "0");
+    params.set("playsinline", "1");
+    params.set("iv_load_policy", "3");
+
+    if (autoPlay) {
+      params.set("autoplay", "1");
+      params.set("mute", "0");
+    }
+
+    return `https://www.youtube.com/embed/${videoId}?${params.toString()}`;
+  }
+
+  return url;
 }
 
 export const VslPlayer: React.FC<VslPlayerProps> = ({ onCtaClick, isAdmin = false }) => {
@@ -17,10 +100,19 @@ export const VslPlayer: React.FC<VslPlayerProps> = ({ onCtaClick, isAdmin = fals
     return localStorage.getItem("cod_e_vsl_type_v5") || DEFAULT_VSL_TYPE;
   });
 
+  const [aspectRatio, setAspectRatio] = useState<"portrait" | "landscape">(() => {
+    return (localStorage.getItem("cod_e_vsl_aspect_v5") as "portrait" | "landscape") || "portrait";
+  });
+
+  // Estado que rastreia se o lead já deu o play no vídeo
+  const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isAudioMuted, setIsAudioMuted] = useState<boolean>(false);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [inputUrl, setInputUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const iframeRef = useRef<HTMLIFrameElement>(null);
 
   useEffect(() => {
     if (videoUrl) {
@@ -38,12 +130,33 @@ export const VslPlayer: React.FC<VslPlayerProps> = ({ onCtaClick, isAdmin = fals
     }
   }, [videoType]);
 
+  useEffect(() => {
+    localStorage.setItem("cod_e_vsl_aspect_v5", aspectRatio);
+  }, [aspectRatio]);
+
+  const handleStartPlayback = useCallback(() => {
+    setIsPlaying(true);
+    // Tenta mandar comando de play e áudio via postMessage para o iframe do Vimeo
+    if (iframeRef.current && iframeRef.current.contentWindow) {
+      try {
+        iframeRef.current.contentWindow.postMessage(JSON.stringify({ method: "play" }), "*");
+        iframeRef.current.contentWindow.postMessage(JSON.stringify({ method: "setVolume", value: 1 }), "*");
+      } catch (e) {
+        console.warn("Could not postMessage to iframe", e);
+      }
+    }
+    if (videoRef.current) {
+      videoRef.current.play().catch((err) => console.warn("Video play error:", err));
+    }
+  }, []);
+
   const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const blobUrl = URL.createObjectURL(file);
       setVideoUrl(blobUrl);
       setVideoType("upload");
+      setIsPlaying(false);
     }
   };
 
@@ -51,25 +164,9 @@ export const VslPlayer: React.FC<VslPlayerProps> = ({ onCtaClick, isAdmin = fals
     e.preventDefault();
     if (!inputUrl.trim()) return;
 
-    let parsed = inputUrl.trim();
-
-    // Normalizar Vimeo (ex: https://vimeo.com/1225405238?share=copy&fl=sv&fe=ci)
-    if (parsed.includes("vimeo.com/") && !parsed.includes("player.vimeo.com")) {
-      const match = parsed.match(/vimeo\.com\/(\d+)/);
-      const videoId = match ? match[1] : parsed.split("vimeo.com/")[1]?.split("?")[0]?.replace(/\//g, "");
-      parsed = `https://player.vimeo.com/video/${videoId}?badge=0&autopause=0&player_id=0&app_id=58479`;
-    }
-    // Normalizar YouTube
-    else if (parsed.includes("youtube.com/watch?v=")) {
-      const id = parsed.split("watch?v=")[1]?.split("&")[0];
-      parsed = `https://www.youtube.com/embed/${id}?autoplay=1`;
-    } else if (parsed.includes("youtu.be/")) {
-      const id = parsed.split("youtu.be/")[1]?.split("?")[0];
-      parsed = `https://www.youtube.com/embed/${id}?autoplay=1`;
-    }
-
-    setVideoUrl(parsed);
+    setVideoUrl(inputUrl.trim());
     setVideoType("embed");
+    setIsPlaying(false);
     setIsModalOpen(false);
     setInputUrl("");
   };
@@ -77,8 +174,11 @@ export const VslPlayer: React.FC<VslPlayerProps> = ({ onCtaClick, isAdmin = fals
   const handleResetToDefault = () => {
     setVideoUrl(DEFAULT_VSL_VIDEO);
     setVideoType(DEFAULT_VSL_TYPE);
+    setAspectRatio("portrait");
+    setIsPlaying(false);
     localStorage.removeItem("cod_e_vsl_video_v5");
     localStorage.removeItem("cod_e_vsl_type_v5");
+    localStorage.removeItem("cod_e_vsl_aspect_v5");
   };
 
   const isEmbed =
@@ -90,114 +190,160 @@ export const VslPlayer: React.FC<VslPlayerProps> = ({ onCtaClick, isAdmin = fals
         videoUrl.includes("pandavideo") ||
         videoUrl.includes("embed")));
 
-  const isCustom = videoUrl !== DEFAULT_VSL_VIDEO;
+  const isCustom = videoUrl !== DEFAULT_VSL_VIDEO || aspectRatio !== "portrait";
+  const currentEmbedSrc = buildEmbedUrl(videoUrl, isPlaying);
 
   return (
-    <div className="w-full max-w-4xl mx-auto my-6 sm:my-8 px-2 sm:px-0">
-      {/* Barra Superior da Apresentação */}
-      <div className="bg-[#121D36] border border-slate-700/80 rounded-t-2xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 text-white">
-        <div className="flex items-center gap-2 text-xs">
-          <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
-          <span className="font-mono text-amber-300 font-bold uppercase tracking-wider">
-            VÍDEO DE APRESENTAÇÃO
-          </span>
-          <span className="text-slate-400 hidden sm:inline">|</span>
-          <span className="text-slate-300 text-xs hidden sm:inline">
-            Apresentação Inicial Oficial
-          </span>
-        </div>
+    <div
+      className={`w-full mx-auto my-3 sm:my-6 px-1 sm:px-0 transition-all duration-300 ${
+        aspectRatio === "portrait"
+          ? "max-w-[390px] sm:max-w-[440px]"
+          : "max-w-4xl sm:max-w-[960px]"
+      }`}
+    >
+      {/* Moldura Cinematográfica de Alto Destaque inspirada no design vertical */}
+      <div className="bg-[#091122] border-2 sm:border-3 border-slate-700/90 hover:border-red-500/70 rounded-2xl sm:rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.7)] ring-2 ring-[#A31E22]/30 overflow-hidden transition-all duration-300">
+        {/* Barra Superior Slim da Apresentação */}
+        <div className="bg-[#0D1830] border-b border-slate-700/80 px-3.5 sm:px-4 py-2 flex items-center justify-between gap-2 text-white">
+          <div className="flex items-center gap-1.5 text-xs truncate">
+            <span className="inline-flex items-center justify-center w-2 h-2 rounded-full bg-red-500 animate-ping shrink-0" />
+            <span className="font-mono text-amber-300 font-bold uppercase tracking-wider text-[10px] sm:text-xs truncate">
+              🔴 APRESENTAÇÃO OFICIAL · COD-E
+            </span>
+          </div>
 
-        {isAdmin && (
-          <div className="flex items-center gap-2">
-            <input
-              type="file"
-              ref={fileInputRef}
-              onChange={handleFileUpload}
-              accept="video/mp4,video/webm,video/ogg,video/quicktime"
-              className="hidden"
-              id="vsl-upload-input"
-            />
+          <div className="flex items-center gap-1.5 shrink-0">
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] sm:text-[10px] font-mono font-bold">
+              <Lock className="w-2.5 h-2.5 text-emerald-400" />
+              <span>Vídeo Contínuo</span>
+            </span>
 
-            <button
-              onClick={() => fileInputRef.current?.click()}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold transition-all border border-slate-600 cursor-pointer"
-              title="Subir arquivo MP4"
-            >
-              <Upload className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Subir MP4</span>
-            </button>
+            {isAdmin && (
+              <div className="flex items-center gap-1 pl-1.5 border-l border-slate-700">
+                <input
+                  type="file"
+                  ref={fileInputRef}
+                  onChange={handleFileUpload}
+                  accept="video/mp4,video/webm,video/ogg,video/quicktime"
+                  className="hidden"
+                  id="vsl-upload-input"
+                />
 
-            <button
-              onClick={() => setIsModalOpen(true)}
-              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-all border border-slate-600 cursor-pointer"
-              title="Alterar Link do Vídeo (Vimeo/YouTube)"
-            >
-              <Link className="w-3.5 h-3.5" />
-              <span>Trocar Vídeo</span>
-            </button>
+                <button
+                  onClick={() =>
+                    setAspectRatio((prev) => (prev === "portrait" ? "landscape" : "portrait"))
+                  }
+                  className="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 text-[10px] font-mono font-bold transition-all border border-slate-600 cursor-pointer"
+                  title="Alternar entre formato Vertical (9:16) e Horizontal (16:9)"
+                >
+                  {aspectRatio === "portrait" ? "9:16" : "16:9"}
+                </button>
 
-            {isCustom && (
-              <button
-                onClick={handleResetToDefault}
-                className="p-1.5 rounded-lg bg-slate-800 hover:bg-amber-900/60 text-slate-400 hover:text-amber-300 transition-colors"
-                title="Restaurar vídeo original do Vimeo"
-              >
-                <RefreshCw className="w-3.5 h-3.5" />
-              </button>
+                <button
+                  onClick={() => setIsModalOpen(true)}
+                  className="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-semibold transition-all border border-slate-600 cursor-pointer"
+                  title="Alterar Link do Vídeo (Vimeo/YouTube)"
+                >
+                  <LinkIcon className="w-3 h-3" />
+                </button>
+
+                {isCustom && (
+                  <button
+                    onClick={handleResetToDefault}
+                    className="p-1 rounded bg-slate-800 hover:bg-amber-900/60 text-slate-400 hover:text-amber-300 transition-colors"
+                    title="Restaurar padrão original"
+                  >
+                    <RefreshCw className="w-3 h-3" />
+                  </button>
+                )}
+              </div>
             )}
           </div>
-        )}
-      </div>
-
-      {/* Container 16:9 com o Player do Vimeo */}
-      <div className="relative aspect-video w-full bg-[#080E1C] border-x border-b border-slate-700/80 shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden">
-        {videoUrl ? (
-          isEmbed ? (
-            <iframe
-              src={videoUrl}
-              title="Vídeo de Apresentação Código Europa"
-              className="w-full h-full border-0"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-          ) : (
-            <video
-              ref={videoRef}
-              src={videoUrl}
-              controls
-              autoPlay
-              playsInline
-              className="w-full h-full object-contain"
-            />
-          )
-        ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center text-center p-4">
-            <Volume2 className="w-8 h-8 text-amber-400 mb-2" />
-            <span className="text-sm font-bold text-white">Carregando apresentação...</span>
-          </div>
-        )}
-      </div>
-
-      {/* Barra Inferior com CTA de Conversão */}
-      <div className="bg-[#0C1527] border-x border-b border-slate-700/80 rounded-b-2xl p-4 sm:p-5 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left shadow-lg">
-        <div>
-          <div className="flex items-center justify-center sm:justify-start gap-2 text-xs font-mono font-bold text-amber-300 mb-0.5">
-            <Video className="w-3.5 h-3.5 text-red-400" />
-            <span>APRESENTAÇÃO COMPLETA DO ESQUADRÃO COD-E</span>
-          </div>
-          <p className="text-xs sm:text-sm text-slate-300">
-            A rota comprovada para morar legalmente na Espanha e conquistar seu passaporte em 2 anos.
-          </p>
         </div>
 
-        <button
-          onClick={onCtaClick}
-          className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl bg-gradient-to-r from-[#DC2626] via-[#A31E22] to-[#B91C1C] hover:from-[#EF4444] hover:to-[#DC2626] text-white font-black text-sm uppercase tracking-wider shadow-[0_0_25px_rgba(220,38,38,0.7)] hover:shadow-[0_0_40px_rgba(239,68,68,0.95)] transition-all transform hover:scale-105 cursor-pointer shrink-0 border border-amber-300/60 btn-pulse-urgency group"
+        {/* Container do Vídeo: Em 9:16 o vídeo preenche toda a área sem barras pretas laterais! */}
+        <div
+          className={`relative w-full bg-[#000000] overflow-hidden select-none ${
+            aspectRatio === "portrait" ? "aspect-[9/16]" : "aspect-video"
+          }`}
         >
-          <Shield className="w-4 h-4 text-amber-300 group-hover:rotate-12 transition-transform" />
-          <span>QUERO MEU TIME DE AGENTES AGORA</span>
-          <ArrowRight className="w-4 h-4 text-amber-300 group-hover:translate-x-1 transition-transform" />
-        </button>
+          {videoUrl ? (
+            isEmbed ? (
+              <>
+                {/* Iframe oficial do Vimeo sem controles para rodar limpo */}
+                <iframe
+                  ref={iframeRef}
+                  src={currentEmbedSrc}
+                  title="Vídeo de Apresentação Código Europa"
+                  className="w-full h-full border-0 absolute inset-0 z-0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                />
+
+                {/* CAMADA DE BLOQUEIO DE INTERAÇÃO APÓS O PLAY:
+                    Quando o vídeo está rodando, esta camada transparente impede que o lead
+                    clique no iframe para pausar ou tentar voltar o vídeo. O vídeo segue direto! */}
+                {isPlaying && (
+                  <div
+                    className="absolute inset-0 z-10 bg-transparent cursor-default pointer-events-auto"
+                    title="Reprodução oficial em andamento"
+                    onContextMenu={(e) => e.preventDefault()}
+                  />
+                )}
+              </>
+            ) : (
+              <video
+                ref={videoRef}
+                src={videoUrl}
+                controls={false}
+                autoPlay={isPlaying}
+                playsInline
+                className="w-full h-full object-cover absolute inset-0 z-0"
+                onContextMenu={(e) => e.preventDefault()}
+              />
+            )
+          ) : (
+            <div className="w-full h-full flex flex-col items-center justify-center text-center p-4">
+              <Volume2 className="w-8 h-8 text-amber-400 mb-2" />
+              <span className="text-sm font-bold text-white">Carregando apresentação...</span>
+            </div>
+          )}
+
+          {/* CAPA COM SUPER BOTÃO DE PLAY CIRCULAR CORAL/LARANJA IDÊNTICO À REFERÊNCIA DO USUÁRIO */}
+          {!isPlaying && (
+            <div
+              onClick={handleStartPlayback}
+              className="absolute inset-0 z-30 bg-black/35 hover:bg-black/25 flex flex-col items-center justify-center text-center p-4 sm:p-6 cursor-pointer group transition-all"
+            >
+              {/* Botão de Play circular com halo translúcido no tom coral/laranja de alta conversão */}
+              <div className="relative mb-3 sm:mb-4 group-hover:scale-105 transition-transform duration-300">
+                {/* Halo externo translúcido */}
+                <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#EA580C]/25 border border-[#F97316]/50 flex items-center justify-center backdrop-blur-xs shadow-[0_0_40px_rgba(234,88,12,0.45)] animate-pulse">
+                  {/* Círculo central com gradiente coral e seta branca */}
+                  <div className="w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-gradient-to-tr from-[#EA580C] via-[#E11D48] to-[#EF4444] text-white flex items-center justify-center shadow-[0_0_35px_rgba(234,88,12,0.9)] border-2 border-white/60">
+                    <Play className="w-8 h-8 sm:w-9 sm:h-9 fill-white text-white translate-x-0.5" />
+                  </div>
+                </div>
+              </div>
+
+              {/* Tag com instrução para tocar e ligar o som */}
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/75 backdrop-blur-sm border border-white/20 text-white text-[11px] sm:text-xs font-mono font-bold uppercase tracking-wider shadow-lg">
+                <Volume2 className="w-3.5 h-3.5 text-emerald-400" />
+                <span>Toque para assistir com som</span>
+              </div>
+            </div>
+          )}
+
+          {/* Indicador de Status Discreto durante a Reprodução */}
+          {isPlaying && (
+            <div className="absolute top-2.5 right-2.5 z-20 pointer-events-none">
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-black/75 backdrop-blur-md border border-white/20 text-white text-[10px] font-mono font-medium shadow-lg">
+                <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                <span>Vídeo ativo</span>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
 
       {/* Modal para Trocar Link se Necessário (Apenas Admin) */}
