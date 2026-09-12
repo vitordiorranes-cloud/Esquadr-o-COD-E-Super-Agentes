@@ -48,11 +48,15 @@ export const AgentsSection: React.FC<AgentsSectionProps> = ({ onCtaClick }) => {
             <span className="text-[#DC2626]">Nenhuma etapa sozinho.</span>
           </h2>
 
+          <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto leading-relaxed mb-3">
+            <strong className="text-amber-300">Você não precisa escolher apenas um agente:</strong> ao garantir sua entrada no Código Europa, você recebe o <strong className="text-white">Esquadrão Completo (todos os 7 agentes oficiais)</strong> trabalhando integrados pela sua travessia para a Espanha.
+          </p>
+
           {/* Destaque: ESSE PODE SER O SEU TIME AGORA com Escassez Real */}
           <div className="inline-flex flex-col sm:flex-row items-center gap-2.5 px-4 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500/20 via-red-500/20 to-amber-500/20 border border-amber-400/50 shadow-xl my-1">
             <span className="text-xs sm:text-sm font-extrabold tracking-wider uppercase text-amber-300 flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-amber-400 animate-ping inline-block" />
-              ESSE PODE SER O SEU TIME NA ESPANHA A PARTIR DE HOJE
+              ESQUADRÃO COMPLETO (7 AGENTES) INCLUSO NO SEU PLANO
             </span>
             <span className="text-[11px] sm:text-xs text-slate-300 font-medium border-t sm:border-t-0 sm:border-l border-amber-400/30 pt-1 sm:pt-0 sm:pl-3">
               ⚡ Acesso imediato liberado · Vagas limitadas para a turma atual
@@ -145,9 +149,12 @@ export const AgentsSection: React.FC<AgentsSectionProps> = ({ onCtaClick }) => {
                 onClick={onCtaClick}
                 className="mt-4 w-full py-2.5 px-4 rounded-xl bg-gradient-to-r from-[#DC2626] to-[#A31E22] hover:from-[#EF4444] hover:to-[#DC2626] text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition-all cursor-pointer flex items-center justify-center gap-1.5 btn-pulse-urgency"
               >
-                <span>QUERO ESTE AGENTE NO MEU TIME AGORA</span>
+                <span>QUERO O ESQUADRÃO COMPLETO</span>
                 <ChevronRight className="w-3.5 h-3.5 text-amber-300" />
               </button>
+              <p className="text-[10px] sm:text-[11px] text-amber-200/90 font-medium mt-2 text-center leading-snug">
+                🛡️ <strong>Os 7 Agentes inclusos:</strong> Você recebe o time completo trabalhando integrado para você.
+              </p>
             </div>
 
             {/* Coluna Direita: O que resolve, O peso que tira e Exemplo Real */}
@@ -328,21 +335,29 @@ export const AgentsSection: React.FC<AgentsSectionProps> = ({ onCtaClick }) => {
                 <p className="text-emerald-100 leading-relaxed text-xs">{modalAgent.relieves}</p>
               </div>
 
+              <div className="p-3 rounded-xl bg-amber-500/15 border border-amber-400/40 text-xs text-amber-200 flex items-start gap-2">
+                <Shield className="w-4 h-4 text-amber-300 shrink-0 mt-0.5" />
+                <span>
+                  <strong>Time 100% Unificado:</strong> Você não precisa escolher ou contratar agentes isolados. Ao entrar no Código Europa, <strong>todos os 7 Agentes Oficiais</strong> vêm inclusos no seu acesso e trabalham juntos na sua travessia.
+                </span>
+              </div>
+
               <div className="p-3 rounded-xl bg-slate-800/80 border border-slate-700">
                 <strong className="text-slate-300 block mb-1">Exemplo de comando:</strong>
                 <p className="italic text-amber-200 text-xs">“{modalAgent.quote}”</p>
               </div>
             </div>
 
-            <div className="mt-5 pt-3 border-t border-slate-700 flex gap-2">
+            <div className="mt-5 pt-3 border-t border-slate-700 flex flex-col sm:flex-row gap-2">
               <button
                 onClick={() => {
                   setModalAgent(null);
                   onCtaClick?.();
                 }}
-                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-[#DC2626] to-[#A31E22] hover:from-[#EF4444] hover:to-[#DC2626] text-white font-bold text-xs uppercase tracking-wider shadow-lg transition-all cursor-pointer text-center"
+                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#DC2626] to-[#A31E22] hover:from-[#EF4444] hover:to-[#DC2626] text-white font-bold text-xs uppercase tracking-wider shadow-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1.5"
               >
-                QUERO ESTE AGENTE NO MEU TIME
+                <span>QUERO O ESQUADRÃO COMPLETO (7 AGENTES)</span>
+                <ChevronRight className="w-4 h-4 text-amber-300" />
               </button>
               <button
                 onClick={() => setModalAgent(null)}
@@ -415,15 +430,16 @@ export const AgentsSection: React.FC<AgentsSectionProps> = ({ onCtaClick }) => {
                   setSecretModalAgent(null);
                   onCtaClick?.();
                 }}
-                className="flex-1 py-3 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg transition-all cursor-pointer text-center"
+                className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 via-amber-400 to-amber-500 hover:from-amber-400 hover:to-amber-300 text-slate-950 font-black text-xs uppercase tracking-wider shadow-lg transition-all cursor-pointer text-center flex items-center justify-center gap-1.5"
               >
-                QUERO MEU ACESSO E O TIME COMPLETO
+                <span>QUERO O ESQUADRÃO COMPLETO + SUPERAGENTES</span>
+                <ChevronRight className="w-4 h-4 text-slate-950" />
               </button>
               <button
                 onClick={() => setSecretModalAgent(null)}
                 className="px-4 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold transition-colors cursor-pointer"
               >
-                Entendi, Fechar
+                Fechar
               </button>
             </div>
           </div>
