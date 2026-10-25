@@ -303,7 +303,7 @@ export function generateHtml(S: string = "https://pay.cakto.com.br/3e3f9px_10938
         <div style="font-size: 13px; color: #64748B; margin-top: 8px; display: flex; flex-wrap: wrap; justify-content: center; gap: 14px;">
           <span style="color: #047857; font-weight: 700;">✓ Acesso vitalício aos 7 agentes</span>
           <span style="color: var(--red); font-weight: 700;">🔒 O risco é meu: 7 dias de garantia</span>
-          <span style="color: var(--navy); font-weight: 700;">Apenas 12x de R$ 29,64 ou R$ 297 à vista</span>
+          <span style="color: var(--navy); font-weight: 700;">Apenas 12x de R$ 24,27 ou R$ 197 à vista</span>
         </div>
       </div>
     </div>
@@ -1067,10 +1067,10 @@ export function generateHtml(S: string = "https://pay.cakto.com.br/3e3f9px_10938
             Por apenas
           </div>
           <div style="font-size: 48px; font-weight: 900; color: #F59E0B; line-height: 1;">
-            12x R$ 29,64
+            12x R$ 24,27
           </div>
           <div style="font-size: 15px; color: #E2E8F0; margin-top: 8px;">
-            ou <strong>R$ 297,00 à vista</strong> no PIX ou Cartão
+            ou <strong>R$ 197,00 à vista</strong> no PIX ou Cartão
           </div>
 
           <div style="margin-top: 18px; padding-top: 14px; border-top: 1px solid #334155; text-align: left; font-size: 13px; color: #CBD5E1; display: flex; flex-direction: column; gap: 8px;">

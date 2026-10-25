@@ -298,11 +298,11 @@ export default function App() {
               <div className="flex items-baseline justify-center gap-2 mb-1">
                 <span className="text-xl font-light text-amber-400">12x de</span>
                 <span className="font-serif-brand text-4xl sm:text-5xl font-black text-white">
-                  R$ 29,64
+                  R$ 24,27
                 </span>
               </div>
               <p className="text-xs text-amber-200 font-semibold">
-                ou R$ 297,00 à vista no PIX ou Cartão
+                ou R$ 197,00 à vista no PIX ou Cartão
               </p>
 
               <div className="text-left text-xs space-y-2.5 mt-4 pt-4 border-t border-slate-700 text-slate-300">
